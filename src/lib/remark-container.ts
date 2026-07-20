@@ -1,5 +1,5 @@
 import type { Node, Parent, Text, Paragraph } from "mdast";
-import type { ContainerDirective } from "mdast-util-directive";
+import type { ContainerDirective, TextDirective, LeafDirective } from "mdast-util-directive";
 
 /**
  * 将 VitePress 风格 ::: type label 预处理为 remark-directive 标准语法 :::type[label]
@@ -100,6 +100,28 @@ export function remarkContainer() {
         };
         directive.children.unshift(titleNode);
       }
+    });
+
+    // 处理未设置的 textDirective，避免被 mdast-util-to-hast 转为空 <div> 导致 p > div
+    visitNodes(tree, "textDirective", (node) => {
+      const directive = node as TextDirective;
+      const nameNode: Text = { type: "text", value: `:${directive.name}` };
+      directive.children.unshift(nameNode);
+      directive.data = {
+        hName: "span",
+        hProperties: { className: ["text-directive"] },
+      };
+    });
+
+    // 处理未设置的 leafDirective，同理转为 <span>
+    visitNodes(tree, "leafDirective", (node) => {
+      const directive = node as LeafDirective;
+      const nameNode: Text = { type: "text", value: `::${directive.name}` };
+      directive.children.unshift(nameNode);
+      directive.data = {
+        hName: "span",
+        hProperties: { className: ["leaf-directive"] },
+      };
     });
   };
 }

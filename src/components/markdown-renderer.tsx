@@ -3,6 +3,8 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { slugify } from "@/lib/slugify";
@@ -12,6 +14,7 @@ import {
   preprocessContainers,
   remarkContainer,
 } from "@/lib/remark-container";
+import "katex/dist/katex.min.css";
 
 interface MarkdownRendererProps {
   content: string;
@@ -22,7 +25,8 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
 
   return (
     <ReactMarkdown
-      remarkPlugins={[remarkGfm, remarkEmoji, remarkDirective, remarkContainer]}
+      remarkPlugins={[remarkGfm, remarkMath, remarkEmoji, remarkDirective, remarkContainer]}
+      rehypePlugins={[rehypeKatex]}
       components={{
         h1: ({ children }) => (
           <h1 className="mt-8 mb-4 text-3xl font-bold tracking-tight text-foreground">

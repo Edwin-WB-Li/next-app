@@ -1,0 +1,93 @@
+{
+  "provinces": [
+    {
+      "code": "110000",
+      "name": "北京",
+      "routes": [
+        {
+          "id": "bj-xiangshan",
+          "name": "香山红叶徒步",
+          "date": "2024-10-15",
+          "days": 1,
+          "distance": 12,
+          "maxAltitude": 557,
+          "difficulty": "休闲",
+          "season": "秋季",
+          "tags": ["山野"],
+          "photos": [
+            "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=800&h=600&fit=crop"
+          ],
+          "notesFile": "bj-xiangshan.md"
+        }
+      ]
+    },
+    {
+      "code": "510000",
+      "name": "四川",
+      "routes": [
+        {
+          "id": "sc-siguniang",
+          "name": "四姑娘山大峰攀登",
+          "date": "2024-07-20",
+          "days": 3,
+          "distance": 40,
+          "maxAltitude": 5025,
+          "difficulty": "硬核",
+          "season": "夏季",
+          "tags": ["雪山", "高海拔"],
+          "photos": [
+            "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=800&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&h=600&fit=crop"
+          ],
+          "notesFile": "sc-siguniang.md"
+        },
+        {
+          "id": "sc-daocheng",
+          "name": "稻城亚丁长线",
+          "date": "2023-09-10",
+          "days": 2,
+          "distance": 25,
+          "maxAltitude": 4700,
+          "difficulty": "进阶",
+          "season": "秋季",
+          "tags": ["高原", "雪山"],
+          "photos": [
+            "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800&h=600&fit=crop"
+          ],
+          "notesFile": "sc-daocheng.md"
+        }
+      ]
+    },
+    {
+      "code": "530000",
+      "name": "云南",
+      "routes": [
+        {
+          "id": "yn-yubeng",
+          "name": "梅里雨崩神瀑线",
+          "date": "2023-05-01",
+          "days": 4,
+          "distance": 55,
+          "maxAltitude": 3657,
+          "difficulty": "进阶",
+          "season": "春季",
+          "tags": ["古道", "雪山"],
+          "photos": [
+            "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=800&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1505765050516-f72dcac9c60e?w=800&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=800&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1504700610630-ac6aba3536d3?w=800&h=600&fit=crop"
+          ],
+          "notesFile": "yn-yubeng.md"
+        }
+      ]
+    }
+  ]
+}

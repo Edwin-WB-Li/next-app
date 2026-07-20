@@ -12,6 +12,8 @@ export interface Post {
   published: boolean;
   createdAt: string;
   updatedAt: string;
+  tags?: string[];
+  coverImage?: string;
 }
 
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -86,6 +88,8 @@ export async function createPost(data: {
   summary: string;
   content: string;
   published?: boolean;
+  tags?: string[];
+  coverImage?: string;
 }) {
   const posts = await readPostsMeta();
 
@@ -103,6 +107,8 @@ export async function createPost(data: {
     published: data.published ?? false,
     createdAt: now,
     updatedAt: now,
+    tags: data.tags,
+    coverImage: data.coverImage,
   };
 
   posts.unshift(newPost);
@@ -122,6 +128,8 @@ export async function updatePost(
     summary?: string;
     content?: string;
     published?: boolean;
+    tags?: string[];
+    coverImage?: string;
   }
 ) {
   const posts = await readPostsMeta();
@@ -141,6 +149,8 @@ export async function updatePost(
     ...(data.slug !== undefined && { slug: data.slug }),
     ...(data.summary !== undefined && { summary: data.summary }),
     ...(data.published !== undefined && { published: data.published }),
+    ...(data.tags !== undefined && { tags: data.tags }),
+    ...(data.coverImage !== undefined && { coverImage: data.coverImage }),
     updatedAt: now,
   };
 
