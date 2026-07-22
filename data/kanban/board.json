@@ -1,0 +1,61 @@
+{
+  "columns": [
+    {
+      "id": "col-1",
+      "name": "待办",
+      "order": 0,
+      "wipLimit": null,
+      "color": null
+    },
+    {
+      "id": "col-2",
+      "name": "进行中",
+      "order": 1,
+      "wipLimit": 5,
+      "color": null
+    },
+    {
+      "id": "col-3",
+      "name": "代码审查",
+      "order": 2,
+      "wipLimit": 3,
+      "color": null
+    },
+    {
+      "id": "col-4",
+      "name": "测试",
+      "order": 3,
+      "wipLimit": 5,
+      "color": null
+    },
+    {
+      "id": "col-5",
+      "name": "已完成",
+      "order": 4,
+      "wipLimit": null,
+      "color": null
+    }
+  ],
+  "users": [
+    {
+      "id": "user-1",
+      "name": "张三",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=zhangsan"
+    },
+    {
+      "id": "user-2",
+      "name": "李四",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=lisi"
+    },
+    {
+      "id": "user-3",
+      "name": "王五",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=wangwu"
+    },
+    {
+      "id": "user-4",
+      "name": "赵六",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=zhaoliu"
+    }
+  ]
+}

@@ -23,6 +23,7 @@ export const metadata: Metadata = {
 const navLinks = [
   { href: "/", label: "首页" },
   { href: "/hiking", label: "足迹地图" },
+  { href: "/kanban", label: "看板" },
   { href: "/admin", label: "后台管理" },
 ];
 
@@ -86,12 +87,12 @@ export default function RootLayout({
           <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-2 px-6 py-5 text-sm text-muted-foreground sm:flex-row">
             <span>基于 Next.js 构建</span>
             <span>© {new Date().getFullYear()} My Blog</span>
-            <Link
+            {/* <Link
               href="/"
               className="transition-colors hover:text-foreground"
             >
               RSS Feed
-            </Link>
+            </Link> */}
           </div>
         </footer>
       </body>

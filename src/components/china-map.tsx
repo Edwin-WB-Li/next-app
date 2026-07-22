@@ -1,9 +1,43 @@
 "use client";
 
 import type { HikingData } from "@/lib/hiking";
+import type { ECharts, EChartsOption, ECElementEvent, DefaultLabelFormatterCallbackParams } from "echarts";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useTopLoader } from "nextjs-toploader";
+
+interface GeoJsonFeature {
+  properties: {
+    name: string;
+  };
+}
+
+interface GeoJsonData {
+  features: GeoJsonFeature[];
+}
+
+interface MapDataItem {
+  name: string;
+  value: number;
+  code: string | undefined;
+  itemStyle: {
+    areaColor: string;
+    borderColor: string;
+    borderWidth: number;
+  };
+  emphasis: {
+    itemStyle: {
+      areaColor: string;
+      shadowBlur: number;
+      shadowColor: string;
+    };
+  };
+  select: {
+    itemStyle: {
+      areaColor: string;
+    };
+  };
+}
 
 interface ChinaMapProps {
   hikingData: HikingData;
@@ -97,8 +131,7 @@ export default function ChinaMap({ hikingData }: ChinaMapProps) {
   const router = useRouter();
   const topLoader = useTopLoader();
   const chartRef = useRef<HTMLDivElement>(null);
-  const chartInstanceRef = useRef<any>(null);
-  const echartsRef = useRef<any>(null);
+  const chartInstanceRef = useRef<ECharts | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -115,7 +148,6 @@ export default function ChinaMap({ hikingData }: ChinaMapProps) {
 
     try {
       const echarts = await import("echarts");
-      echartsRef.current = echarts;
 
       // 读取 CSS 变量实际值（Canvas 不支持 CSS 变量）
       const style = getComputedStyle(document.documentElement);
@@ -131,8 +163,8 @@ export default function ChinaMap({ hikingData }: ChinaMapProps) {
       if (!response.ok) {
         throw new Error("地图数据加载失败");
       }
-      const geoJson = await response.json();
-      echarts.registerMap("china", geoJson);
+      const geoJson = (await response.json()) as GeoJsonData;
+      echarts.registerMap("china", geoJson as any);
 
       const chart = echarts.init(chartRef.current, undefined, {
         renderer: "canvas",
@@ -141,7 +173,7 @@ export default function ChinaMap({ hikingData }: ChinaMapProps) {
 
       // 构建地图数据
       const mapData = geoJson.features
-        .map((feature: any) => {
+        .map((feature: GeoJsonFeature) => {
           const name = feature.properties.name;
           const routeCount = visitedProvinces.get(name) || 0;
           const code = getProvinceCode(name);
@@ -171,7 +203,7 @@ export default function ChinaMap({ hikingData }: ChinaMapProps) {
             },
           };
         })
-        .filter((item: any) => item.name);
+        .filter((item: MapDataItem) => item.name);
 
       const option = {
         tooltip: {
@@ -182,8 +214,8 @@ export default function ChinaMap({ hikingData }: ChinaMapProps) {
           textStyle: {
             color: foreground,
           },
-          formatter: (params: any) => {
-            const count = params.value || 0;
+          formatter: (params: DefaultLabelFormatterCallbackParams) => {
+            const count = (params.value as number) || 0;
             if (count > 0) {
               return `<div style="font-weight:600">${params.name}</div><div style="margin-top:4px;color:${hikingPrimary}">${count} 条路线</div>`;
             }
@@ -216,13 +248,14 @@ export default function ChinaMap({ hikingData }: ChinaMapProps) {
         ],
       };
 
-      chart.setOption(option);
+      chart.setOption(option as EChartsOption);
 
       // 点击事件
-      chart.on("click", (params: any) => {
-        const code = params.data?.code;
-        const value = params.data?.value;
-        if (code && value > 0) {
+      chart.on("click", (params: ECElementEvent) => {
+        const data = params.data as { code?: string; value?: number } | undefined;
+        const code = data?.code;
+        const value = data?.value;
+        if (code && value && value > 0) {
           topLoader.start();
           router.push(`/hiking/${code}`);
         }

@@ -4,6 +4,7 @@ import { getProvinceData, getRouteNotes } from "@/lib/hiking";
 import RouteCard from "@/components/route-card";
 import PhotoGallery from "@/components/photo-gallery";
 import MarkdownRenderer from "@/components/markdown-renderer";
+import ScrollToTop from "@/components/scroll-to-top";
 
 interface ProvincePageProps {
   params: Promise<{ provinceCode: string }>;
@@ -81,24 +82,35 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
               {totalDistance} km · {totalDays} 天
             </p>
           </div>
-          <div className="flex gap-3">
-            <div className="rounded-xl border border-border bg-card px-4 py-3 text-center">
-              <p className="text-xs text-muted-foreground">最高海拔</p>
-              <p className="text-xl font-bold text-[var(--hiking-primary)]">
-                {maxAltitude}
-                <span className="ml-0.5 text-xs font-normal text-muted-foreground">
-                  m
-                </span>
-              </p>
-            </div>
-            <div className="rounded-xl border border-border bg-card px-4 py-3 text-center">
-              <p className="text-xs text-muted-foreground">总里程</p>
-              <p className="text-xl font-bold text-[var(--hiking-primary)]">
-                {totalDistance}
-                <span className="ml-0.5 text-xs font-normal text-muted-foreground">
-                  km
-                </span>
-              </p>
+          <div className="flex items-center gap-3">
+            {/* <Link
+              href="/hiking/admin"
+              className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+              </svg>
+              管理
+            </Link> */}
+            <div className="flex gap-3">
+              <div className="rounded-xl border border-border bg-card px-4 py-3 text-center">
+                <p className="text-xs text-muted-foreground">最高海拔</p>
+                <p className="text-xl font-bold text-[var(--hiking-primary)]">
+                  {maxAltitude}
+                  <span className="ml-0.5 text-xs font-normal text-muted-foreground">
+                    m
+                  </span>
+                </p>
+              </div>
+              <div className="rounded-xl border border-border bg-card px-4 py-3 text-center">
+                <p className="text-xs text-muted-foreground">总里程</p>
+                <p className="text-xl font-bold text-[var(--hiking-primary)]">
+                  {totalDistance}
+                  <span className="ml-0.5 text-xs font-normal text-muted-foreground">
+                    km
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -125,6 +137,8 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
         </div>
       </section>
 
+      <ScrollToTop />
+
       {/* 各路线详情（图片 + 随笔） */}
       <section className="mt-8 space-y-10">
         {province.routes.map((route, index) => {
@@ -135,13 +149,21 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
               id={route.id}
               className="rounded-xl border border-border bg-card p-5 sm:p-6"
             >
-              <div className="mb-4 flex items-center gap-3">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--hiking-primary-light)] text-sm font-bold text-[var(--hiking-primary)]">
-                  {index + 1}
-                </span>
-                <h3 className="text-lg font-semibold text-foreground">
-                  {route.name}
-                </h3>
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--hiking-primary-light)] text-sm font-bold text-[var(--hiking-primary)]">
+                    {index + 1}
+                  </span>
+                  <h3 className="text-lg font-semibold text-foreground">
+                    {route.name}
+                  </h3>
+                </div>
+                <Link
+                  href={`/hiking/admin/edit/${route.id}`}
+                  className="rounded-md px-2 py-1 text-xs text-[var(--hiking-primary)] hover:bg-[var(--hiking-muted)]"
+                >
+                  编辑
+                </Link>
               </div>
 
               {/* 图片画廊 */}

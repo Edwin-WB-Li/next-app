@@ -68,7 +68,7 @@ export default async function Home() {
         ) : (
           <>
             <div className="grid grid-cols-1 gap-6 py-6 md:grid-cols-2 lg:grid-cols-3">
-              {posts.slice(0, 6).map((post) => (
+              {posts.slice(0, 6).map((post, index) => (
                 <article
                   key={post.id}
                   className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:shadow-md"
@@ -79,6 +79,7 @@ export default async function Home() {
                       alt={post.title}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      priority={index === 0}
                       className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                     />
                   </Link>
