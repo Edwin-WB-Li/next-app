@@ -8,7 +8,7 @@ export default async function AdminPage() {
   return (
     <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-12">
       <div className="mb-8 flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">后台管理</h1>
+        <h1 className="text-3xl font-bold tracking-tight">文章管理</h1>
         <Link
           href="/admin/edit/new"
           className="inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
@@ -17,7 +17,7 @@ export default async function AdminPage() {
         </Link>
       </div>
 
-      <div className="rounded-xl border border-border overflow-hidden">
+      <div className="overflow-x-auto rounded-xl border border-border">
         <table className="w-full text-sm">
           <thead className="bg-muted">
             <tr>

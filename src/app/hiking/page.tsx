@@ -3,8 +3,24 @@ import { getHikingData, getHikingStats } from "@/lib/hiking";
 import HikingStats from "@/components/hiking-stats";
 import ChinaMap from "@/components/china-map";
 
+function IconSliders() {
+  return (
+    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+    </svg>
+  );
+}
+
+function IconChevronRight() {
+  return (
+    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  );
+}
+
 export const metadata = {
-  title: "足迹地图 | 我的博客",
+  title: "旅行足迹 | 我的博客",
   description: "记录我的户外徒步足迹，可视化展示全国各省徒步行程",
 };
 
@@ -31,9 +47,7 @@ export default async function HikingPage() {
             href="/hiking/admin"
             className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
           >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
-            </svg>
+            <IconSliders />
             管理行程
           </Link>
         </div>
@@ -74,7 +88,7 @@ export default async function HikingPage() {
             <a
               key={province.code}
               href={`/hiking/${province.code}`}
-              className="group rounded-xl border border-border bg-card p-5 transition-all hover:border-[var(--hiking-primary)] hover:shadow-sm"
+              className="group rounded-xl border border-border bg-card p-5 transition-all hover:border-[var(--hiking-primary)] hover:shadow-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               <div className="flex items-start justify-between">
                 <div>
@@ -87,19 +101,7 @@ export default async function HikingPage() {
                   </p>
                 </div>
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--hiking-primary-light)] text-[var(--hiking-primary)] transition-colors group-hover:bg-[var(--hiking-primary)] group-hover:text-white">
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                    />
-                  </svg>
+                  <IconChevronRight />
                 </span>
               </div>
               <div className="mt-3 flex flex-wrap gap-2">

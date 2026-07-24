@@ -3,6 +3,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { revalidatePath } from "next/cache";
+import { cache } from "react";
 import type {
   KanbanBoardData,
   KanbanTask,
@@ -145,7 +146,7 @@ async function ensureKanbanDir() {
   await fs.mkdir(KANBAN_DIR, { recursive: true });
 }
 
-async function readBoard(): Promise<KanbanBoardData> {
+const readBoard = cache(async (): Promise<KanbanBoardData> => {
   try {
     const raw = await fs.readFile(BOARD_FILE, "utf-8");
     return JSON.parse(raw) as KanbanBoardData;
@@ -154,14 +155,14 @@ async function readBoard(): Promise<KanbanBoardData> {
     await fs.writeFile(BOARD_FILE, JSON.stringify(DEFAULT_BOARD, null, 2), "utf-8");
     return DEFAULT_BOARD;
   }
-}
+});
 
 async function writeBoard(board: KanbanBoardData) {
   await ensureKanbanDir();
   await fs.writeFile(BOARD_FILE, JSON.stringify(board, null, 2), "utf-8");
 }
 
-async function readTasks(): Promise<KanbanTask[]> {
+const readTasks = cache(async (): Promise<KanbanTask[]> => {
   try {
     const raw = await fs.readFile(TASKS_FILE, "utf-8");
     return JSON.parse(raw) as KanbanTask[];
@@ -170,7 +171,7 @@ async function readTasks(): Promise<KanbanTask[]> {
     await fs.writeFile(TASKS_FILE, JSON.stringify(DEFAULT_TASKS, null, 2), "utf-8");
     return DEFAULT_TASKS;
   }
-}
+});
 
 async function writeTasks(tasks: KanbanTask[]) {
   await ensureKanbanDir();

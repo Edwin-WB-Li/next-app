@@ -31,8 +31,8 @@ export default function RouteCard({ route, index }: RouteCardProps) {
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       {/* 头部信息 */}
       <button
-        onClick={() => setExpanded(!expanded)}
-        className="flex w-full items-center justify-between p-5 text-left transition-colors hover:bg-muted/50"
+        onClick={() => setExpanded((prev) => !prev)}
+        className="flex w-full items-center justify-between p-5 text-left motion-safe:transition-colors hover:bg-muted/50"
       >
         <div className="flex items-center gap-3">
           <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--hiking-primary-light)] text-sm font-bold text-[var(--hiking-primary)]">
@@ -55,7 +55,7 @@ export default function RouteCard({ route, index }: RouteCardProps) {
             {route.difficulty}
           </span>
           <svg
-            className={`h-5 w-5 text-muted-foreground transition-transform ${
+            className={`h-5 w-5 text-muted-foreground motion-safe:transition-transform ${
               expanded ? "rotate-180" : ""
             }`}
             fill="none"

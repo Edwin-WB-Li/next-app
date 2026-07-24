@@ -79,7 +79,7 @@ export function KanbanColumn({
     <div
       className={`
         group/column flex flex-col w-[280px] shrink-0 rounded-xl
-        transition-all duration-200
+        motion-safe:transition-all motion-safe:duration-200
         ${wipExceeded ? "ring-1 ring-red-400/40" : ""}
       `}
     >
@@ -111,7 +111,7 @@ export function KanbanColumn({
           <Button
             variant="ghost"
             size="icon"
-            className="h-7 w-7 text-muted-foreground hover:text-foreground"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground"
             onClick={() => setIsAdding(true)}
           >
             <Plus className="h-3.5 w-3.5" />
@@ -121,7 +121,7 @@ export function KanbanColumn({
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-7 w-7 text-muted-foreground hover:text-foreground"
+                className="h-8 w-8 text-muted-foreground hover:text-foreground"
               >
                 <MoreHorizontal className="h-3.5 w-3.5" />
               </Button>
@@ -144,7 +144,7 @@ export function KanbanColumn({
             {...provided.droppableProps}
             className={`
               space-y-2.5 min-h-[100px] rounded-xl
-              transition-colors duration-200
+              motion-safe:transition-colors motion-safe:duration-200
               ${snapshot.isDraggingOver
                 ? "bg-primary/[0.04] ring-1 ring-primary/20"
                 : "bg-muted/40"

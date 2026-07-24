@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Post, togglePublish, deletePost } from "@/lib/posts";
@@ -14,16 +14,16 @@ export default function AdminPostList({ post }: AdminPostListProps) {
   const [currentPost, setCurrentPost] = useState(post);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  async function handleTogglePublish() {
+  const handleTogglePublish = useCallback(async () => {
     try {
       const updated = await togglePublish(currentPost.id);
       setCurrentPost(updated);
     } catch (err) {
       alert(err instanceof Error ? err.message : "操作失败");
     }
-  }
+  }, [currentPost.id]);
 
-  async function handleDelete() {
+  const handleDelete = useCallback(async () => {
     if (!confirm(`确定要删除文章「${currentPost.title}」吗？此操作不可恢复。`)) {
       return;
     }
@@ -35,7 +35,7 @@ export default function AdminPostList({ post }: AdminPostListProps) {
       alert(err instanceof Error ? err.message : "删除失败");
       setIsDeleting(false);
     }
-  }
+  }, [currentPost.id, currentPost.title, router]);
 
   return (
     <tr className="transition-colors hover:bg-muted/50">

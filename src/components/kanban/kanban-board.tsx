@@ -77,13 +77,24 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
     [data.tasks, filters]
   );
 
-  const totalTasks = data.tasks.length;
-  const completedTasks = data.tasks.filter((t) => {
-    const doneCol = sortedColumns[sortedColumns.length - 1];
-    return doneCol && t.columnId === doneCol.id;
-  }).length;
+  const tasksByColumn = React.useMemo(() => {
+    const map = new Map<string, KanbanTask[]>();
+    for (const task of filteredTasks) {
+      const arr = map.get(task.columnId) || [];
+      arr.push(task);
+      map.set(task.columnId, arr);
+    }
+    return map;
+  }, [filteredTasks]);
 
-  const refreshData = async () => {
+  const totalTasks = data.tasks.length;
+  const completedTasks = React.useMemo(() => {
+    const doneCol = sortedColumns[sortedColumns.length - 1];
+    if (!doneCol) return 0;
+    return data.tasks.filter((t) => t.columnId === doneCol.id).length;
+  }, [data.tasks, sortedColumns]);
+
+  const refreshData = React.useCallback(async () => {
     setRefreshing(true);
     try {
       const fresh = await getBoardData();
@@ -91,9 +102,9 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
     } finally {
       setRefreshing(false);
     }
-  };
+  }, []);
 
-  const handleDragEnd = async (result: DropResult) => {
+  const handleDragEnd = React.useCallback(async (result: DropResult) => {
     if (!result.destination) return;
 
     const { draggableId, source, destination } = result;
@@ -123,24 +134,24 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
         return { ...prev, tasks: reverted };
       });
     }
-  };
+  }, [data]);
 
-  const handleTaskClick = (task: KanbanTask) => {
+  const handleTaskClick = React.useCallback((task: KanbanTask) => {
     setSelectedTask(task);
     setDetailOpen(true);
-  };
+  }, []);
 
-  const handleCreateTask = (columnId?: string) => {
+  const handleCreateTask = React.useCallback((columnId?: string) => {
     setCreateDefaultColumnId(columnId);
     setCreateModalOpen(true);
-  };
+  }, []);
 
-  const handleSettingsClick = (column: KanbanColumnType) => {
+  const handleSettingsClick = React.useCallback((column: KanbanColumnType) => {
     setSettingsColumn(column);
     setSettingsOpen(true);
-  };
+  }, []);
 
-  const handleAddColumn = async () => {
+  const handleAddColumn = React.useCallback(async () => {
     if (!newColumnName.trim()) {
       setIsAddingColumn(false);
       return;
@@ -153,7 +164,7 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
     } catch {
       // ignore
     }
-  };
+  }, [newColumnName, refreshData]);
 
   return (
     <div className="flex flex-col h-full bg-background">
@@ -211,7 +222,7 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
               <KanbanColumn
                 key={column.id}
                 column={column}
-                tasks={filteredTasks.filter((t) => t.columnId === column.id)}
+                tasks={tasksByColumn.get(column.id) || []}
                 users={data.board.users}
                 onTaskClick={handleTaskClick}
                 onSettingsClick={handleSettingsClick}

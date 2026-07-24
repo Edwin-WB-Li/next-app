@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import type { Difficulty, RouteFormData } from "@/lib/hiking";
 import { PROVINCE_OPTIONS } from "@/lib/provinces";
@@ -66,6 +66,15 @@ export default function RouteForm({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);
+
+  useEffect(() => {
+    if (!showPreview) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setShowPreview(false);
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [showPreview]);
 
   const handleProvinceChange = useCallback(
     (value: string) => {
@@ -169,7 +178,7 @@ export default function RouteForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-400">
+        <div role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-400">
           {error}
         </div>
       )}

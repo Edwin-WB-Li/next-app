@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: ProvincePageProps) {
     return { title: "未找到 | 我的博客" };
   }
   return {
-    title: `${province.name}徒步足迹 | 我的博客`,
+    title: `${province.name}旅行足迹 | 我的博客`,
     description: `记录我在${province.name}的${province.routes.length}条徒步路线`,
   };
 }
@@ -66,7 +66,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
               d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
             />
           </svg>
-          返回足迹地图
+          返回旅行足迹
         </Link>
       </div>
 

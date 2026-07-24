@@ -69,8 +69,8 @@ export function TaskCard({ task, index, users, onClick }: TaskCardProps) {
           onClick={onClick}
           className={`
             group relative cursor-pointer rounded-xl bg-card
-            transition-all duration-200 ease-out
-            hover:shadow-lg hover:-translate-y-0.5
+            motion-safe:transition-all motion-safe:duration-200 ease-out
+            motion-safe:hover:shadow-lg motion-safe:hover:-translate-y-0.5
             ${snapshot.isDragging ? "shadow-2xl rotate-1 scale-[1.03] ring-2 ring-primary/20" : "shadow-sm"}
           `}
           style={provided.draggableProps.style}
@@ -117,7 +117,7 @@ export function TaskCard({ task, index, users, onClick }: TaskCardProps) {
               <div className="mb-2.5">
                 <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-primary/80 transition-all duration-500"
+                    className="h-full rounded-full bg-primary/80 motion-safe:transition-all motion-safe:duration-500"
                     style={{ width: `${subtaskProgress}%` }}
                   />
                 </div>

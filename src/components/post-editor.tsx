@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createPost, updatePost } from "@/lib/posts";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import MarkdownRenderer from "./markdown-renderer";
 
 interface PostEditorProps {
@@ -90,42 +92,43 @@ export default function PostEditor({
   return (
     <div className="flex flex-col gap-6">
       {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-900 dark:bg-red-900/20 dark:text-red-400">
+        <div role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-900 dark:bg-red-900/20 dark:text-red-400">
           {error}
         </div>
       )}
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-1.5 block text-sm font-medium">标题</label>
-          <input
+          <label htmlFor="post-title" className="mb-1.5 block text-sm font-medium">标题</label>
+          <Input
+            id="post-title"
             type="text"
             value={title}
             onChange={(e) => handleTitleChange(e.target.value)}
             placeholder="文章标题"
-            className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium">Slug</label>
-          <input
+          <label htmlFor="post-slug" className="mb-1.5 block text-sm font-medium">Slug</label>
+          <Input
+            id="post-slug"
             type="text"
             value={slug}
             onChange={(e) => setSlug(e.target.value)}
             placeholder="url-friendly-slug"
-            className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary font-mono"
+            className="font-mono"
           />
         </div>
       </div>
 
       <div>
-        <label className="mb-1.5 block text-sm font-medium">摘要</label>
-        <input
+        <label htmlFor="post-summary" className="mb-1.5 block text-sm font-medium">摘要</label>
+        <Input
+          id="post-summary"
           type="text"
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
           placeholder="文章简短摘要"
-          className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
         />
       </div>
 
@@ -160,21 +163,22 @@ export default function PostEditor({
       >
         {(previewMode === "edit" || previewMode === "split") && (
           <div className="flex flex-col">
-            <label className="mb-1.5 block text-sm font-medium">
+            <label htmlFor="post-content" className="mb-1.5 block text-sm font-medium">
               Markdown 内容
             </label>
-            <textarea
+            <Textarea
+              id="post-content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="在此输入 Markdown 内容..."
-              className="min-h-[500px] w-full resize-y rounded-lg border border-input bg-background px-4 py-3 text-sm font-mono leading-6 text-foreground outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
+              className="min-h-[500px] font-mono leading-6 resize-y"
             />
           </div>
         )}
 
         {(previewMode === "preview" || previewMode === "split") && (
           <div className="flex flex-col">
-            <label className="mb-1.5 block text-sm font-medium">预览</label>
+            <span className="mb-1.5 block text-sm font-medium">预览</span>
             <div className="min-h-[500px] w-full overflow-auto rounded-lg border border-input bg-card px-4 py-3">
               <MarkdownRenderer content={content || "*预览区域*"} />
             </div>

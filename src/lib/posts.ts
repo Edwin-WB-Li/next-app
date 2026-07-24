@@ -2,6 +2,7 @@
 
 import fs from "fs/promises";
 import path from "path";
+import { cache } from "react";
 import { revalidatePath } from "next/cache";
 
 export interface Post {
@@ -25,14 +26,14 @@ async function ensureDirs() {
   await fs.mkdir(POSTS_DIR, { recursive: true });
 }
 
-async function readPostsMeta(): Promise<Post[]> {
+const readPostsMeta = cache(async (): Promise<Post[]> => {
   try {
     const raw = await fs.readFile(POSTS_FILE, "utf-8");
     return JSON.parse(raw) as Post[];
   } catch {
     return [];
   }
-}
+});
 
 async function writePostsMeta(posts: Post[]) {
   await ensureDirs();
@@ -52,34 +53,49 @@ export async function getPublishedPosts(): Promise<Post[]> {
   return posts.filter((p) => p.published);
 }
 
-export async function getPostById(
-  id: string
-): Promise<{ post: Post | null; content: string }> {
-  const posts = await readPostsMeta();
-  const post = posts.find((p) => p.id === id) ?? null;
-  if (!post) return { post: null, content: "" };
+export const getPostById = cache(
+  async (id: string): Promise<{ post: Post | null; content: string }> => {
+    const posts = await readPostsMeta();
+    const postMap = new Map(posts.map((p) => [p.id, p]));
+    const post = postMap.get(id) ?? null;
+    if (!post) return { post: null, content: "" };
 
-  try {
-    const content = await fs.readFile(getPostFilePath(id), "utf-8");
-    return { post, content };
-  } catch {
-    return { post, content: "" };
+    try {
+      const content = await fs.readFile(getPostFilePath(id), "utf-8");
+      return { post, content };
+    } catch {
+      return { post, content: "" };
+    }
   }
-}
+);
 
-export async function getPostBySlug(
-  slug: string
-): Promise<{ post: Post | null; content: string }> {
-  const posts = await readPostsMeta();
-  const post = posts.find((p) => p.slug === slug) ?? null;
-  if (!post) return { post: null, content: "" };
+export const getPostBySlug = cache(
+  async (slug: string): Promise<{ post: Post | null; content: string }> => {
+    const posts = await readPostsMeta();
+    const postMap = new Map(posts.map((p) => [p.slug, p]));
+    const post = postMap.get(slug) ?? null;
+    if (!post) return { post: null, content: "" };
 
-  try {
-    const content = await fs.readFile(getPostFilePath(post.id), "utf-8");
-    return { post, content };
-  } catch {
-    return { post, content: "" };
+    try {
+      const content = await fs.readFile(getPostFilePath(post.id), "utf-8");
+      return { post, content };
+    } catch {
+      return { post, content: "" };
+    }
   }
+);
+
+export async function getPopularTags(limit = 12): Promise<[string, number][]> {
+  const posts = await getPublishedPosts();
+  const tagCounts = new Map<string, number>();
+  for (const post of posts) {
+    for (const tag of post.tags ?? []) {
+      tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+    }
+  }
+  return Array.from(tagCounts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, limit);
 }
 
 export async function createPost(data: {

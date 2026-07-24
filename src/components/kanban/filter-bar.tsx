@@ -4,6 +4,7 @@ import * as React from "react";
 import { Search, X, Filter, User, Flag, Tag } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -115,7 +116,10 @@ export function FilterBar({ users, allTags, filters, onFiltersChange }: FilterBa
               className="text-xs"
             >
               <div className="flex items-center gap-2">
-                <img src={user.avatar} alt="" className="h-4 w-4 rounded-full" />
+                <Avatar className="h-4 w-4">
+                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarFallback className="text-[6px]">{user.name[0]}</AvatarFallback>
+                </Avatar>
                 {user.name}
               </div>
             </DropdownMenuCheckboxItem>

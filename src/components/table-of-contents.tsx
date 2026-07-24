@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { slugify } from "@/lib/slugify";
 
 interface TocItem {
@@ -53,7 +53,7 @@ function extractHeadings(content: string): TocItem[] {
 export default function TableOfContents({ content }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState("");
   const clickingRef = useRef(false);
-  const headings = extractHeadings(content);
+  const headings = useMemo(() => extractHeadings(content), [content]);
 
   useEffect(() => {
     if (headings.length === 0) return;
@@ -81,7 +81,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="hidden xl:block w-64 shrink-0">
+    <nav aria-label="文章目录" className="hidden xl:block w-64 shrink-0">
       <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
         <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-foreground/50">
           目录

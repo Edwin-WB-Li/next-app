@@ -3,6 +3,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { revalidatePath } from "next/cache";
+import { cache } from "react";
 
 export type Difficulty = "休闲" | "进阶" | "硬核";
 
@@ -49,14 +50,14 @@ const DATA_DIR = path.join(process.cwd(), "data");
 const HIKING_FILE = path.join(DATA_DIR, "hiking.json");
 const HIKING_DIR = path.join(DATA_DIR, "hiking");
 
-async function readHikingData(): Promise<HikingData> {
+const readHikingData = cache(async (): Promise<HikingData> => {
   try {
     const raw = await fs.readFile(HIKING_FILE, "utf-8");
     return JSON.parse(raw) as HikingData;
   } catch {
     return { provinces: [] };
   }
-}
+});
 
 async function writeHikingData(data: HikingData) {
   await fs.mkdir(DATA_DIR, { recursive: true });
@@ -76,14 +77,16 @@ export async function getProvinceData(
   code: string
 ): Promise<ProvinceData | null> {
   const data = await readHikingData();
-  return data.provinces.find((p) => p.code === code) ?? null;
+  const provinceMap = new Map(data.provinces.map((p) => [p.code, p]));
+  return provinceMap.get(code) ?? null;
 }
 
 export async function getProvinceByName(
   name: string
 ): Promise<ProvinceData | null> {
   const data = await readHikingData();
-  return data.provinces.find((p) => p.name === name) ?? null;
+  const provinceMap = new Map(data.provinces.map((p) => [p.name, p]));
+  return provinceMap.get(name) ?? null;
 }
 
 export async function getAllRoutes(): Promise<
@@ -139,17 +142,23 @@ export async function getRouteById(
   routeId: string
 ): Promise<(HikingRoute & { provinceCode: string; provinceName: string }) | null> {
   const data = await readHikingData();
+  const routeMap = new Map<
+    string,
+    { route: HikingRoute; provinceCode: string; provinceName: string }
+  >();
   for (const province of data.provinces) {
-    const route = province.routes.find((r) => r.id === routeId);
-    if (route) {
-      return {
-        ...route,
+    for (const route of province.routes) {
+      routeMap.set(route.id, {
+        route,
         provinceCode: province.code,
         provinceName: province.name,
-      };
+      });
     }
   }
-  return null;
+  const found = routeMap.get(routeId);
+  return found
+    ? { ...found.route, provinceCode: found.provinceCode, provinceName: found.provinceName }
+    : null;
 }
 
 export async function createProvince(name: string, code: string) {

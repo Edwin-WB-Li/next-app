@@ -3,7 +3,7 @@
     "id": "task-1",
     "title": "设计首页 UI 原型",
     "description": "使用 Figma 完成首页的高保真原型设计，包括暗黑模式配色方案。",
-    "columnId": "col-5",
+    "columnId": "col-2",
     "priority": "P1",
     "assignee": "user-1",
     "tags": [
@@ -13,7 +13,7 @@
     "dueDate": "2026-07-20",
     "estimatedHours": 16,
     "createdAt": "2026-07-10T08:00:00.000Z",
-    "updatedAt": "2026-07-22T09:15:50.225Z",
+    "updatedAt": "2026-07-23T02:40:55.666Z",
     "subtasks": [
       {
         "id": "sub-1",
@@ -74,6 +74,12 @@
         "userId": "user-1",
         "action": "移动至 col-5",
         "createdAt": "2026-07-22T09:15:50.225Z"
+      },
+      {
+        "id": "act-1784774455666",
+        "userId": "user-1",
+        "action": "移动至 col-2",
+        "createdAt": "2026-07-23T02:40:55.666Z"
       }
     ]
   },
@@ -81,7 +87,7 @@
     "id": "task-2",
     "title": "实现用户认证系统",
     "description": "集成 NextAuth.js 实现 GitHub 和邮箱登录。",
-    "columnId": "col-5",
+    "columnId": "col-4",
     "priority": "P0",
     "assignee": "user-2",
     "tags": [
@@ -91,7 +97,7 @@
     "dueDate": "2026-07-25",
     "estimatedHours": 24,
     "createdAt": "2026-07-12T09:00:00.000Z",
-    "updatedAt": "2026-07-22T08:45:19.738Z",
+    "updatedAt": "2026-07-24T02:50:42.728Z",
     "subtasks": [
       {
         "id": "sub-4",
@@ -146,6 +152,18 @@
         "userId": "user-1",
         "action": "移动至 col-5",
         "createdAt": "2026-07-22T08:45:19.738Z"
+      },
+      {
+        "id": "act-1784774453207",
+        "userId": "user-1",
+        "action": "移动至 col-3",
+        "createdAt": "2026-07-23T02:40:53.207Z"
+      },
+      {
+        "id": "act-1784861442728",
+        "userId": "user-1",
+        "action": "移动至 col-4",
+        "createdAt": "2026-07-24T02:50:42.728Z"
       }
     ]
   },
@@ -153,7 +171,7 @@
     "id": "task-3",
     "title": "优化图片加载性能",
     "description": "为博客文章图片添加懒加载和 WebP 格式支持。",
-    "columnId": "col-4",
+    "columnId": "col-3",
     "priority": "P2",
     "assignee": "user-3",
     "tags": [
@@ -163,7 +181,7 @@
     "dueDate": "2026-07-28",
     "estimatedHours": 8,
     "createdAt": "2026-07-13T10:00:00.000Z",
-    "updatedAt": "2026-07-22T08:19:38.820Z",
+    "updatedAt": "2026-07-24T02:50:43.739Z",
     "subtasks": [],
     "comments": [],
     "activities": [
@@ -244,6 +262,24 @@
         "userId": "user-1",
         "action": "移动至 col-4",
         "createdAt": "2026-07-22T08:19:38.820Z"
+      },
+      {
+        "id": "act-1784797368976",
+        "userId": "user-1",
+        "action": "移动至 col-5",
+        "createdAt": "2026-07-23T09:02:48.976Z"
+      },
+      {
+        "id": "act-1784861440217",
+        "userId": "user-1",
+        "action": "移动至 col-4",
+        "createdAt": "2026-07-24T02:50:40.217Z"
+      },
+      {
+        "id": "act-1784861443739",
+        "userId": "user-1",
+        "action": "移动至 col-3",
+        "createdAt": "2026-07-24T02:50:43.739Z"
       }
     ]
   },
@@ -300,7 +336,7 @@
     "id": "task-5",
     "title": "修复移动端导航栏问题",
     "description": "在 iOS Safari 上导航栏会出现抖动，需要排查修复。",
-    "columnId": "col-4",
+    "columnId": "col-5",
     "priority": "P1",
     "assignee": "user-1",
     "tags": [
@@ -310,7 +346,7 @@
     "dueDate": "2026-07-22",
     "estimatedHours": 4,
     "createdAt": "2026-07-15T08:30:00.000Z",
-    "updatedAt": "2026-07-22T09:15:56.391Z",
+    "updatedAt": "2026-07-24T02:50:41.300Z",
     "subtasks": [
       {
         "id": "sub-7",
@@ -408,6 +444,24 @@
         "userId": "user-1",
         "action": "移动至 col-4",
         "createdAt": "2026-07-22T09:15:56.391Z"
+      },
+      {
+        "id": "act-1784774457631",
+        "userId": "user-1",
+        "action": "移动至 col-5",
+        "createdAt": "2026-07-23T02:40:57.631Z"
+      },
+      {
+        "id": "act-1784797370302",
+        "userId": "user-1",
+        "action": "移动至 col-4",
+        "createdAt": "2026-07-23T09:02:50.302Z"
+      },
+      {
+        "id": "act-1784861441300",
+        "userId": "user-1",
+        "action": "移动至 col-5",
+        "createdAt": "2026-07-24T02:50:41.300Z"
       }
     ]
   }

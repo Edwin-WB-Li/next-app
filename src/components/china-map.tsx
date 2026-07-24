@@ -2,7 +2,7 @@
 
 import type { HikingData } from "@/lib/hiking";
 import type { ECharts, EChartsOption, ECElementEvent, DefaultLabelFormatterCallbackParams } from "echarts";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useTopLoader } from "nextjs-toploader";
 
@@ -136,12 +136,15 @@ export default function ChinaMap({ hikingData }: ChinaMapProps) {
   const [error, setError] = useState<string | null>(null);
 
   // 构建名称到路线数的映射，同时支持简称和全称
-  const visitedProvinces = new Map<string, number>();
-  hikingData.provinces.forEach((p) => {
-    visitedProvinces.set(p.name, p.routes.length);
-    const fullName = nameAlias[p.name];
-    if (fullName) visitedProvinces.set(fullName, p.routes.length);
-  });
+  const visitedProvinces = useMemo(() => {
+    const map = new Map<string, number>();
+    hikingData.provinces.forEach((p) => {
+      map.set(p.name, p.routes.length);
+      const fullName = nameAlias[p.name];
+      if (fullName) map.set(fullName, p.routes.length);
+    });
+    return map;
+  }, [hikingData]);
 
   const initChart = useCallback(async () => {
     if (!chartRef.current) return;
