@@ -2,7 +2,7 @@
 
 import type { HikingData } from "@/lib/hiking";
 import type { ECharts, EChartsOption, ECElementEvent, DefaultLabelFormatterCallbackParams } from "echarts";
-import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useTopLoader } from "nextjs-toploader";
 
@@ -146,146 +146,157 @@ export default function ChinaMap({ hikingData }: ChinaMapProps) {
     return map;
   }, [hikingData]);
 
-  const initChart = useCallback(async () => {
+  useEffect(() => {
     if (!chartRef.current) return;
 
-    try {
-      const echarts = await import("echarts");
+    let disposed = false;
+    let chart: ECharts | null = null;
 
-      // 读取 CSS 变量实际值（Canvas 不支持 CSS 变量）
-      const style = getComputedStyle(document.documentElement);
-      const hikingPrimary = style.getPropertyValue("--hiking-primary").trim() || "#4a7c59";
-      const hikingSecondary = style.getPropertyValue("--hiking-secondary").trim() || "#8b6914";
-      const cardBg = style.getPropertyValue("--card").trim() || "#ffffff";
-      const borderColor = style.getPropertyValue("--border").trim() || "#e4e4e7";
-      const foreground = style.getPropertyValue("--foreground").trim() || "#18181b";
-      const mutedFg = style.getPropertyValue("--muted-foreground").trim() || "#71717a";
+    async function init() {
+      try {
+        const echarts = await import("echarts");
 
-      // 获取中国地图 geoJSON
-      const response = await fetch(CHINA_GEOJSON_URL);
-      if (!response.ok) {
-        throw new Error("地图数据加载失败");
-      }
-      const geoJson = (await response.json()) as GeoJsonData;
-      echarts.registerMap("china", geoJson as any);
+        // 读取 CSS 变量实际值（Canvas 不支持 CSS 变量）
+        const style = getComputedStyle(document.documentElement);
+        const hikingPrimary = style.getPropertyValue("--hiking-primary").trim() || "#4a7c59";
+        const hikingSecondary = style.getPropertyValue("--hiking-secondary").trim() || "#8b6914";
+        const cardBg = style.getPropertyValue("--card").trim() || "#ffffff";
+        const borderColor = style.getPropertyValue("--border").trim() || "#e4e4e7";
+        const foreground = style.getPropertyValue("--foreground").trim() || "#18181b";
+        const mutedFg = style.getPropertyValue("--muted-foreground").trim() || "#71717a";
 
-      const chart = echarts.init(chartRef.current, undefined, {
-        renderer: "canvas",
-      });
-      chartInstanceRef.current = chart;
-
-      // 构建地图数据
-      const mapData = geoJson.features
-        .map((feature: GeoJsonFeature) => {
-          const name = feature.properties.name;
-          const routeCount = visitedProvinces.get(name) || 0;
-          const code = getProvinceCode(name);
-          return {
-            name,
-            value: routeCount,
-            code,
-            itemStyle: {
-              areaColor:
-                routeCount > 0 ? hikingPrimary : "#d1d5db",
-              borderColor: "#ffffff",
-              borderWidth: 1,
-            },
-            emphasis: {
-              itemStyle: {
-                areaColor:
-                  routeCount > 0 ? hikingSecondary : "#d1d5db",
-                shadowBlur: 10,
-                shadowColor: "rgba(0, 0, 0, 0.2)",
-              },
-            },
-            select: {
-              itemStyle: {
-                areaColor:
-                  routeCount > 0 ? hikingSecondary : "#d1d5db",
-              },
-            },
-          };
-        })
-        .filter((item: MapDataItem) => item.name);
-
-      const option = {
-        tooltip: {
-          trigger: "item",
-          backgroundColor: cardBg,
-          borderColor: borderColor,
-          borderWidth: 1,
-          textStyle: {
-            color: foreground,
-          },
-          formatter: (params: DefaultLabelFormatterCallbackParams) => {
-            const count = (params.value as number) || 0;
-            if (count > 0) {
-              return `<div style="font-weight:600">${params.name}</div><div style="margin-top:4px;color:${hikingPrimary}">${count} 条路线</div>`;
-            }
-            return `<div style="font-weight:600">${params.name}</div><div style="margin-top:4px;color:${mutedFg}">暂未打卡</div>`;
-          },
-        },
-        series: [
-          {
-            type: "map",
-            map: "china",
-            roam: true,
-            zoom: 1.2,
-            center: [105, 36],
-            label: {
-              show: false,
-            },
-            emphasis: {
-              label: {
-                show: true,
-                color: "#fff",
-                fontSize: 12,
-                fontWeight: "bold",
-              },
-            },
-            select: {
-              disabled: true,
-            },
-            data: mapData,
-          },
-        ],
-      };
-
-      chart.setOption(option as EChartsOption);
-
-      // 点击事件
-      chart.on("click", (params: ECElementEvent) => {
-        const data = params.data as { code?: string; value?: number } | undefined;
-        const code = data?.code;
-        const value = data?.value;
-        if (code && value && value > 0) {
-          topLoader.start();
-          router.push(`/hiking/${code}`);
+        // 获取中国地图 geoJSON
+        const response = await fetch(CHINA_GEOJSON_URL);
+        if (!response.ok) {
+          throw new Error("地图数据加载失败");
         }
-      });
+        const geoJson = (await response.json()) as GeoJsonData;
+        // @ts-expect-error ECharts registerMap accepts GeoJSON-like objects at runtime
+        echarts.registerMap("china", geoJson);
 
-      // 响应式
-      const handleResize = () => chart.resize();
-      window.addEventListener("resize", handleResize);
+        chart = echarts.init(chartRef.current!, undefined, {
+          renderer: "canvas",
+        });
+        chartInstanceRef.current = chart;
 
-      setLoading(false);
+        // 构建地图数据
+        const mapData = geoJson.features
+          .map((feature: GeoJsonFeature) => {
+            const name = feature.properties.name;
+            const routeCount = visitedProvinces.get(name) || 0;
+            const code = getProvinceCode(name);
+            return {
+              name,
+              value: routeCount,
+              code,
+              itemStyle: {
+                areaColor:
+                  routeCount > 0 ? hikingPrimary : "#d1d5db",
+                borderColor: "#ffffff",
+                borderWidth: 1,
+              },
+              emphasis: {
+                itemStyle: {
+                  areaColor:
+                    routeCount > 0 ? hikingSecondary : "#d1d5db",
+                  shadowBlur: 10,
+                  shadowColor: "rgba(0, 0, 0, 0.2)",
+                },
+              },
+              select: {
+                itemStyle: {
+                  areaColor:
+                    routeCount > 0 ? hikingSecondary : "#d1d5db",
+                },
+              },
+            };
+          })
+          .filter((item: MapDataItem) => item.name);
 
-      return () => {
-        window.removeEventListener("resize", handleResize);
-        chart.dispose();
-      };
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "地图加载失败");
-      setLoading(false);
+        const option = {
+          tooltip: {
+            trigger: "item",
+            backgroundColor: cardBg,
+            borderColor: borderColor,
+            borderWidth: 1,
+            textStyle: {
+              color: foreground,
+            },
+            formatter: (params: DefaultLabelFormatterCallbackParams) => {
+              const count = (params.value as number) || 0;
+              if (count > 0) {
+                return `<div style="font-weight:600">${params.name}</div><div style="margin-top:4px;color:${hikingPrimary}">${count} 条路线</div>`;
+              }
+              return `<div style="font-weight:600">${params.name}</div><div style="margin-top:4px;color:${mutedFg}">暂未打卡</div>`;
+            },
+          },
+          series: [
+            {
+              type: "map",
+              map: "china",
+              roam: true,
+              zoom: 1.2,
+              center: [105, 36],
+              label: {
+                show: false,
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  color: "#fff",
+                  fontSize: 12,
+                  fontWeight: "bold",
+                },
+              },
+              select: {
+                disabled: true,
+              },
+              data: mapData,
+            },
+          ],
+        };
+
+        chart.setOption(option as EChartsOption);
+
+        // 点击事件
+        chart.on("click", (params: ECElementEvent) => {
+          const data = params.data as { code?: string; value?: number } | undefined;
+          const code = data?.code;
+          const value = data?.value;
+          if (code && value && value > 0) {
+            topLoader.start();
+            router.push(`/hiking/${code}`);
+          }
+        });
+
+        // 响应式
+        const handleResize = () => chart!.resize();
+        window.addEventListener("resize", handleResize);
+
+        if (!disposed) {
+          setLoading(false);
+        }
+
+        return () => {
+          window.removeEventListener("resize", handleResize);
+          chart!.dispose();
+        };
+      } catch (err) {
+        if (!disposed) {
+          setError(err instanceof Error ? err.message : "地图加载失败");
+          setLoading(false);
+        }
+      }
     }
-  }, [hikingData, router, visitedProvinces]);
 
-  useEffect(() => {
-    const cleanup = initChart();
+    const cleanupPromise = init();
+
     return () => {
-      cleanup?.then((fn) => fn?.());
+      disposed = true;
+      chartInstanceRef.current = null;
+      cleanupPromise.then((cleanup) => cleanup?.());
     };
-  }, [initChart]);
+  }, [hikingData, visitedProvinces, router, topLoader]);
 
   if (error) {
     return (

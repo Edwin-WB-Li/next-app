@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import type { HikingRoute } from "@/lib/hiking";
+import { useState } from "react";
 
 interface RouteCardProps {
   route: HikingRoute;

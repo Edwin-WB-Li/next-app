@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { Search, X, Filter, User, Flag, Tag } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -26,7 +25,12 @@ interface FilterBarProps {
   users: KanbanUser[];
   allTags: string[];
   filters: FilterState;
-  onFiltersChange: (filters: FilterState) => void;
+  toggleAssignee: (userId: string) => void;
+  togglePriority: (priority: Priority) => void;
+  toggleTag: (tag: string) => void;
+  setSearch: (search: string) => void;
+  clearFilters: () => void;
+  hasActiveFilters: boolean;
 }
 
 const priorityDot: Record<Priority, string> = {
@@ -36,36 +40,17 @@ const priorityDot: Record<Priority, string> = {
   P3: "bg-gray-400",
 };
 
-export function FilterBar({ users, allTags, filters, onFiltersChange }: FilterBarProps) {
-  const hasActiveFilters =
-    filters.assignees.length > 0 ||
-    filters.priorities.length > 0 ||
-    filters.tags.length > 0;
-
-  const toggleAssignee = (userId: string) => {
-    const next = filters.assignees.includes(userId)
-      ? filters.assignees.filter((id) => id !== userId)
-      : [...filters.assignees, userId];
-    onFiltersChange({ ...filters, assignees: next });
-  };
-
-  const togglePriority = (priority: Priority) => {
-    const next = filters.priorities.includes(priority)
-      ? filters.priorities.filter((p) => p !== priority)
-      : [...filters.priorities, priority];
-    onFiltersChange({ ...filters, priorities: next });
-  };
-
-  const toggleTag = (tag: string) => {
-    const next = filters.tags.includes(tag)
-      ? filters.tags.filter((t) => t !== tag)
-      : [...filters.tags, tag];
-    onFiltersChange({ ...filters, tags: next });
-  };
-
-  const clearFilters = () => {
-    onFiltersChange({ search: filters.search, assignees: [], priorities: [], tags: [] });
-  };
+export function FilterBar({
+  users,
+  allTags,
+  filters,
+  toggleAssignee,
+  togglePriority,
+  toggleTag,
+  setSearch,
+  clearFilters,
+  hasActiveFilters,
+}: FilterBarProps) {
 
   return (
     <div className="flex items-center gap-2">
@@ -74,17 +59,18 @@ export function FilterBar({ users, allTags, filters, onFiltersChange }: FilterBa
         <Input
           placeholder="搜索..."
           value={filters.search}
-          onChange={(e) => onFiltersChange({ ...filters, search: e.target.value })}
+          onChange={(e) => setSearch(e.target.value)}
           className="h-8 w-44 pl-8 pr-7 text-xs bg-muted/50 border-transparent focus-visible:bg-background focus-visible:border-border/60"
         />
-        {filters.search && (
+        {filters.search ? (
           <button
-            onClick={() => onFiltersChange({ ...filters, search: "" })}
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-muted-foreground"
+            onClick={() => setSearch("")}
+            className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-1 rounded"
+            aria-label="清除搜索"
           >
             <X className="h-3 w-3" />
           </button>
-        )}
+        ) : null}
       </div>
 
       <DropdownMenu>

@@ -1,16 +1,15 @@
 "use client";
 
-import * as React from "react";
+import type { KanbanTask, Priority } from "@/lib/kanban-types";
+import { useKanbanBoard } from "./kanban-board-context";
+import { memo, useMemo, useCallback, type KeyboardEvent } from "react";
 import { Draggable } from "@hello-pangea/dnd";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import type { KanbanTask, KanbanUser, Priority } from "@/lib/kanban-types";
 import { Calendar, Clock } from "lucide-react";
 
 interface TaskCardProps {
   task: KanbanTask;
   index: number;
-  users: KanbanUser[];
-  onClick: () => void;
 }
 
 function formatShortDate(dateStr: string): string {
@@ -49,15 +48,29 @@ const priorityConfig: Record<
   },
 };
 
-export function TaskCard({ task, index, users, onClick }: TaskCardProps) {
-  const assignee = users.find((u) => u.id === task.assignee);
-  const overdue = isOverdue(task.dueDate);
+export const TaskCard = memo(function TaskCard({ task, index }: TaskCardProps) {
+  const { users, onTaskClick } = useKanbanBoard();
+  const assignee = useMemo(
+    () => users.find((u) => u.id === task.assignee),
+    [users, task.assignee]
+  );
+  const overdue = useMemo(() => isOverdue(task.dueDate), [task.dueDate]);
   const priority = priorityConfig[task.priority];
-  const completedSubtasks = task.subtasks.filter((s) => s.completed).length;
-  const subtaskProgress =
-    task.subtasks.length > 0
-      ? Math.round((completedSubtasks / task.subtasks.length) * 100)
-      : 0;
+  const subtaskProgress = useMemo(() => {
+    if (task.subtasks.length === 0) return 0;
+    const completed = task.subtasks.filter((s) => s.completed).length;
+    return Math.round((completed / task.subtasks.length) * 100);
+  }, [task.subtasks]);
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        onTaskClick(task);
+      }
+    },
+    [onTaskClick, task]
+  );
 
   return (
     <Draggable draggableId={task.id} index={index}>
@@ -66,7 +79,11 @@ export function TaskCard({ task, index, users, onClick }: TaskCardProps) {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          onClick={onClick}
+          onClick={() => onTaskClick(task)}
+          onKeyDown={handleKeyDown}
+          role="button"
+          tabIndex={0}
+          aria-label={`${task.title}，优先级${priority.label}`}
           className={`
             group relative cursor-pointer rounded-xl bg-card
             motion-safe:transition-all motion-safe:duration-200 ease-out
@@ -113,7 +130,7 @@ export function TaskCard({ task, index, users, onClick }: TaskCardProps) {
             </h4>
 
             {/* 子任务进度 */}
-            {task.subtasks.length > 0 && (
+            {task.subtasks.length > 0 ? (
               <div className="mb-2.5">
                 <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
                   <div
@@ -122,7 +139,7 @@ export function TaskCard({ task, index, users, onClick }: TaskCardProps) {
                   />
                 </div>
               </div>
-            )}
+            ) : null}
 
             {/* 底部信息行 */}
             <div className="flex items-center justify-between">
@@ -133,7 +150,7 @@ export function TaskCard({ task, index, users, onClick }: TaskCardProps) {
                 </span>
 
                 {/* 截止日期 */}
-                {task.dueDate && (
+                {task.dueDate ? (
                   <span
                     className={`flex items-center gap-0.5 text-[10px] font-medium ${
                       overdue
@@ -144,15 +161,15 @@ export function TaskCard({ task, index, users, onClick }: TaskCardProps) {
                     <Calendar className="h-2.5 w-2.5" />
                     {formatShortDate(task.dueDate)}
                   </span>
-                )}
+                ) : null}
 
                 {/* 预估工时 */}
-                {task.estimatedHours && (
+                {task.estimatedHours ? (
                   <span className="flex items-center gap-0.5 text-[10px] text-muted-foreground/70">
                     <Clock className="h-2.5 w-2.5" />
                     {task.estimatedHours}h
                   </span>
-                )}
+                ) : null}
               </div>
 
               {/* 负责人头像 */}
@@ -174,4 +191,4 @@ export function TaskCard({ task, index, users, onClick }: TaskCardProps) {
       )}
     </Draggable>
   );
-}
+})

@@ -1,24 +1,32 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore, useCallback } from "react";
+
+function subscribe(callback: () => void) {
+  const el = document.documentElement;
+  const observer = new MutationObserver(callback);
+  observer.observe(el, { attributes: true, attributeFilter: ["class"] });
+  return () => observer.disconnect();
+}
+
+function getSnapshot() {
+  return document.documentElement.classList.contains("dark");
+}
+
+function getServerSnapshot() {
+  return false;
+}
 
 export default function ThemeToggle() {
-  const [dark, setDark] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const dark = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"));
-    setMounted(true);
-  }, []);
-
-  const toggle = () => {
+  const toggle = useCallback(() => {
     const next = !dark;
-    setDark(next);
     document.documentElement.classList.toggle("dark", next);
     localStorage.setItem("theme", next ? "dark" : "light");
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute("content", next ? "#0f172a" : "#f8fafc");
-  };
+  }, [dark]);
 
   return (
     <button
@@ -28,10 +36,10 @@ export default function ThemeToggle() {
     >
       <span
         className={`absolute left-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-card shadow-sm motion-safe:transition-transform motion-safe:duration-200 ${
-          mounted && dark ? "translate-x-5" : "translate-x-0"
+          dark ? "translate-x-5" : "translate-x-0"
         }`}
       >
-        {mounted && dark ? (
+        {dark ? (
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
           </svg>
@@ -52,3 +60,4 @@ export default function ThemeToggle() {
     </button>
   );
 }
+

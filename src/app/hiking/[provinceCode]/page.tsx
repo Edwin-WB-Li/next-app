@@ -122,9 +122,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
           徒步路线
         </h2>
         <div className="space-y-4">
-          {province.routes.map((route, index) => {
-            const notes = notesMap.get(route.id) || "";
-            return (
+          {province.routes.map((route, index) => (
               <div key={route.id} className="space-y-4">
                 <RouteCard route={route} index={index} />
 
@@ -132,8 +130,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
                 {/* 实际上 RouteCard 有自己的展开状态，所以我们把图片和随笔放在 RouteCard 外部 */}
                 {/* 更好的方式是重构 RouteCard 让它接收 children */}
               </div>
-            );
-          })}
+          ))}
         </div>
       </section>
 

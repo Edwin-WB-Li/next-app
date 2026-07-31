@@ -13,13 +13,15 @@ export default function AdminPostList({ post }: AdminPostListProps) {
   const router = useRouter();
   const [currentPost, setCurrentPost] = useState(post);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [error, setError] = useState("");
 
   const handleTogglePublish = useCallback(async () => {
+    setError("");
     try {
       const updated = await togglePublish(currentPost.id);
       setCurrentPost(updated);
     } catch (err) {
-      alert(err instanceof Error ? err.message : "操作失败");
+      setError(err instanceof Error ? err.message : "操作失败");
     }
   }, [currentPost.id]);
 
@@ -27,18 +29,29 @@ export default function AdminPostList({ post }: AdminPostListProps) {
     if (!confirm(`确定要删除文章「${currentPost.title}」吗？此操作不可恢复。`)) {
       return;
     }
+    setError("");
     setIsDeleting(true);
     try {
       await deletePost(currentPost.id);
       router.refresh();
     } catch (err) {
-      alert(err instanceof Error ? err.message : "删除失败");
+      setError(err instanceof Error ? err.message : "删除失败");
       setIsDeleting(false);
     }
   }, [currentPost.id, currentPost.title, router]);
 
   return (
-    <tr className="transition-colors hover:bg-muted/50">
+    <>
+      {error ? (
+        <tr>
+          <td colSpan={6} className="px-4 py-2">
+            <div role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-800 dark:border-red-900 dark:bg-red-900/20 dark:text-red-400">
+              {error}
+            </div>
+          </td>
+        </tr>
+      ) : null}
+      <tr className="transition-colors hover:bg-muted/50">
       <td className="px-4 py-3 font-medium">
         <Link
           href={`/admin/edit/${currentPost.id}`}
@@ -95,5 +108,6 @@ export default function AdminPostList({ post }: AdminPostListProps) {
         </div>
       </td>
     </tr>
+    </>
   );
 }

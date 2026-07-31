@@ -1,0 +1,148 @@
+[
+  {
+    "id": "q-001",
+    "type": "single",
+    "content": "在 JavaScript 中，以下哪个运算符用于严格相等比较？",
+    "options": [
+      { "id": "a", "text": "==" },
+      { "id": "b", "text": "===" },
+      { "id": "c", "text": "=" },
+      { "id": "d", "text": "!==" }
+    ],
+    "correctAnswers": ["b"],
+    "explanation": "=== 进行严格相等比较，不会进行类型转换。",
+    "difficulty": "easy",
+    "tags": ["JavaScript", "运算符"]
+  },
+  {
+    "id": "q-002",
+    "type": "single",
+    "content": "React 中，useEffect 的依赖数组为空数组 [] 时，效果函数会在什么时候执行？",
+    "options": [
+      { "id": "a", "text": "每次渲染后都执行" },
+      { "id": "b", "text": "仅在组件挂载时执行" },
+      { "id": "c", "text": "仅在组件卸载时执行" },
+      { "id": "d", "text": "从不执行" }
+    ],
+    "correctAnswers": ["b"],
+    "explanation": "空依赖数组意味着效果不依赖于任何状态或 props，因此只在组件挂载和卸载时执行。",
+    "difficulty": "medium",
+    "tags": ["React", "Hooks"]
+  },
+  {
+    "id": "q-003",
+    "type": "multiple",
+    "content": "以下哪些属于 CSS 盒模型的组成部分？",
+    "options": [
+      { "id": "a", "text": "Content（内容）" },
+      { "id": "b", "text": "Padding（内边距）" },
+      { "id": "c", "text": "Margin（外边距）" },
+      { "id": "d", "text": "Border（边框）" }
+    ],
+    "correctAnswers": ["a", "b", "c", "d"],
+    "explanation": "CSS 盒模型由 Content、Padding、Border 和 Margin 四部分组成。",
+    "difficulty": "easy",
+    "tags": ["CSS", "基础"]
+  },
+  {
+    "id": "q-004",
+    "type": "true_false",
+    "content": "TypeScript 中的 'any' 类型会关闭该变量的类型检查。",
+    "options": [
+      { "id": "true", "text": "正确" },
+      { "id": "false", "text": "错误" }
+    ],
+    "correctAnswers": ["true"],
+    "explanation": "any 类型允许赋值为任意类型，编译器不会对其进行类型检查。",
+    "difficulty": "easy",
+    "tags": ["TypeScript", "类型"]
+  },
+  {
+    "id": "q-005",
+    "type": "single",
+    "content": "HTTP 状态码 404 表示什么含义？",
+    "options": [
+      { "id": "a", "text": "服务器内部错误" },
+      { "id": "b", "text": "请求成功" },
+      { "id": "c", "text": "未找到资源" },
+      { "id": "d", "text": "禁止访问" }
+    ],
+    "correctAnswers": ["c"],
+    "explanation": "404 Not Found 表示服务器无法找到请求的资源。",
+    "difficulty": "easy",
+    "tags": ["HTTP", "网络"]
+  },
+  {
+    "id": "q-006",
+    "type": "multiple",
+    "content": "以下哪些是合法的 JavaScript 原始数据类型？",
+    "options": [
+      { "id": "a", "text": "string" },
+      { "id": "b", "text": "number" },
+      { "id": "c", "text": "boolean" },
+      { "id": "d", "text": "symbol" }
+    ],
+    "correctAnswers": ["a", "b", "c", "d"],
+    "explanation": "JavaScript 的原始类型包括 string、number、bigint、boolean、undefined、symbol 和 null。",
+    "difficulty": "medium",
+    "tags": ["JavaScript", "基础"]
+  },
+  {
+    "id": "q-007",
+    "type": "true_false",
+    "content": "在 Git 中，'git merge' 命令会创建一个新的提交来合并分支。",
+    "options": [
+      { "id": "true", "text": "正确" },
+      { "id": "false", "text": "错误" }
+    ],
+    "correctAnswers": ["true"],
+    "explanation": "默认情况下，git merge 会创建一个新的合并提交（merge commit）来整合两个分支的历史。",
+    "difficulty": "medium",
+    "tags": ["Git", "版本控制"]
+  },
+  {
+    "id": "q-008",
+    "type": "single",
+    "content": "以下哪个 HTML 标签用于定义文档的导航链接？",
+    "options": [
+      { "id": "a", "text": "<header>" },
+      { "id": "b", "text": "<nav>" },
+      { "id": "c", "text": "<section>" },
+      { "id": "d", "text": "<aside>" }
+    ],
+    "correctAnswers": ["b"],
+    "explanation": "<nav> 标签专门用于定义页面中的导航链接区域。",
+    "difficulty": "easy",
+    "tags": ["HTML", "语义化"]
+  },
+  {
+    "id": "q-009",
+    "type": "multiple",
+    "content": "以下哪些方法可以优化网页性能？",
+    "options": [
+      { "id": "a", "text": "压缩图片资源" },
+      { "id": "b", "text": "使用浏览器缓存" },
+      { "id": "c", "text": "减少 HTTP 请求数" },
+      { "id": "d", "text": "使用内联样式替代 CSS 文件" }
+    ],
+    "correctAnswers": ["a", "b", "c"],
+    "explanation": "内联样式不利于缓存和维护，通常不是性能优化推荐做法。压缩图片、使用缓存和减少请求数都是有效手段。",
+    "difficulty": "medium",
+    "tags": ["性能优化", "前端"]
+  },
+  {
+    "id": "q-010",
+    "type": "single",
+    "content": "Node.js 中，以下哪个模块用于处理文件系统操作？",
+    "options": [
+      { "id": "a", "text": "http" },
+      { "id": "b", "text": "path" },
+      { "id": "c", "text": "fs" },
+      { "id": "d", "text": "url" }
+    ],
+    "correctAnswers": ["c"],
+    "explanation": "fs（File System）模块提供了与文件系统进行交互的 API。",
+    "difficulty": "easy",
+    "tags": ["Node.js", "模块"]
+  }
+]

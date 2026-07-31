@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Dialog,
   DialogContent,
@@ -30,36 +30,41 @@ export function ColumnSettingsModal({
   onUpdated,
   onDeleted,
 }: ColumnSettingsModalProps) {
-  const [name, setName] = React.useState("");
-  const [wipLimit, setWipLimit] = React.useState("");
-  const [submitting, setSubmitting] = React.useState(false);
-  const [deleting, setDeleting] = React.useState(false);
+  const [name, setName] = useState("");
+  const [wipLimit, setWipLimit] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (column) {
-      setName(column.name);
-      setWipLimit(column.wipLimit?.toString() ?? "");
+      queueMicrotask(() => {
+        setName(column.name);
+        setWipLimit(column.wipLimit?.toString() ?? "");
+      });
     }
   }, [column]);
 
-  const handleUpdate = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!column || !name.trim()) return;
+  const handleUpdate = useCallback(
+    async (e: { preventDefault: () => void; }) => {
+      e.preventDefault();
+      if (!column || !name.trim()) return;
 
-    setSubmitting(true);
-    try {
-      await updateColumn(column.id, {
-        name: name.trim(),
-        wipLimit: wipLimit ? Number(wipLimit) : null,
-      });
-      onUpdated();
-      onOpenChange(false);
-    } finally {
-      setSubmitting(false);
-    }
-  };
+      setSubmitting(true);
+      try {
+        await updateColumn(column.id, {
+          name: name.trim(),
+          wipLimit: wipLimit ? Number(wipLimit) : null,
+        });
+        onUpdated();
+        onOpenChange(false);
+      } finally {
+        setSubmitting(false);
+      }
+    },
+    [column, name, wipLimit, onUpdated, onOpenChange]
+  );
 
-  const handleDelete = async () => {
+  const handleDelete = useCallback(async () => {
     if (!column) return;
     if (!confirm(`确定要删除列 "${column.name}" 吗？该列下不能有任务。`)) return;
 
@@ -73,7 +78,7 @@ export function ColumnSettingsModal({
     } finally {
       setDeleting(false);
     }
-  };
+  }, [column, onDeleted, onOpenChange]);
 
   if (!column) return null;
 

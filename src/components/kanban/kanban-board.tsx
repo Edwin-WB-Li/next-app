@@ -1,83 +1,64 @@
 "use client";
 
-import * as React from "react";
 import { DragDropContext, type DropResult } from "@hello-pangea/dnd";
 import { Plus, Layout, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { KanbanColumn } from "./kanban-column";
-import { FilterBar, type FilterState } from "./filter-bar";
+import { FilterBar } from "./filter-bar";
 import { CreateTaskModal } from "./create-task-modal";
 import { ColumnSettingsModal } from "./column-settings-modal";
 import { TaskDetailDrawer } from "./task-detail-drawer";
+import { KanbanBoardProvider } from "./kanban-board-context";
+import { useKanbanFilters } from "./use-kanban-filters";
 import type { KanbanTask, KanbanColumn as KanbanColumnType } from "@/lib/kanban-types";
 import { moveTask, createColumn, getBoardData } from "@/lib/kanban";
 import type { BoardSnapshot } from "@/lib/kanban-types";
+import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
 
 interface KanbanBoardProps {
   initialData: BoardSnapshot;
 }
 
-function filterTasks(tasks: KanbanTask[], filters: FilterState): KanbanTask[] {
-  return tasks.filter((task) => {
-    if (filters.search) {
-      const q = filters.search.toLowerCase();
-      const matchTitle = task.title.toLowerCase().includes(q);
-      const matchId = task.id.toLowerCase().includes(q);
-      if (!matchTitle && !matchId) return false;
-    }
-    if (filters.assignees.length > 0 && !filters.assignees.includes(task.assignee ?? "")) {
-      return false;
-    }
-    if (filters.priorities.length > 0 && !filters.priorities.includes(task.priority)) {
-      return false;
-    }
-    if (filters.tags.length > 0 && !task.tags.some((t) => filters.tags.includes(t))) {
-      return false;
-    }
-    return true;
-  });
-}
-
 export function KanbanBoard({ initialData }: KanbanBoardProps) {
-  const [data, setData] = React.useState<BoardSnapshot>(initialData);
-  const [filters, setFilters] = React.useState<FilterState>({
-    search: "",
-    assignees: [],
-    priorities: [],
-    tags: [],
-  });
+  const [data, setData] = useState<BoardSnapshot>(initialData);
+  const dataRef = useRef(data);
+  useEffect(() => {
+    dataRef.current = data;
+  }, [data]);
+  const [selectedTask, setSelectedTask] = useState<KanbanTask | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
 
-  const [selectedTask, setSelectedTask] = React.useState<KanbanTask | null>(null);
-  const [detailOpen, setDetailOpen] = React.useState(false);
+  const [createModalOpen, setCreateModalOpen] = useState(false);
+  const [createDefaultColumnId, setCreateDefaultColumnId] = useState<string>();
 
-  const [createModalOpen, setCreateModalOpen] = React.useState(false);
-  const [createDefaultColumnId, setCreateDefaultColumnId] = React.useState<string>();
+  const [settingsColumn, setSettingsColumn] = useState<KanbanColumnType | null>(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
-  const [settingsColumn, setSettingsColumn] = React.useState<KanbanColumnType | null>(null);
-  const [settingsOpen, setSettingsOpen] = React.useState(false);
+  const [isAddingColumn, setIsAddingColumn] = useState(false);
+  const [newColumnName, setNewColumnName] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
 
-  const [isAddingColumn, setIsAddingColumn] = React.useState(false);
-  const [newColumnName, setNewColumnName] = React.useState("");
-  const [refreshing, setRefreshing] = React.useState(false);
+  const [, startTransition] = useTransition();
 
-  const allTags = React.useMemo(() => {
-    const tagSet = new Set<string>();
-    data.tasks.forEach((t) => t.tags.forEach((tag) => tagSet.add(tag)));
-    return Array.from(tagSet);
-  }, [data.tasks]);
+  const {
+    filters,
+    allTags,
+    filteredTasks,
+    toggleAssignee,
+    togglePriority,
+    toggleTag,
+    setSearch,
+    clearFilters,
+    hasActiveFilters,
+  } = useKanbanFilters(data.tasks);
 
-  const sortedColumns = React.useMemo(
+  const sortedColumns = useMemo(
     () => [...data.board.columns].sort((a, b) => a.order - b.order),
     [data.board.columns]
   );
 
-  const filteredTasks = React.useMemo(
-    () => filterTasks(data.tasks, filters),
-    [data.tasks, filters]
-  );
-
-  const tasksByColumn = React.useMemo(() => {
+  const tasksByColumn = useMemo(() => {
     const map = new Map<string, KanbanTask[]>();
     for (const task of filteredTasks) {
       const arr = map.get(task.columnId) || [];
@@ -88,23 +69,22 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
   }, [filteredTasks]);
 
   const totalTasks = data.tasks.length;
-  const completedTasks = React.useMemo(() => {
+  const completedTasks = useMemo(() => {
     const doneCol = sortedColumns[sortedColumns.length - 1];
     if (!doneCol) return 0;
     return data.tasks.filter((t) => t.columnId === doneCol.id).length;
   }, [data.tasks, sortedColumns]);
 
-  const refreshData = React.useCallback(async () => {
+  const refreshData = useCallback(() => {
     setRefreshing(true);
-    try {
-      const fresh = await getBoardData();
-      setData(fresh);
-    } finally {
-      setRefreshing(false);
-    }
+    startTransition(() => {
+      getBoardData()
+        .then((fresh) => setData(fresh))
+        .finally(() => setRefreshing(false));
+    });
   }, []);
 
-  const handleDragEnd = React.useCallback(async (result: DropResult) => {
+  const handleDragEnd = useCallback((result: DropResult) => {
     if (!result.destination) return;
 
     const { draggableId, source, destination } = result;
@@ -112,58 +92,62 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
       return;
     }
 
-    const task = data.tasks.find((t) => t.id === draggableId);
+    const currentData = dataRef.current;
+    const task = currentData.tasks.find((t) => t.id === draggableId);
     if (!task) return;
 
-    const newTasks = [...data.tasks];
+    const newTasks = [...currentData.tasks];
     const taskIndex = newTasks.findIndex((t) => t.id === draggableId);
     if (taskIndex !== -1) {
       newTasks[taskIndex] = { ...newTasks[taskIndex], columnId: destination.droppableId };
       setData((prev) => ({ ...prev, tasks: newTasks }));
     }
 
-    try {
-      await moveTask(draggableId, destination.droppableId, source.droppableId);
-    } catch {
-      setData((prev) => {
-        const reverted = [...prev.tasks];
-        const idx = reverted.findIndex((t) => t.id === draggableId);
-        if (idx !== -1) {
-          reverted[idx] = { ...reverted[idx], columnId: source.droppableId };
-        }
-        return { ...prev, tasks: reverted };
+    startTransition(() => {
+      moveTask(draggableId, destination.droppableId, source.droppableId).catch(() => {
+        setData((prev) => {
+          const reverted = [...prev.tasks];
+          const idx = reverted.findIndex((t) => t.id === draggableId);
+          if (idx !== -1) {
+            reverted[idx] = { ...reverted[idx], columnId: source.droppableId };
+          }
+          return { ...prev, tasks: reverted };
+        });
       });
-    }
-  }, [data]);
+    });
+  }, []);
 
-  const handleTaskClick = React.useCallback((task: KanbanTask) => {
+  const handleTaskClick = useCallback((task: KanbanTask) => {
     setSelectedTask(task);
     setDetailOpen(true);
   }, []);
 
-  const handleCreateTask = React.useCallback((columnId?: string) => {
+  const handleCreateTask = useCallback((columnId?: string) => {
     setCreateDefaultColumnId(columnId);
     setCreateModalOpen(true);
   }, []);
 
-  const handleSettingsClick = React.useCallback((column: KanbanColumnType) => {
+  const handleSettingsClick = useCallback((column: KanbanColumnType) => {
     setSettingsColumn(column);
     setSettingsOpen(true);
   }, []);
 
-  const handleAddColumn = React.useCallback(async () => {
+  const handleAddColumn = useCallback(() => {
     if (!newColumnName.trim()) {
       setIsAddingColumn(false);
       return;
     }
-    try {
-      await createColumn({ name: newColumnName.trim() });
-      refreshData();
-      setNewColumnName("");
-      setIsAddingColumn(false);
-    } catch {
-      // ignore
-    }
+    startTransition(() => {
+      createColumn({ name: newColumnName.trim() })
+        .then(() => {
+          refreshData();
+          setNewColumnName("");
+          setIsAddingColumn(false);
+        })
+        .catch((err) => {
+          console.error("创建列失败:", err);
+        });
+    });
   }, [newColumnName, refreshData]);
 
   return (
@@ -199,7 +183,12 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
             users={data.board.users}
             allTags={allTags}
             filters={filters}
-            onFiltersChange={setFilters}
+            toggleAssignee={toggleAssignee}
+            togglePriority={togglePriority}
+            toggleTag={toggleTag}
+            setSearch={setSearch}
+            clearFilters={clearFilters}
+            hasActiveFilters={hasActiveFilters}
           />
           <Button
             variant="ghost"
@@ -208,6 +197,7 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
             onClick={refreshData}
             disabled={refreshing}
             title="刷新"
+            aria-label="刷新看板数据"
           >
             <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? "animate-spin" : ""}`} />
           </Button>
@@ -216,23 +206,27 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
 
       {/* 看板主体 */}
       <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="flex-1 overflow-auto px-5 py-4">
-          <div className="flex gap-5 h-full min-w-fit items-start">
-            {sortedColumns.map((column) => (
-              <KanbanColumn
-                key={column.id}
-                column={column}
-                tasks={tasksByColumn.get(column.id) || []}
-                users={data.board.users}
-                onTaskClick={handleTaskClick}
-                onSettingsClick={handleSettingsClick}
-                onTaskCreated={refreshData}
-              />
-            ))}
+        <KanbanBoardProvider
+          value={{
+            users: data.board.users,
+            onTaskClick: handleTaskClick,
+            onSettingsClick: handleSettingsClick,
+            onTaskCreated: refreshData,
+          }}
+        >
+          <div className="flex-1 overflow-auto px-5 py-4">
+            <div className="flex gap-5 h-full min-w-fit items-start">
+              {sortedColumns.map((column) => (
+                <KanbanColumn
+                  key={column.id}
+                  column={column}
+                  tasks={tasksByColumn.get(column.id) || []}
+                />
+              ))}
 
-            {/* 添加列 */}
-            <div className="w-[280px] shrink-0">
-              {isAddingColumn ? (
+              {/* 添加列 */}
+              <div className="w-[280px] shrink-0">
+                {isAddingColumn ? (
                 <div className="rounded-xl border border-border bg-muted/40 p-3">
                   <Input
                     value={newColumnName}
@@ -268,15 +262,17 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
               ) : (
                 <button
                   onClick={() => setIsAddingColumn(true)}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-border/60 bg-muted/20 px-4 py-6 text-sm text-muted-foreground/60 transition-all hover:bg-muted/40 hover:text-muted-foreground hover:border-border"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-border/60 bg-muted/20 px-4 py-6 text-sm text-muted-foreground/60 transition-all hover:bg-muted/40 hover:text-muted-foreground hover:border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-1"
+                  aria-label="添加新列"
                 >
                   <Plus className="h-4 w-4" />
                   添加列
                 </button>
               )}
+              </div>
             </div>
           </div>
-        </div>
+        </KanbanBoardProvider>
       </DragDropContext>
 
       {/* 弹窗和抽屉 */}

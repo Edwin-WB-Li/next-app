@@ -3,7 +3,7 @@
     "id": "task-1",
     "title": "设计首页 UI 原型",
     "description": "使用 Figma 完成首页的高保真原型设计，包括暗黑模式配色方案。",
-    "columnId": "col-2",
+    "columnId": "col-3",
     "priority": "P1",
     "assignee": "user-1",
     "tags": [
@@ -13,7 +13,7 @@
     "dueDate": "2026-07-20",
     "estimatedHours": 16,
     "createdAt": "2026-07-10T08:00:00.000Z",
-    "updatedAt": "2026-07-23T02:40:55.666Z",
+    "updatedAt": "2026-07-31T07:09:42.390Z",
     "subtasks": [
       {
         "id": "sub-1",
@@ -80,6 +80,36 @@
         "userId": "user-1",
         "action": "移动至 col-2",
         "createdAt": "2026-07-23T02:40:55.666Z"
+      },
+      {
+        "id": "act-1785469746916",
+        "userId": "user-1",
+        "action": "移动至 col-3",
+        "createdAt": "2026-07-31T03:49:06.916Z"
+      },
+      {
+        "id": "act-1785469748251",
+        "userId": "user-1",
+        "action": "移动至 col-2",
+        "createdAt": "2026-07-31T03:49:08.251Z"
+      },
+      {
+        "id": "act-1785478162089",
+        "userId": "user-1",
+        "action": "移动至 col-1",
+        "createdAt": "2026-07-31T06:09:22.089Z"
+      },
+      {
+        "id": "act-1785478163436",
+        "userId": "user-1",
+        "action": "移动至 col-2",
+        "createdAt": "2026-07-31T06:09:23.436Z"
+      },
+      {
+        "id": "act-1785481782390",
+        "userId": "user-1",
+        "action": "移动至 col-3",
+        "createdAt": "2026-07-31T07:09:42.390Z"
       }
     ]
   },
@@ -97,7 +127,7 @@
     "dueDate": "2026-07-25",
     "estimatedHours": 24,
     "createdAt": "2026-07-12T09:00:00.000Z",
-    "updatedAt": "2026-07-24T02:50:42.728Z",
+    "updatedAt": "2026-07-31T09:14:31.612Z",
     "subtasks": [
       {
         "id": "sub-4",
@@ -115,7 +145,26 @@
         "completed": false
       }
     ],
-    "comments": [],
+    "comments": [
+      {
+        "id": "cmt-1785489249560",
+        "userId": "user-1",
+        "content": "支持",
+        "createdAt": "2026-07-31T09:14:09.560Z"
+      },
+      {
+        "id": "cmt-1785489266802",
+        "userId": "user-1",
+        "content": "支持",
+        "createdAt": "2026-07-31T09:14:26.802Z"
+      },
+      {
+        "id": "cmt-1785489271612",
+        "userId": "user-1",
+        "content": "支持",
+        "createdAt": "2026-07-31T09:14:31.612Z"
+      }
+    ],
     "activities": [
       {
         "id": "act-3",
@@ -164,6 +213,30 @@
         "userId": "user-1",
         "action": "移动至 col-4",
         "createdAt": "2026-07-24T02:50:42.728Z"
+      },
+      {
+        "id": "act-1785469029617",
+        "userId": "user-1",
+        "action": "移动至 col-5",
+        "createdAt": "2026-07-31T03:37:09.616Z"
+      },
+      {
+        "id": "act-1785469753557",
+        "userId": "user-1",
+        "action": "移动至 col-4",
+        "createdAt": "2026-07-31T03:49:13.557Z"
+      },
+      {
+        "id": "act-1785489181186",
+        "userId": "user-1",
+        "action": "移动至 col-3",
+        "createdAt": "2026-07-31T09:13:01.186Z"
+      },
+      {
+        "id": "act-1785489183549",
+        "userId": "user-1",
+        "action": "移动至 col-4",
+        "createdAt": "2026-07-31T09:13:03.549Z"
       }
     ]
   },
@@ -171,7 +244,7 @@
     "id": "task-3",
     "title": "优化图片加载性能",
     "description": "为博客文章图片添加懒加载和 WebP 格式支持。",
-    "columnId": "col-3",
+    "columnId": "col-5",
     "priority": "P2",
     "assignee": "user-3",
     "tags": [
@@ -181,9 +254,16 @@
     "dueDate": "2026-07-28",
     "estimatedHours": 8,
     "createdAt": "2026-07-13T10:00:00.000Z",
-    "updatedAt": "2026-07-24T02:50:43.739Z",
+    "updatedAt": "2026-07-31T09:14:42.509Z",
     "subtasks": [],
-    "comments": [],
+    "comments": [
+      {
+        "id": "cmt-1785489282509",
+        "userId": "user-1",
+        "content": "支持",
+        "createdAt": "2026-07-31T09:14:42.509Z"
+      }
+    ],
     "activities": [
       {
         "id": "act-4",
@@ -280,6 +360,30 @@
         "userId": "user-1",
         "action": "移动至 col-3",
         "createdAt": "2026-07-24T02:50:43.739Z"
+      },
+      {
+        "id": "act-1785469727414",
+        "userId": "user-1",
+        "action": "移动至 col-4",
+        "createdAt": "2026-07-31T03:48:47.414Z"
+      },
+      {
+        "id": "act-1785469729107",
+        "userId": "user-1",
+        "action": "移动至 col-3",
+        "createdAt": "2026-07-31T03:48:49.107Z"
+      },
+      {
+        "id": "act-1785469751456",
+        "userId": "user-1",
+        "action": "移动至 col-4",
+        "createdAt": "2026-07-31T03:49:11.455Z"
+      },
+      {
+        "id": "act-1785469756166",
+        "userId": "user-1",
+        "action": "移动至 col-5",
+        "createdAt": "2026-07-31T03:49:16.166Z"
       }
     ]
   },
@@ -296,7 +400,7 @@
     "dueDate": "2026-08-01",
     "estimatedHours": 12,
     "createdAt": "2026-07-14T14:00:00.000Z",
-    "updatedAt": "2026-07-22T08:13:10.435Z",
+    "updatedAt": "2026-07-31T06:46:35.956Z",
     "subtasks": [],
     "comments": [],
     "activities": [
@@ -329,6 +433,42 @@
         "userId": "user-1",
         "action": "移动至 col-1",
         "createdAt": "2026-07-22T08:13:10.435Z"
+      },
+      {
+        "id": "act-1785469749323",
+        "userId": "user-1",
+        "action": "移动至 col-2",
+        "createdAt": "2026-07-31T03:49:09.322Z"
+      },
+      {
+        "id": "act-1785469750509",
+        "userId": "user-1",
+        "action": "移动至 col-1",
+        "createdAt": "2026-07-31T03:49:10.509Z"
+      },
+      {
+        "id": "act-1785478149025",
+        "userId": "user-1",
+        "action": "移动至 col-2",
+        "createdAt": "2026-07-31T06:09:09.025Z"
+      },
+      {
+        "id": "act-1785478160930",
+        "userId": "user-1",
+        "action": "移动至 col-1",
+        "createdAt": "2026-07-31T06:09:20.930Z"
+      },
+      {
+        "id": "act-1785480371661",
+        "userId": "user-1",
+        "action": "移动至 col-2",
+        "createdAt": "2026-07-31T06:46:11.660Z"
+      },
+      {
+        "id": "act-1785480395956",
+        "userId": "user-1",
+        "action": "移动至 col-1",
+        "createdAt": "2026-07-31T06:46:35.956Z"
       }
     ]
   },
@@ -336,7 +476,7 @@
     "id": "task-5",
     "title": "修复移动端导航栏问题",
     "description": "在 iOS Safari 上导航栏会出现抖动，需要排查修复。",
-    "columnId": "col-5",
+    "columnId": "col-2",
     "priority": "P1",
     "assignee": "user-1",
     "tags": [
@@ -346,7 +486,7 @@
     "dueDate": "2026-07-22",
     "estimatedHours": 4,
     "createdAt": "2026-07-15T08:30:00.000Z",
-    "updatedAt": "2026-07-24T02:50:41.300Z",
+    "updatedAt": "2026-07-31T09:15:17.602Z",
     "subtasks": [
       {
         "id": "sub-7",
@@ -359,7 +499,14 @@
         "completed": true
       }
     ],
-    "comments": [],
+    "comments": [
+      {
+        "id": "cmt-1785489317602",
+        "userId": "user-1",
+        "content": "小程序",
+        "createdAt": "2026-07-31T09:15:17.602Z"
+      }
+    ],
     "activities": [
       {
         "id": "act-7",
@@ -462,6 +609,36 @@
         "userId": "user-1",
         "action": "移动至 col-5",
         "createdAt": "2026-07-24T02:50:41.300Z"
+      },
+      {
+        "id": "act-1785469032152",
+        "userId": "user-1",
+        "action": "移动至 col-4",
+        "createdAt": "2026-07-31T03:37:12.152Z"
+      },
+      {
+        "id": "act-1785469034982",
+        "userId": "user-1",
+        "action": "移动至 col-5",
+        "createdAt": "2026-07-31T03:37:14.982Z"
+      },
+      {
+        "id": "act-1785469038489",
+        "userId": "user-1",
+        "action": "移动至 col-4",
+        "createdAt": "2026-07-31T03:37:18.489Z"
+      },
+      {
+        "id": "act-1785469752467",
+        "userId": "user-1",
+        "action": "移动至 col-3",
+        "createdAt": "2026-07-31T03:49:12.467Z"
+      },
+      {
+        "id": "act-1785483074562",
+        "userId": "user-1",
+        "action": "移动至 col-2",
+        "createdAt": "2026-07-31T07:31:14.562Z"
       }
     ]
   }

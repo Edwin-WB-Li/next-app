@@ -19,6 +19,16 @@ const KANBAN_DIR = path.join(process.cwd(), "data", "kanban");
 const BOARD_FILE = path.join(KANBAN_DIR, "board.json");
 const TASKS_FILE = path.join(KANBAN_DIR, "tasks.json");
 
+// 文件锁：防止并发 read-modify-write 导致数据丢失
+const fileLocks = new Map<string, Promise<unknown>>();
+
+async function withLock<T>(key: string, fn: () => Promise<T>): Promise<T> {
+  const prev = fileLocks.get(key);
+  const release = Promise.resolve(prev).then(() => fn());
+  fileLocks.set(key, release.then(() => {}).catch(() => {}));
+  return release;
+}
+
 const DEFAULT_BOARD: KanbanBoardData = {
   columns: [
     { id: "col-1", name: "待办", order: 0, wipLimit: null, color: null },
@@ -162,6 +172,10 @@ async function writeBoard(board: KanbanBoardData) {
   await fs.writeFile(BOARD_FILE, JSON.stringify(board, null, 2), "utf-8");
 }
 
+async function writeBoardSafe(board: KanbanBoardData) {
+  return withLock("board", () => writeBoard(board));
+}
+
 const readTasks = cache(async (): Promise<KanbanTask[]> => {
   try {
     const raw = await fs.readFile(TASKS_FILE, "utf-8");
@@ -176,6 +190,10 @@ const readTasks = cache(async (): Promise<KanbanTask[]> => {
 async function writeTasks(tasks: KanbanTask[]) {
   await ensureKanbanDir();
   await fs.writeFile(TASKS_FILE, JSON.stringify(tasks, null, 2), "utf-8");
+}
+
+async function writeTasksSafe(tasks: KanbanTask[]) {
+  return withLock("tasks", () => writeTasks(tasks));
 }
 
 export async function getBoardData(): Promise<BoardSnapshot> {
@@ -205,7 +223,7 @@ export async function createTask(data: CreateTaskInput): Promise<KanbanTask> {
     ],
   };
   tasks.push(newTask);
-  await writeTasks(tasks);
+  await writeTasksSafe(tasks);
   revalidatePath("/kanban");
   return newTask;
 }
@@ -240,7 +258,7 @@ export async function updateTask(id: string, data: UpdateTaskInput): Promise<Kan
     });
   }
 
-  await writeTasks(tasks);
+  await writeTasksSafe(tasks);
   revalidatePath("/kanban");
   return tasks[index];
 }
@@ -249,6 +267,11 @@ export async function moveTask(taskId: string, targetColumnId: string, sourceCol
   const tasks = await readTasks();
   const index = tasks.findIndex((t) => t.id === taskId);
   if (index === -1) throw new Error("任务不存在");
+
+  // 校验任务是否确实在源列中（防止乐观更新回滚时使用了错误的源列）
+  if (tasks[index].columnId !== sourceColumnId) {
+    throw new Error("任务当前不在指定的源列中");
+  }
 
   const now = new Date().toISOString();
   tasks[index].columnId = targetColumnId;
@@ -260,7 +283,7 @@ export async function moveTask(taskId: string, targetColumnId: string, sourceCol
     createdAt: now,
   });
 
-  await writeTasks(tasks);
+  await writeTasksSafe(tasks);
   revalidatePath("/kanban");
   return tasks[index];
 }
@@ -269,7 +292,7 @@ export async function deleteTask(id: string) {
   const tasks = await readTasks();
   const filtered = tasks.filter((t) => t.id !== id);
   if (filtered.length === tasks.length) throw new Error("任务不存在");
-  await writeTasks(filtered);
+  await writeTasksSafe(filtered);
   revalidatePath("/kanban");
 }
 
@@ -284,7 +307,7 @@ export async function createColumn(data: CreateColumnInput): Promise<KanbanColum
     color: data.color ?? null,
   };
   board.columns.push(newColumn);
-  await writeBoard(board);
+  await writeBoardSafe(board);
   revalidatePath("/kanban");
   return newColumn;
 }
@@ -301,7 +324,7 @@ export async function updateColumn(id: string, data: UpdateColumnInput): Promise
     ...(data.color !== undefined && { color: data.color }),
   };
 
-  await writeBoard(board);
+  await writeBoardSafe(board);
   revalidatePath("/kanban");
   return board.columns[index];
 }
@@ -313,7 +336,7 @@ export async function deleteColumn(id: string) {
   if (hasTasks) throw new Error("该列下还有任务，无法删除");
 
   board.columns = board.columns.filter((c) => c.id !== id);
-  await writeBoard(board);
+  await writeBoardSafe(board);
   revalidatePath("/kanban");
 }
 
@@ -322,7 +345,7 @@ export async function reorderColumns(orderedIds: string[]) {
   board.columns = board.columns
     .map((c) => ({ ...c, order: orderedIds.indexOf(c.id) }))
     .sort((a, b) => a.order - b.order);
-  await writeBoard(board);
+  await writeBoardSafe(board);
   revalidatePath("/kanban");
 }
 
@@ -338,6 +361,6 @@ export async function addComment(taskId: string, userId: string, content: string
     createdAt: new Date().toISOString(),
   });
   tasks[index].updatedAt = new Date().toISOString();
-  await writeTasks(tasks);
+  await writeTasksSafe(tasks);
   revalidatePath("/kanban");
 }

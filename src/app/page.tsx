@@ -3,8 +3,13 @@ import Image from "next/image";
 import { getPublishedPosts, getPopularTags } from "@/lib/posts";
 
 function readingTime(content: string): number {
-  const words = content.trim().split(/\s+/).length;
-  return Math.ceil(words / 300);
+  const chineseChars = (content.match(/[\u4e00-\u9fff]/g) || []).length;
+  const nonChineseWords = content
+    .replace(/[\u4e00-\u9fff]/g, "")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+  return Math.max(1, Math.ceil((chineseChars + nonChineseWords) / 300));
 }
 
 function formatDate(dateStr: string): string {
@@ -200,7 +205,7 @@ export default async function Home() {
                       </span>
                     </div>
 
-                    {post.tags && post.tags.length > 0 ? (
+                    {post.tags != null && post.tags.length > 0 ? (
                       <div className="mb-2 flex flex-wrap gap-1">
                         {post.tags.slice(0, 3).map((tag) => (
                           <span
@@ -246,7 +251,7 @@ export default async function Home() {
       </section>
 
       {/* Tags Cloud */}
-      {sortedTags.length > 0 && (
+      {sortedTags.length > 0 ? (
         <section className="py-8">
           <div className="flex items-center gap-2 pb-4">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-secondary">
@@ -270,7 +275,7 @@ export default async function Home() {
             ))}
           </div>
         </section>
-      )}
+      ) : null}
 
       {/* CTA Section */}
       <section className="py-12">

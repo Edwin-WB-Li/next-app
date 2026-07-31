@@ -1,6 +1,8 @@
 "use client";
 
-import * as React from "react";
+// import * as React from "react";
+import { useState, useEffect, useCallback, useRef, memo ,type KeyboardEvent} from "react";
+
 import { Droppable } from "@hello-pangea/dnd";
 import { Plus, MoreHorizontal, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,40 +14,34 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { TaskCard } from "./task-card";
-import type { KanbanColumn as KanbanColumnType, KanbanTask, KanbanUser } from "@/lib/kanban-types";
+import { useKanbanBoard } from "./kanban-board-context";
+import type { KanbanColumn as KanbanColumnType, KanbanTask } from "@/lib/kanban-types";
 import { createTask } from "@/lib/kanban";
 
 interface KanbanColumnProps {
   column: KanbanColumnType;
   tasks: KanbanTask[];
-  users: KanbanUser[];
-  onTaskClick: (task: KanbanTask) => void;
-  onSettingsClick: (column: KanbanColumnType) => void;
-  onTaskCreated: () => void;
 }
 
-export function KanbanColumn({
+export const KanbanColumn = memo(function KanbanColumn({
   column,
   tasks,
-  users,
-  onTaskClick,
-  onSettingsClick,
-  onTaskCreated,
 }: KanbanColumnProps) {
-  const [isAdding, setIsAdding] = React.useState(false);
-  const [newTitle, setNewTitle] = React.useState("");
-  const [submitting, setSubmitting] = React.useState(false);
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const { onSettingsClick, onTaskCreated } = useKanbanBoard();
+  const [isAdding, setIsAdding] = useState(false);
+  const [newTitle, setNewTitle] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const wipExceeded = column.wipLimit !== null && tasks.length > column.wipLimit;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isAdding) {
       inputRef.current?.focus();
     }
   }, [isAdding]);
 
-  const handleQuickAdd = async () => {
+  const handleQuickAdd = useCallback(async () => {
     if (!newTitle.trim()) {
       setIsAdding(false);
       return;
@@ -62,18 +58,21 @@ export function KanbanColumn({
     } finally {
       setSubmitting(false);
     }
-  };
+  }, [newTitle, column.id, onTaskCreated]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleQuickAdd();
-    }
-    if (e.key === "Escape") {
-      setIsAdding(false);
-      setNewTitle("");
-    }
-  };
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        handleQuickAdd();
+      }
+      if (e.key === "Escape") {
+        setIsAdding(false);
+        setNewTitle("");
+      }
+    },
+    [handleQuickAdd]
+  );
 
   return (
     <div
@@ -102,17 +101,18 @@ export function KanbanColumn({
             `}
           >
             {tasks.length}
-            {column.wipLimit !== null && (
+            {column.wipLimit !== null ? (
               <span className="text-muted-foreground/60 font-normal">/{column.wipLimit}</span>
-            )}
+            ) : null}
           </span>
         </div>
-        <div className="flex items-center gap-0.5 opacity-0 group-hover/column:opacity-100 transition-opacity">
+        <div className="flex items-center gap-0.5 opacity-0 group-hover/column:opacity-100 focus-within:opacity-100 transition-opacity">
           <Button
             variant="ghost"
             size="icon"
             className="h-8 w-8 text-muted-foreground hover:text-foreground"
             onClick={() => setIsAdding(true)}
+            aria-label="在此列添加任务"
           >
             <Plus className="h-3.5 w-3.5" />
           </Button>
@@ -122,6 +122,7 @@ export function KanbanColumn({
                 variant="ghost"
                 size="icon"
                 className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                aria-label="列操作菜单"
               >
                 <MoreHorizontal className="h-3.5 w-3.5" />
               </Button>
@@ -153,13 +154,7 @@ export function KanbanColumn({
             `}
           >
             {tasks.map((task, index) => (
-              <TaskCard
-                key={task.id}
-                task={task}
-                index={index}
-                users={users}
-                onClick={() => onTaskClick(task)}
-              />
+              <TaskCard key={task.id} task={task} index={index} />
             ))}
             {provided.placeholder}
 
@@ -171,7 +166,12 @@ export function KanbanColumn({
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  onBlur={() => {
+                  onBlur={(e) => {
+                    // 如果焦点移动到按钮上，不要关闭输入框
+                    const related = e.relatedTarget as HTMLElement | null;
+                    if (related && e.currentTarget.parentElement?.contains(related)) {
+                      return;
+                    }
                     if (!newTitle.trim()) setIsAdding(false);
                   }}
                   placeholder="输入任务标题，按回车确认"
@@ -182,6 +182,7 @@ export function KanbanColumn({
                   <Button
                     size="sm"
                     className="h-7 text-xs px-3"
+                    onMouseDown={(e) => e.preventDefault()}
                     onClick={handleQuickAdd}
                     disabled={submitting}
                   >
@@ -203,7 +204,8 @@ export function KanbanColumn({
             ) : (
               <button
                 onClick={() => setIsAdding(true)}
-                className="flex w-full items-center gap-1.5 rounded-lg px-2 py-2 text-xs font-medium text-muted-foreground/70 transition-all hover:bg-muted hover:text-muted-foreground"
+                className="flex w-full items-center gap-1.5 rounded-lg px-2 py-2 text-xs font-medium text-muted-foreground/70 transition-all hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-1"
+                aria-label="添加卡片"
               >
                 <Plus className="h-3 w-3" />
                 添加卡片
@@ -214,4 +216,4 @@ export function KanbanColumn({
       </Droppable>
     </div>
   );
-}
+})

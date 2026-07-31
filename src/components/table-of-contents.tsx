@@ -56,7 +56,8 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   const headings = useMemo(() => extractHeadings(content), [content]);
 
   useEffect(() => {
-    if (headings.length === 0) return;
+    const currentHeadings = extractHeadings(content);
+    if (currentHeadings.length === 0) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -70,13 +71,13 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
       { rootMargin: "-80px 0px -60% 0px" }
     );
 
-    for (const h of headings) {
+    for (const h of currentHeadings) {
       const el = document.getElementById(h.id);
       if (el) observer.observe(el);
     }
 
     return () => observer.disconnect();
-  }, [content, headings]);
+  }, [content]);
 
   if (headings.length === 0) return null;
 

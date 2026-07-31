@@ -18,7 +18,7 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-6xl flex-1 gap-12 px-4 py-12">
+    <main className="mx-auto flex w-full max-w-5xl flex-1 gap-12 px-4 py-12">
       <div className="min-w-0 flex-1">
         <Link
           href="/"
@@ -41,7 +41,7 @@ export default async function PostPage({ params }: PostPageProps) {
                   day: "numeric",
                 })}
               </time>
-              {post.updatedAt !== post.createdAt && (
+              {post.updatedAt !== post.createdAt ? (
                 <>
                   <span className="text-border">·</span>
                   <time dateTime={post.updatedAt}>
@@ -53,7 +53,7 @@ export default async function PostPage({ params }: PostPageProps) {
                     })}
                   </time>
                 </>
-              )}
+              ) : null}
             </div>
           </header>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import {useState,useEffect,useCallback} from "react";
 function formatDateTime(isoString: string): string {
   const d = new Date(isoString);
   const pad = (n: number) => n.toString().padStart(2, "0");
@@ -49,38 +49,46 @@ export function TaskDetailDrawer({
   users,
   onUpdated,
 }: TaskDetailDrawerProps) {
-  const [isEditing, setIsEditing] = React.useState(false);
-  const [title, setTitle] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [priority, setPriority] = React.useState(task?.priority ?? "P2");
-  const [assignee, setAssignee] = React.useState<string | null>(null);
-  const [columnId, setColumnId] = React.useState("");
-  const [dueDate, setDueDate] = React.useState("");
-  const [estimatedHours, setEstimatedHours] = React.useState("");
-  const [tags, setTags] = React.useState<string[]>([]);
-  const [subtasks, setSubtasks] = React.useState(task?.subtasks ?? []);
-  const [commentText, setCommentText] = React.useState("");
-  const [submitting, setSubmitting] = React.useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState(task?.priority ?? "P2");
+  const [assignee, setAssignee] = useState<string | null>(null);
+  const [columnId, setColumnId] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [estimatedHours, setEstimatedHours] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
+  const [subtasks, setSubtasks] = useState(task?.subtasks ?? []);
+  const [commentText, setCommentText] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  React.useEffect(() => {
+  // 保留上一个任务以支持关闭动画
+  const [lastTask, setLastTask] = useState<KanbanTask | null>(null);
+
+  useEffect(() => {
     if (task) {
-      setTitle(task.title);
-      setDescription(task.description);
-      setPriority(task.priority);
-      setAssignee(task.assignee);
-      setColumnId(task.columnId);
-      setDueDate(task.dueDate ?? "");
-      setEstimatedHours(task.estimatedHours?.toString() ?? "");
-      setTags(task.tags);
-      setSubtasks(task.subtasks);
-      setIsEditing(false);
+      queueMicrotask(() => {
+        setLastTask(task);
+        setTitle(task.title);
+        setDescription(task.description);
+        setPriority(task.priority);
+        setAssignee(task.assignee);
+        setColumnId(task.columnId);
+        setDueDate(task.dueDate ?? "");
+        setEstimatedHours(task.estimatedHours?.toString() ?? "");
+        setTags(task.tags);
+        setSubtasks(task.subtasks);
+        setIsEditing(false);
+      });
     }
   }, [task]);
+
+  const displayTask = task ?? lastTask;
 
   const assigneeUser = users.find((u) => u.id === (task?.assignee ?? assignee));
   const column = columns.find((c) => c.id === task?.columnId);
 
-  const handleSave = async () => {
+  const handleSave = useCallback(async () => {
     if (!task || !title.trim()) return;
     setSubmitting(true);
     try {
@@ -100,22 +108,22 @@ export function TaskDetailDrawer({
     } finally {
       setSubmitting(false);
     }
-  };
+  }, [task, title, description, priority, assignee, columnId, dueDate, estimatedHours, tags, subtasks, onUpdated]);
 
-  const handleAddComment = async () => {
+  const handleAddComment = useCallback(async () => {
     if (!task || !commentText.trim()) return;
     await addComment(task.id, "user-1", commentText.trim());
     setCommentText("");
     onUpdated();
-  };
+  }, [task, commentText, onUpdated]);
 
-  const toggleSubtask = (subtaskId: string) => {
+  const toggleSubtask = useCallback((subtaskId: string) => {
     setSubtasks((prev) =>
       prev.map((s) => (s.id === subtaskId ? { ...s, completed: !s.completed } : s))
     );
-  };
+  }, []);
 
-  if (!task) return null;
+  if (!displayTask) return null;
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -123,7 +131,7 @@ export function TaskDetailDrawer({
         <SheetHeader className="pb-4 border-b border-border">
           <div className="flex items-center justify-between">
             <SheetDescription className="text-xs font-mono text-muted-foreground">
-              {task.id.toUpperCase()}
+              {displayTask.id.toUpperCase()}
             </SheetDescription>
             <Button
               variant="outline"
@@ -141,7 +149,7 @@ export function TaskDetailDrawer({
               className="text-lg font-semibold mt-2"
             />
           ) : (
-            <SheetTitle className="mt-2">{task.title}</SheetTitle>
+            <SheetTitle className="mt-2">{displayTask.title}</SheetTitle>
           )}
         </SheetHeader>
 
@@ -163,8 +171,8 @@ export function TaskDetailDrawer({
                   <option value="P3">P3</option>
                 </select>
               ) : (
-                <Badge variant="priority" priority={task.priority} className="ml-auto">
-                  {task.priority}
+                <Badge variant="priority" priority={displayTask.priority} className="ml-auto">
+                  {displayTask.priority}
                 </Badge>
               )}
             </div>
@@ -208,8 +216,8 @@ export function TaskDetailDrawer({
                   onChange={(e) => setDueDate(e.target.value)}
                   className="ml-auto h-7 w-auto text-sm"
                 />
-              ) : task.dueDate ? (
-                <span className="ml-auto">{task.dueDate}</span>
+              ) : displayTask.dueDate ? (
+                <span className="ml-auto">{displayTask.dueDate}</span>
               ) : (
                 <span className="ml-auto text-muted-foreground">无</span>
               )}
@@ -225,8 +233,8 @@ export function TaskDetailDrawer({
                   onChange={(e) => setEstimatedHours(e.target.value)}
                   className="ml-auto h-7 w-20 text-sm"
                 />
-              ) : task.estimatedHours ? (
-                <span className="ml-auto">{task.estimatedHours}h</span>
+              ) : displayTask.estimatedHours ? (
+                <span className="ml-auto">{displayTask.estimatedHours}h</span>
               ) : (
                 <span className="ml-auto text-muted-foreground">无</span>
               )}
@@ -254,7 +262,7 @@ export function TaskDetailDrawer({
           </div>
 
           {/* 标签 */}
-          {tags.length > 0 && (
+          {tags.length > 0 ? (
             <div className="flex flex-wrap gap-2">
               {tags.map((tag) => (
                 <Badge key={tag} variant="secondary">
@@ -262,7 +270,7 @@ export function TaskDetailDrawer({
                 </Badge>
               ))}
             </div>
-          )}
+          ) : null}
 
           {/* 描述 */}
           <div>
@@ -275,13 +283,13 @@ export function TaskDetailDrawer({
               />
             ) : (
               <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-                {task.description || "暂无描述"}
+                {displayTask.description || "暂无描述"}
               </p>
             )}
           </div>
 
           {/* 子任务 */}
-          {subtasks.length > 0 && (
+          {subtasks.length > 0 ? (
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <CheckSquare className="h-4 w-4" />
@@ -311,7 +319,7 @@ export function TaskDetailDrawer({
                 ))}
               </div>
             </div>
-          )}
+          ) : null}
 
           {/* 评论 */}
           <div>
@@ -335,11 +343,11 @@ export function TaskDetailDrawer({
                 发送
               </Button>
             </div>
-            {task.comments.length === 0 ? (
+            {displayTask.comments.length === 0 ? (
               <p className="text-sm text-muted-foreground">暂无评论</p>
             ) : (
               <div className="space-y-3">
-                {task.comments.map((comment) => {
+                {displayTask.comments.map((comment) => {
                   const user = users.find((u) => u.id === comment.userId);
                   return (
                     <div key={comment.id} className="flex gap-2">
@@ -370,7 +378,7 @@ export function TaskDetailDrawer({
               <Label className="text-sm font-medium">活动日志</Label>
             </div>
             <div className="space-y-2">
-              {task.activities.map((activity) => {
+              {displayTask.activities.map((activity) => {
                 const user = users.find((u) => u.id === activity.userId);
                 return (
                   <div key={activity.id} className="flex items-center gap-2 text-sm">

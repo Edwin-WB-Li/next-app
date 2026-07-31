@@ -31,7 +31,7 @@ export default function PostEditor({
   const [slug, setSlug] = useState(initialSlug);
   const [summary, setSummary] = useState(initialSummary);
   const [content, setContent] = useState(initialContent);
-  const [published, setPublished] = useState(initialPublished);
+  const [published] = useState(initialPublished);
   const [previewMode, setPreviewMode] = useState<"edit" | "preview" | "split">(
     "split"
   );
@@ -91,11 +91,11 @@ export default function PostEditor({
 
   return (
     <div className="flex flex-col gap-6">
-      {error && (
+      {error ? (
         <div role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-900 dark:bg-red-900/20 dark:text-red-400">
           {error}
         </div>
-      )}
+      ) : null}
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
@@ -161,7 +161,7 @@ export default function PostEditor({
           previewMode === "split" ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1"
         }`}
       >
-        {(previewMode === "edit" || previewMode === "split") && (
+        {(previewMode === "edit" || previewMode === "split") ? (
           <div className="flex flex-col">
             <label htmlFor="post-content" className="mb-1.5 block text-sm font-medium">
               Markdown 内容
@@ -174,16 +174,16 @@ export default function PostEditor({
               className="min-h-[500px] font-mono leading-6 resize-y"
             />
           </div>
-        )}
+        ) : null}
 
-        {(previewMode === "preview" || previewMode === "split") && (
+        {(previewMode === "preview" || previewMode === "split") ? (
           <div className="flex flex-col">
             <span className="mb-1.5 block text-sm font-medium">预览</span>
             <div className="min-h-[500px] w-full overflow-auto rounded-lg border border-input bg-card px-4 py-3">
               <MarkdownRenderer content={content || "*预览区域*"} />
             </div>
           </div>
-        )}
+        ) : null}
       </div>
 
       <div className="flex items-center justify-end gap-3">

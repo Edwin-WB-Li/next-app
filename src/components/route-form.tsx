@@ -3,7 +3,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import type { Difficulty, RouteFormData } from "@/lib/hiking";
-import { PROVINCE_OPTIONS } from "@/lib/provinces";
 import ImageUploader from "./image-uploader";
 import MarkdownRenderer from "./markdown-renderer";
 

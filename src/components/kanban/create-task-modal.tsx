@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Dialog,
   DialogContent,
@@ -34,65 +34,70 @@ export function CreateTaskModal({
   defaultColumnId,
   onCreated,
 }: CreateTaskModalProps) {
-  const [title, setTitle] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [columnId, setColumnId] = React.useState(defaultColumnId || columns[0]?.id || "");
-  const [priority, setPriority] = React.useState<Priority>("P2");
-  const [assignee, setAssignee] = React.useState<string | null>(null);
-  const [dueDate, setDueDate] = React.useState("");
-  const [estimatedHours, setEstimatedHours] = React.useState("");
-  const [tagInput, setTagInput] = React.useState("");
-  const [tags, setTags] = React.useState<string[]>([]);
-  const [submitting, setSubmitting] = React.useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [columnId, setColumnId] = useState(defaultColumnId || columns[0]?.id || "");
+  const [priority, setPriority] = useState<Priority>("P2");
+  const [assignee, setAssignee] = useState<string | null>(null);
+  const [dueDate, setDueDate] = useState("");
+  const [estimatedHours, setEstimatedHours] = useState("");
+  const [tagInput, setTagInput] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
+  const [submitting, setSubmitting] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (open) {
-      setTitle("");
-      setDescription("");
-      setColumnId(defaultColumnId || columns[0]?.id || "");
-      setPriority("P2");
-      setAssignee(null);
-      setDueDate("");
-      setEstimatedHours("");
-      setTagInput("");
-      setTags([]);
+      queueMicrotask(() => {
+        setTitle("");
+        setDescription("");
+        setColumnId(defaultColumnId || columns[0]?.id || "");
+        setPriority("P2");
+        setAssignee(null);
+        setDueDate("");
+        setEstimatedHours("");
+        setTagInput("");
+        setTags([]);
+      });
     }
   }, [open, defaultColumnId, columns]);
 
-  const handleAddTag = () => {
+  const handleAddTag = useCallback(() => {
     const trimmed = tagInput.trim();
     if (trimmed && !tags.includes(trimmed)) {
-      setTags([...tags, trimmed]);
+      setTags((prev) => [...prev, trimmed]);
       setTagInput("");
     }
-  };
+  }, [tagInput, tags]);
 
-  const handleRemoveTag = (tag: string) => {
-    setTags(tags.filter((t) => t !== tag));
-  };
+  const handleRemoveTag = useCallback((tag: string) => {
+    setTags((prev) => prev.filter((t) => t !== tag));
+  }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!title.trim() || !columnId) return;
+  const handleSubmit = useCallback(
+    async (e: { preventDefault: () => void; }) => {
+      e.preventDefault();
+      if (!title.trim() || !columnId) return;
 
-    setSubmitting(true);
-    try {
-      await createTask({
-        title: title.trim(),
-        description: description.trim(),
-        columnId,
-        priority,
-        assignee: assignee || null,
-        tags,
-        dueDate: dueDate || null,
-        estimatedHours: estimatedHours ? Number(estimatedHours) : null,
-      });
-      onCreated();
-      onOpenChange(false);
-    } finally {
-      setSubmitting(false);
-    }
-  };
+      setSubmitting(true);
+      try {
+        await createTask({
+          title: title.trim(),
+          description: description.trim(),
+          columnId,
+          priority,
+          assignee: assignee || null,
+          tags,
+          dueDate: dueDate || null,
+          estimatedHours: estimatedHours ? Number(estimatedHours) : null,
+        });
+        onCreated();
+        onOpenChange(false);
+      } finally {
+        setSubmitting(false);
+      }
+    },
+    [title, description, columnId, priority, assignee, tags, dueDate, estimatedHours, onCreated, onOpenChange]
+  );
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

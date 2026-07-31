@@ -9,6 +9,8 @@ const navLinks = [
   { href: "/", label: "首页" },
   { href: "/hiking", label: "旅行足迹" },
   { href: "/kanban", label: "看板" },
+  { href: "/todos", label: "待办" },
+  { href: "/quiz", label: "答题" },
   { href: "/admin", label: "文章管理" },
 ];
 

@@ -31,7 +31,7 @@ export default async function HikingPage() {
   ]);
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+    <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* 页面标题 */}
       <div className="mb-8">
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">

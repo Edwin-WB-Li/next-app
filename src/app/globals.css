@@ -30,6 +30,11 @@
   --hiking-secondary-light: #f5f0e1;
   --hiking-muted: #f1f8f4;
   --hiking-border: #c8e6c9;
+
+  --success: #10b981;
+  --error: #f43f5e;
+  --warning: #f59e0b;
+  --info: #0ea5e9;
 }
 
 .dark {
@@ -61,6 +66,11 @@
   --hiking-secondary-light: #3d3210;
   --hiking-muted: #0f2918;
   --hiking-border: #2e5c35;
+
+  --success: #34d399;
+  --error: #fb7185;
+  --warning: #fbbf24;
+  --info: #38bdf8;
 }
 
 @theme inline {
@@ -89,6 +99,10 @@
   --radius-xl: calc(var(--radius) + 4px);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
 }
 
 body {
