@@ -227,48 +227,48 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
               {/* 添加列 */}
               <div className="w-[280px] shrink-0">
                 {isAddingColumn ? (
-                <div className="rounded-xl border border-border bg-muted/40 p-3">
-                  <Input
-                    value={newColumnName}
-                    onChange={(e) => setNewColumnName(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") handleAddColumn();
-                      if (e.key === "Escape") {
-                        setIsAddingColumn(false);
-                        setNewColumnName("");
-                      }
-                    }}
-                    placeholder="输入列名称"
-                    className="h-8 text-sm mb-2"
-                    autoFocus
-                  />
-                  <div className="flex gap-2">
-                    <Button size="sm" className="h-7 text-xs" onClick={handleAddColumn}>
-                      添加
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="h-7 text-xs"
-                      onClick={() => {
-                        setIsAddingColumn(false);
-                        setNewColumnName("");
+                  <div className="rounded-xl border border-border bg-muted/40 p-3">
+                    <Input
+                      value={newColumnName}
+                      onChange={(e) => setNewColumnName(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") handleAddColumn();
+                        if (e.key === "Escape") {
+                          setIsAddingColumn(false);
+                          setNewColumnName("");
+                        }
                       }}
-                    >
-                      取消
-                    </Button>
+                      placeholder="输入列名称"
+                      className="h-8 text-sm mb-2"
+                      autoFocus
+                    />
+                    <div className="flex gap-2">
+                      <Button size="sm" className="h-7 text-xs" onClick={handleAddColumn}>
+                        添加
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="h-7 text-xs"
+                        onClick={() => {
+                          setIsAddingColumn(false);
+                          setNewColumnName("");
+                        }}
+                      >
+                        取消
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <button
-                  onClick={() => setIsAddingColumn(true)}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-border/60 bg-muted/20 px-4 py-6 text-sm text-muted-foreground/60 transition-all hover:bg-muted/40 hover:text-muted-foreground hover:border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-1"
-                  aria-label="添加新列"
-                >
-                  <Plus className="h-4 w-4" />
-                  添加列
-                </button>
-              )}
+                ) : (
+                  <button
+                    onClick={() => setIsAddingColumn(true)}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-border/60 bg-muted/20 px-4 py-6 text-sm text-muted-foreground/60 transition-all hover:bg-muted/40 hover:text-muted-foreground hover:border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-1"
+                    aria-label="添加新列"
+                  >
+                    <Plus className="h-4 w-4" />
+                    添加列
+                  </button>
+                )}
               </div>
             </div>
           </div>

@@ -20,11 +20,7 @@ function isParent(node: Node): node is Parent {
   return "children" in node && Array.isArray((node as Parent).children);
 }
 
-function visitNodes(
-  node: Node,
-  type: string,
-  callback: (node: Node) => void
-): void {
+function visitNodes(node: Node, type: string, callback: (node: Node) => void): void {
   if (node.type === type) {
     callback(node);
   }

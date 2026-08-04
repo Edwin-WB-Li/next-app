@@ -35,8 +35,7 @@ export default function QuizCard({ id, title, description, questions }: QuizCard
 
   const typeCount = questions.reduce(
     (acc, q) => {
-      const label =
-        q.type === "single" ? "单选" : q.type === "multiple" ? "多选" : "判断";
+      const label = q.type === "single" ? "单选" : q.type === "multiple" ? "多选" : "判断";
       acc[label] = (acc[label] ?? 0) + 1;
       return acc;
     },

@@ -51,7 +51,6 @@ export function FilterBar({
   clearFilters,
   hasActiveFilters,
 }: FilterBarProps) {
-
   return (
     <div className="flex items-center gap-2">
       <div className="relative">

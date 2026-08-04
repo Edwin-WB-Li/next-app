@@ -96,10 +96,7 @@ export async function removeFromWrongBook(questionId: string): Promise<void> {
 }
 
 export async function getWrongQuestions(): Promise<Question[]> {
-  const [questions, records] = await Promise.all([
-    readQuestions(),
-    readRecords(),
-  ]);
+  const [questions, records] = await Promise.all([readQuestions(), readRecords()]);
 
   const wrongIdSet = new Set<string>();
   for (const record of records) {

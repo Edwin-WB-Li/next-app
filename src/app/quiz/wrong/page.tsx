@@ -29,9 +29,7 @@ export default async function WrongBookPage() {
             <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">
-          错题本
-        </h1>
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">错题本</h1>
         <span className="rounded border border-border bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
           {wrongQuestions.length} 题
         </span>
@@ -66,9 +64,7 @@ export default async function WrongBookPage() {
             <div key={question.id} className="border border-border bg-card">
               <div className="flex items-center justify-between border-b border-border px-5 py-3">
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-foreground">
-                    {index + 1}.
-                  </span>
+                  <span className="text-sm font-medium text-foreground">{index + 1}.</span>
                   <span className="rounded border border-border px-1.5 py-0.5 text-[11px] text-muted-foreground">
                     {question.type === "single"
                       ? "单选"
@@ -77,10 +73,12 @@ export default async function WrongBookPage() {
                         : "判断"}
                   </span>
                 </div>
-                <form action={async () => {
-                  "use server";
-                  await removeFromWrongBook(question.id);
-                }}>
+                <form
+                  action={async () => {
+                    "use server";
+                    await removeFromWrongBook(question.id);
+                  }}
+                >
                   <button
                     type="submit"
                     className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors hover:text-success dark:hover:text-success focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
@@ -104,17 +102,11 @@ export default async function WrongBookPage() {
               </div>
 
               <div className="px-5 py-4">
-                <p className="text-sm font-medium text-foreground">
-                  {question.content}
-                </p>
+                <p className="text-sm font-medium text-foreground">{question.content}</p>
               </div>
 
               <div className="px-5 pb-4">
-                <OptionList
-                  question={question}
-                  selected={question.correctAnswers}
-                  review
-                />
+                <OptionList question={question} selected={question.correctAnswers} review />
               </div>
 
               <div className="border-t border-border bg-muted/30 px-5 py-3">

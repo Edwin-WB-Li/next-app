@@ -29,9 +29,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
         <article>
           <header className="mb-8">
-            <h1 className="mb-3 text-3xl font-bold tracking-tight sm:text-4xl">
-              {post.title}
-            </h1>
+            <h1 className="mb-3 text-3xl font-bold tracking-tight sm:text-4xl">{post.title}</h1>
             <div className="flex items-center gap-3 text-sm text-foreground/50">
               <time dateTime={post.createdAt}>
                 发布于{" "}

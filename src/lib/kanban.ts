@@ -25,7 +25,10 @@ const fileLocks = new Map<string, Promise<unknown>>();
 async function withLock<T>(key: string, fn: () => Promise<T>): Promise<T> {
   const prev = fileLocks.get(key);
   const release = Promise.resolve(prev).then(() => fn());
-  fileLocks.set(key, release.then(() => {}).catch(() => {}));
+  fileLocks.set(
+    key,
+    release.then(() => {}).catch(() => {})
+  );
   return release;
 }
 
@@ -38,10 +41,22 @@ const DEFAULT_BOARD: KanbanBoardData = {
     { id: "col-5", name: "已完成", order: 4, wipLimit: null, color: null },
   ],
   users: [
-    { id: "user-1", name: "张三", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=zhangsan" },
+    {
+      id: "user-1",
+      name: "张三",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=zhangsan",
+    },
     { id: "user-2", name: "李四", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=lisi" },
-    { id: "user-3", name: "王五", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=wangwu" },
-    { id: "user-4", name: "赵六", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=zhaoliu" },
+    {
+      id: "user-3",
+      name: "王五",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=wangwu",
+    },
+    {
+      id: "user-4",
+      name: "赵六",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=zhaoliu",
+    },
   ],
 };
 
@@ -66,7 +81,12 @@ const DEFAULT_TASKS: KanbanTask[] = [
     comments: [],
     activities: [
       { id: "act-1", userId: "user-1", action: "创建任务", createdAt: "2026-07-10T08:00:00.000Z" },
-      { id: "act-2", userId: "user-1", action: "移动至 已完成", createdAt: "2026-07-15T10:30:00.000Z" },
+      {
+        id: "act-2",
+        userId: "user-1",
+        action: "移动至 已完成",
+        createdAt: "2026-07-15T10:30:00.000Z",
+      },
     ],
   },
   {
@@ -107,7 +127,12 @@ const DEFAULT_TASKS: KanbanTask[] = [
     comments: [],
     activities: [
       { id: "act-4", userId: "user-3", action: "创建任务", createdAt: "2026-07-13T10:00:00.000Z" },
-      { id: "act-5", userId: "user-3", action: "移动至 代码审查", createdAt: "2026-07-16T11:00:00.000Z" },
+      {
+        id: "act-5",
+        userId: "user-3",
+        action: "移动至 代码审查",
+        createdAt: "2026-07-16T11:00:00.000Z",
+      },
     ],
   },
   {
@@ -147,7 +172,12 @@ const DEFAULT_TASKS: KanbanTask[] = [
     comments: [],
     activities: [
       { id: "act-7", userId: "user-1", action: "创建任务", createdAt: "2026-07-15T08:30:00.000Z" },
-      { id: "act-8", userId: "user-1", action: "移动至 测试", createdAt: "2026-07-17T09:00:00.000Z" },
+      {
+        id: "act-8",
+        userId: "user-1",
+        action: "移动至 测试",
+        createdAt: "2026-07-17T09:00:00.000Z",
+      },
     ],
   },
 ];
@@ -218,9 +248,7 @@ export async function createTask(data: CreateTaskInput): Promise<KanbanTask> {
     updatedAt: now,
     subtasks: [],
     comments: [],
-    activities: [
-      { id: `act-${Date.now()}`, userId: "user-1", action: "创建任务", createdAt: now },
-    ],
+    activities: [{ id: `act-${Date.now()}`, userId: "user-1", action: "创建任务", createdAt: now }],
   };
   tasks.push(newTask);
   await writeTasksSafe(tasks);
@@ -263,7 +291,11 @@ export async function updateTask(id: string, data: UpdateTaskInput): Promise<Kan
   return tasks[index];
 }
 
-export async function moveTask(taskId: string, targetColumnId: string, sourceColumnId: string): Promise<KanbanTask> {
+export async function moveTask(
+  taskId: string,
+  targetColumnId: string,
+  sourceColumnId: string
+): Promise<KanbanTask> {
   const tasks = await readTasks();
   const index = tasks.findIndex((t) => t.id === taskId);
   if (index === -1) throw new Error("任务不存在");

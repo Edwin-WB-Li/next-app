@@ -29,9 +29,7 @@ export default async function QuizPage() {
             <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">
-          答题练习
-        </h1>
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">答题练习</h1>
       </div>
 
       {questions.length === 0 ? (

@@ -10,10 +10,7 @@ export const metadata = {
 };
 
 export default async function HikingPage() {
-  const [stats, hikingData] = await Promise.all([
-    getHikingStats(),
-    getHikingData(),
-  ]);
+  const [stats, hikingData] = await Promise.all([getHikingStats(), getHikingData()]);
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
@@ -24,16 +21,24 @@ export default async function HikingPage() {
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               徒步足迹
             </h1>
-            <p className="mt-2 text-muted-foreground">
-              用双脚丈量山河，记录每一次出发与抵达
-            </p>
+            <p className="mt-2 text-muted-foreground">用双脚丈量山河，记录每一次出发与抵达</p>
           </div>
           <Link
             href="/hiking/admin"
             className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
           >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"
+              />
             </svg>
             管理行程
           </Link>
@@ -48,9 +53,7 @@ export default async function HikingPage() {
       {/* 交互地图 */}
       <section className="mb-8">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-foreground">
-            全国徒步地图
-          </h2>
+          <h2 className="text-lg font-semibold text-foreground">全国徒步地图</h2>
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-1.5">
               <span className="inline-block h-3 w-3 rounded-sm bg-[var(--hiking-primary)]" />
@@ -67,9 +70,7 @@ export default async function HikingPage() {
 
       {/* 已打卡省份列表 */}
       <section>
-        <h2 className="mb-4 text-lg font-semibold text-foreground">
-          已打卡省份
-        </h2>
+        <h2 className="mb-4 text-lg font-semibold text-foreground">已打卡省份</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {hikingData.provinces.map((province) => (
             <a

@@ -65,9 +65,7 @@ function HeroSection() {
         <p className="text-sm italic leading-relaxed text-muted-foreground">
           &ldquo;路漫漫其修远兮，吾将上下而求索&rdquo;
         </p>
-        <p className="mt-1 text-xs text-muted-foreground/50">
-          ——《离骚》战国·屈原
-        </p>
+        <p className="mt-1 text-xs text-muted-foreground/50">——《离骚》战国·屈原</p>
       </blockquote>
     </section>
   );

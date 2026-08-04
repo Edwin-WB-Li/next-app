@@ -28,8 +28,7 @@ function SheetOverlay({
   );
 }
 
-interface SheetContentProps
-  extends ComponentProps<typeof DialogPrimitive.Content> {
+interface SheetContentProps extends ComponentProps<typeof DialogPrimitive.Content> {
   side?: "left" | "right" | "top" | "bottom";
 }
 
@@ -42,9 +41,11 @@ function SheetContent({
 }: SheetContentProps) {
   const sideStyles: Record<string, string> = {
     left: "inset-y-0 left-0 h-full w-3/4 sm:max-w-sm data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left",
-    right: "inset-y-0 right-0 h-full w-full sm:max-w-lg data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right",
+    right:
+      "inset-y-0 right-0 h-full w-full sm:max-w-lg data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right",
     top: "inset-x-0 top-0 h-auto data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top",
-    bottom: "inset-x-0 bottom-0 h-auto data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
+    bottom:
+      "inset-x-0 bottom-0 h-auto data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
   };
 
   return (
@@ -71,19 +72,11 @@ function SheetContent({
   );
 }
 
-function SheetHeader({
-  className = "",
-  ...props
-}: HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div className={`flex flex-col space-y-2 ${className}`} {...props} />
-  );
+function SheetHeader({ className = "", ...props }: HTMLAttributes<HTMLDivElement>) {
+  return <div className={`flex flex-col space-y-2 ${className}`} {...props} />;
 }
 
-function SheetFooter({
-  className = "",
-  ...props
-}: HTMLAttributes<HTMLDivElement>) {
+function SheetFooter({ className = "", ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={`flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 ${className}`}

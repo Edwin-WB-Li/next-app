@@ -13,9 +13,7 @@
           "maxAltitude": 557,
           "difficulty": "休闲",
           "season": "秋季",
-          "tags": [
-            "山野"
-          ],
+          "tags": ["山野"],
           "photos": [
             "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
             "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop",
@@ -38,10 +36,7 @@
           "maxAltitude": 5025,
           "difficulty": "硬核",
           "season": "夏季",
-          "tags": [
-            "雪山",
-            "高海拔"
-          ],
+          "tags": ["雪山", "高海拔"],
           "photos": [
             "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&h=600&fit=crop",
             "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=800&h=600&fit=crop",
@@ -59,10 +54,7 @@
           "maxAltitude": 4700,
           "difficulty": "进阶",
           "season": "秋季",
-          "tags": [
-            "高原",
-            "雪山"
-          ],
+          "tags": ["高原", "雪山"],
           "photos": [
             "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&h=600&fit=crop",
             "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&h=600&fit=crop",
@@ -85,10 +77,7 @@
           "maxAltitude": 3657,
           "difficulty": "进阶",
           "season": "春季",
-          "tags": [
-            "古道",
-            "雪山"
-          ],
+          "tags": ["古道", "雪山"],
           "photos": [
             "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&h=600&fit=crop",
             "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=800&h=600&fit=crop",

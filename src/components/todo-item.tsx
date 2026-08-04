@@ -13,12 +13,7 @@ interface TodoItemProps {
   onDelete: (id: string) => void;
 }
 
-export default function TodoItem({
-  todo,
-  onToggle,
-  onUpdateTitle,
-  onDelete,
-}: TodoItemProps) {
+export default function TodoItem({ todo, onToggle, onUpdateTitle, onDelete }: TodoItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(todo.title);
   const [isPending, startTransition] = useTransition();
@@ -70,8 +65,7 @@ export default function TodoItem({
   const isOverdue =
     todo.dueDate &&
     !todo.completed &&
-    new Date(todo.dueDate).getTime() <
-      new Date(new Date().setHours(0, 0, 0, 0)).getTime();
+    new Date(todo.dueDate).getTime() < new Date(new Date().setHours(0, 0, 0, 0)).getTime();
 
   return (
     <div
@@ -80,11 +74,7 @@ export default function TodoItem({
       }`}
       style={{
         borderLeftColor:
-          todo.priority === "high"
-            ? "#f87171"
-            : todo.priority === "medium"
-            ? "#fbbf24"
-            : "#7dd3fc",
+          todo.priority === "high" ? "#f87171" : todo.priority === "medium" ? "#fbbf24" : "#7dd3fc",
       }}
     >
       <div className="min-w-0 flex-1">
@@ -108,9 +98,7 @@ export default function TodoItem({
             onClick={() => setIsEditing(true)}
             disabled={todo.completed || isPending}
             className={`block w-full text-left text-sm leading-relaxed focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
-              todo.completed
-                ? "text-muted-foreground line-through"
-                : "text-foreground"
+              todo.completed ? "text-muted-foreground line-through" : "text-foreground"
             } ${todo.completed ? "" : "cursor-text"}`}
             aria-label={todo.completed ? undefined : "点击编辑"}
           >
@@ -127,8 +115,8 @@ export default function TodoItem({
                   todo.priority === "high"
                     ? "#f87171"
                     : todo.priority === "medium"
-                    ? "#fbbf24"
-                    : "#7dd3fc",
+                      ? "#fbbf24"
+                      : "#7dd3fc",
               }}
               aria-hidden="true"
             />

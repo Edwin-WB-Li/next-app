@@ -1,7 +1,12 @@
 "use client";
 
 import type { HikingData } from "@/lib/hiking";
-import type { ECharts, EChartsOption, ECElementEvent, DefaultLabelFormatterCallbackParams } from "echarts";
+import type {
+  ECharts,
+  EChartsOption,
+  ECElementEvent,
+  DefaultLabelFormatterCallbackParams,
+} from "echarts";
 import { useEffect, useRef, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useTopLoader } from "nextjs-toploader";
@@ -45,8 +50,7 @@ interface ChinaMapProps {
   hikingData: HikingData;
 }
 
-const CHINA_GEOJSON_URL =
-  "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json";
+const CHINA_GEOJSON_URL = "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json";
 
 export default function ChinaMap({ hikingData }: ChinaMapProps) {
   const router = useRouter();
@@ -111,23 +115,20 @@ export default function ChinaMap({ hikingData }: ChinaMapProps) {
               value: routeCount,
               code,
               itemStyle: {
-                areaColor:
-                  routeCount > 0 ? hikingPrimary : "#d1d5db",
+                areaColor: routeCount > 0 ? hikingPrimary : "#d1d5db",
                 borderColor: "#ffffff",
                 borderWidth: 1,
               },
               emphasis: {
                 itemStyle: {
-                  areaColor:
-                    routeCount > 0 ? hikingSecondary : "#d1d5db",
+                  areaColor: routeCount > 0 ? hikingSecondary : "#d1d5db",
                   shadowBlur: 10,
                   shadowColor: "rgba(0, 0, 0, 0.2)",
                 },
               },
               select: {
                 itemStyle: {
-                  areaColor:
-                    routeCount > 0 ? hikingSecondary : "#d1d5db",
+                  areaColor: routeCount > 0 ? hikingSecondary : "#d1d5db",
                 },
               },
             };
@@ -224,9 +225,7 @@ export default function ChinaMap({ hikingData }: ChinaMapProps) {
       <div className="flex h-[400px] items-center justify-center rounded-xl border border-border bg-muted">
         <div className="text-center">
           <p className="text-muted-foreground">{error}</p>
-          <p className="mt-1 text-xs text-muted-foreground">
-            请检查网络连接后刷新页面
-          </p>
+          <p className="mt-1 text-xs text-muted-foreground">请检查网络连接后刷新页面</p>
         </div>
       </div>
     );

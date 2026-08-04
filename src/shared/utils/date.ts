@@ -19,9 +19,7 @@ export function formatDueDate(dateStr: string | null): string {
   today.setHours(0, 0, 0, 0);
   const due = new Date(d.getTime());
   due.setHours(0, 0, 0, 0);
-  const diffDays = Math.round(
-    (due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-  );
+  const diffDays = Math.round((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 
   if (diffDays === 0) return "今天";
   if (diffDays === 1) return "明天";

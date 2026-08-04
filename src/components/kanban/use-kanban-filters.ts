@@ -45,10 +45,7 @@ export function useKanbanFilters(allTasks: KanbanTask[]) {
     return Array.from(tagSet);
   }, [allTasks]);
 
-  const filteredTasks = useMemo(
-    () => filterTasks(allTasks, filters),
-    [allTasks, filters]
-  );
+  const filteredTasks = useMemo(() => filterTasks(allTasks, filters), [allTasks, filters]);
 
   const toggleAssignee = useCallback((userId: string) => {
     setFilters((prev) => {
@@ -86,9 +83,7 @@ export function useKanbanFilters(allTasks: KanbanTask[]) {
   }, []);
 
   const hasActiveFilters =
-    filters.assignees.length > 0 ||
-    filters.priorities.length > 0 ||
-    filters.tags.length > 0;
+    filters.assignees.length > 0 || filters.priorities.length > 0 || filters.tags.length > 0;
 
   return {
     filters,

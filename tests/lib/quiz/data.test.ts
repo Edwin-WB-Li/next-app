@@ -17,12 +17,7 @@ vi.mock("fs/promises", async () => {
 });
 
 import fs from "fs/promises";
-import {
-  getQuestions,
-  getRecords,
-  saveRecord,
-  getWrongQuestions,
-} from "@/lib/quiz/data";
+import { getQuestions, getRecords, saveRecord, getWrongQuestions } from "@/lib/quiz/data";
 import { Question, QuizRecord } from "@/lib/quiz/types";
 
 const mockReadFile = fs.readFile as ReturnType<typeof vi.fn>;

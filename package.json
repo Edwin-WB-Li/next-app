@@ -8,7 +8,14 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest",
+    "test:coverage": "vitest run --coverage",
     "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,mjs,css,json,md}": [
+      "prettier --write",
+      "eslint --fix --no-warn-ignored"
+    ]
   },
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
@@ -32,12 +39,6 @@
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0"
   },
-  "lint-staged": {
-    "*.{ts,tsx,js,jsx,mjs,css,json,md}": [
-      "prettier --write",
-      "eslint --fix --no-warn-ignored"
-    ]
-  },
   "devDependencies": {
     "@commitlint/cli": "^21.2.1",
     "@commitlint/config-conventional": "^21.2.0",
@@ -52,6 +53,7 @@
     "@types/react-dom": "^19",
     "@types/react-syntax-highlighter": "^15.5.13",
     "@vitejs/plugin-react": "^6.0.4",
+    "@vitest/coverage-v8": "^4.1.10",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "eslint-config-prettier": "^10.1.8",
@@ -62,6 +64,7 @@
     "prettier": "^3.9.6",
     "tailwindcss": "^4",
     "typescript": "^5",
+    "vite": "^8.1.5",
     "vitest": "^4.1.10"
   }
 }

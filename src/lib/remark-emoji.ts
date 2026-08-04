@@ -23,12 +23,9 @@ function visitTextNodes(node: Node, callback: (node: Text) => void): void {
 export function remarkEmoji() {
   return (tree: Node) => {
     visitTextNodes(tree, (node) => {
-      node.value = node.value.replace(
-        /:(\w+):/g,
-        (match: string, name: string) => {
-          return nameToEmoji[name] ?? match;
-        }
-      );
+      node.value = node.value.replace(/:(\w+):/g, (match: string, name: string) => {
+        return nameToEmoji[name] ?? match;
+      });
     });
   };
 }

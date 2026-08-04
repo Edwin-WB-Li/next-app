@@ -34,9 +34,7 @@ function getSection(todo: Todo): SectionKey {
   today.setHours(0, 0, 0, 0);
   const due = new Date(todo.dueDate);
   due.setHours(0, 0, 0, 0);
-  const diff = Math.round(
-    (due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-  );
+  const diff = Math.round((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
   if (diff < 0) return "overdue";
   if (diff === 0) return "today";
   if (diff <= 7) return "upcoming";
@@ -70,12 +68,9 @@ export default function TodoListClient({ initialTodos }: TodoListClientProps) {
         | { type: "remove"; id: string }
     ) => {
       if (action.type === "add") return sortTodos([...state, action.todo]);
-      if (action.type === "remove")
-        return state.filter((t) => t.id !== action.id);
+      if (action.type === "remove") return state.filter((t) => t.id !== action.id);
       if (action.type === "update") {
-        return sortTodos(
-          state.map((t) => (t.id === action.todo.id ? action.todo : t))
-        );
+        return sortTodos(state.map((t) => (t.id === action.todo.id ? action.todo : t)));
       }
       return state;
     }
@@ -112,9 +107,7 @@ export default function TodoListClient({ initialTodos }: TodoListClientProps) {
 
       const { createTodo } = await import("@/lib/todos");
       const newTodo = await createTodo(title, priority, dueDate);
-      setTodos((prev) =>
-        sortTodos([...prev.filter((t) => t.id !== tempTodo.id), newTodo])
-      );
+      setTodos((prev) => sortTodos([...prev.filter((t) => t.id !== tempTodo.id), newTodo]));
     },
     [addOptimisticTodo]
   );
@@ -134,9 +127,7 @@ export default function TodoListClient({ initialTodos }: TodoListClientProps) {
       const { toggleTodo } = await import("@/lib/todos");
       const result = await toggleTodo(id);
       if (result) {
-        setTodos((prev) =>
-          sortTodos(prev.map((t) => (t.id === id ? result : t)))
-        );
+        setTodos((prev) => sortTodos(prev.map((t) => (t.id === id ? result : t))));
       }
     },
     [optimisticTodos, addOptimisticTodo]
@@ -153,9 +144,7 @@ export default function TodoListClient({ initialTodos }: TodoListClientProps) {
       const { updateTodoTitle } = await import("@/lib/todos");
       const result = await updateTodoTitle(id, title);
       if (result) {
-        setTodos((prev) =>
-          sortTodos(prev.map((t) => (t.id === id ? result : t)))
-        );
+        setTodos((prev) => sortTodos(prev.map((t) => (t.id === id ? result : t))));
       }
     },
     [optimisticTodos, addOptimisticTodo]
@@ -198,12 +187,8 @@ export default function TodoListClient({ initialTodos }: TodoListClientProps) {
           <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-muted">
             <IconCheck className="h-7 w-7 text-muted-foreground" />
           </div>
-          <h3 className="text-base font-semibold text-foreground">
-            还没有待办事项
-          </h3>
-          <p className="mt-1 text-sm text-muted-foreground">
-            在上方添加一个，开始规划你的每一天
-          </p>
+          <h3 className="text-base font-semibold text-foreground">还没有待办事项</h3>
+          <p className="mt-1 text-sm text-muted-foreground">在上方添加一个，开始规划你的每一天</p>
         </div>
       ) : (
         <div className="flex flex-col gap-6">
@@ -212,12 +197,8 @@ export default function TodoListClient({ initialTodos }: TodoListClientProps) {
               <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-green-50 dark:bg-green-900/20">
                 <IconCheck className="h-6 w-6 text-green-500" />
               </div>
-              <p className="text-sm font-medium text-foreground">
-                全部完成！
-              </p>
-              <p className="mt-0.5 text-xs text-muted-foreground">
-                享受你的自由时间
-              </p>
+              <p className="text-sm font-medium text-foreground">全部完成！</p>
+              <p className="mt-0.5 text-xs text-muted-foreground">享受你的自由时间</p>
             </div>
           ) : null}
 
@@ -260,13 +241,13 @@ export default function TodoListClient({ initialTodos }: TodoListClientProps) {
               >
                 <span className="flex items-center gap-2">
                   <IconCheck className="h-4 w-4 text-green-500" />
-                  {showCompleted
-                    ? "隐藏已完成"
-                    : `显示 ${completedCount} 项已完成`}
+                  {showCompleted ? "隐藏已完成" : `显示 ${completedCount} 项已完成`}
                 </span>
-                <IconChevronDown className={`h-4 w-4 motion-safe:transition-transform motion-safe:duration-200 ${
-                  showCompleted ? "rotate-180" : ""
-                }`} />
+                <IconChevronDown
+                  className={`h-4 w-4 motion-safe:transition-transform motion-safe:duration-200 ${
+                    showCompleted ? "rotate-180" : ""
+                  }`}
+                />
               </button>
 
               {showCompleted ? (

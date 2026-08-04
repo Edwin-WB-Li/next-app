@@ -31,17 +31,11 @@ interface RouteFormProps {
 
 const difficultyOptions: Difficulty[] = ["休闲", "进阶", "硬核"];
 
-export default function RouteForm({
-  provinces,
-  initialData,
-  onSubmit,
-}: RouteFormProps) {
+export default function RouteForm({ provinces, initialData, onSubmit }: RouteFormProps) {
   const router = useRouter();
   const isEdit = !!initialData;
 
-  const [provinceCode, setProvinceCode] = useState(
-    initialData?.provinceCode || ""
-  );
+  const [provinceCode, setProvinceCode] = useState(initialData?.provinceCode || "");
   const [isNewProvince, setIsNewProvince] = useState(false);
   const [newProvinceName, setNewProvinceName] = useState("");
   const [newProvinceCode, setNewProvinceCode] = useState("");
@@ -51,17 +45,11 @@ export default function RouteForm({
   const [days, setDays] = useState(initialData?.days ?? 1);
   const [distance, setDistance] = useState(initialData?.distance ?? 0);
   const [maxAltitude, setMaxAltitude] = useState(initialData?.maxAltitude ?? 0);
-  const [difficulty, setDifficulty] = useState<Difficulty>(
-    initialData?.difficulty || "休闲"
-  );
+  const [difficulty, setDifficulty] = useState<Difficulty>(initialData?.difficulty || "休闲");
   const [season, setSeason] = useState(initialData?.season || "");
-  const [tagsInput, setTagsInput] = useState(
-    initialData?.tags?.join(", ") || ""
-  );
+  const [tagsInput, setTagsInput] = useState(initialData?.tags?.join(", ") || "");
   const [photos, setPhotos] = useState<string[]>(initialData?.photos || []);
-  const [notesContent, setNotesContent] = useState(
-    initialData?.notesContent || ""
-  );
+  const [notesContent, setNotesContent] = useState(initialData?.notesContent || "");
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -76,21 +64,18 @@ export default function RouteForm({
     return () => document.removeEventListener("keydown", handleKey);
   }, [showPreview]);
 
-  const handleProvinceChange = useCallback(
-    (value: string) => {
-      if (value === "__new__") {
-        setIsNewProvince(true);
-        setProvinceCode("");
-      } else {
-        setIsNewProvince(false);
-        setProvinceCode(value);
-      }
-    },
-    []
-  );
+  const handleProvinceChange = useCallback((value: string) => {
+    if (value === "__new__") {
+      setIsNewProvince(true);
+      setProvinceCode("");
+    } else {
+      setIsNewProvince(false);
+      setProvinceCode(value);
+    }
+  }, []);
 
   const handleSubmit = useCallback(
-    async (e: { preventDefault: () => void; }) => {
+    async (e: { preventDefault: () => void }) => {
       e.preventDefault();
       setError(null);
 
@@ -138,9 +123,7 @@ export default function RouteForm({
       try {
         const result = await onSubmit({
           provinceCode: isNewProvince ? newProvinceCode.trim() : provinceCode,
-          newProvinceName: isNewProvince
-            ? newProvinceName.trim()
-            : undefined,
+          newProvinceName: isNewProvince ? newProvinceName.trim() : undefined,
           routeData,
         });
 
@@ -178,7 +161,10 @@ export default function RouteForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {error && (
-        <div role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-400">
+        <div
+          role="alert"
+          className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-400"
+        >
           {error}
         </div>
       )}
@@ -262,9 +248,7 @@ export default function RouteForm({
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-foreground">
-            往返天数
-          </label>
+          <label className="mb-1.5 block text-sm font-medium text-foreground">往返天数</label>
           <input
             type="number"
             min={1}
@@ -274,9 +258,7 @@ export default function RouteForm({
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-foreground">
-            全程距离 (km)
-          </label>
+          <label className="mb-1.5 block text-sm font-medium text-foreground">全程距离 (km)</label>
           <input
             type="number"
             min={0}
@@ -287,9 +269,7 @@ export default function RouteForm({
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-foreground">
-            最高海拔 (m)
-          </label>
+          <label className="mb-1.5 block text-sm font-medium text-foreground">最高海拔 (m)</label>
           <input
             type="number"
             min={0}
@@ -303,9 +283,7 @@ export default function RouteForm({
       {/* 难度和季节 */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-2 block text-sm font-medium text-foreground">
-            路线难度
-          </label>
+          <label className="mb-2 block text-sm font-medium text-foreground">路线难度</label>
           <div className="flex gap-2">
             {difficultyOptions.map((d) => (
               <button
@@ -324,9 +302,7 @@ export default function RouteForm({
           </div>
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-foreground">
-            出行季节
-          </label>
+          <label className="mb-1.5 block text-sm font-medium text-foreground">出行季节</label>
           <input
             type="text"
             value={season}
@@ -339,9 +315,7 @@ export default function RouteForm({
 
       {/* 标签 */}
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-foreground">
-          标签
-        </label>
+        <label className="mb-1.5 block text-sm font-medium text-foreground">标签</label>
         <input
           type="text"
           value={tagsInput}
@@ -369,18 +343,14 @@ export default function RouteForm({
 
       {/* 图片 */}
       <div>
-        <label className="mb-2 block text-sm font-medium text-foreground">
-          路线图片
-        </label>
+        <label className="mb-2 block text-sm font-medium text-foreground">路线图片</label>
         <ImageUploader photos={photos} onChange={setPhotos} />
       </div>
 
       {/* 随笔 */}
       <div>
         <div className="mb-1.5 flex items-center justify-between">
-          <label className="block text-sm font-medium text-foreground">
-            徒步随笔
-          </label>
+          <label className="block text-sm font-medium text-foreground">徒步随笔</label>
           <button
             type="button"
             onClick={() => setShowPreview(true)}
@@ -414,15 +384,19 @@ export default function RouteForm({
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-foreground">
-                内容预览
-              </h3>
+              <h3 className="text-lg font-semibold text-foreground">内容预览</h3>
               <button
                 type="button"
                 onClick={() => setShowPreview(false)}
                 className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               >
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -441,11 +415,7 @@ export default function RouteForm({
           disabled={submitting}
           className="rounded-md bg-[var(--hiking-primary)] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:opacity-90 disabled:opacity-50"
         >
-          {submitting
-            ? "保存中..."
-            : isEdit
-            ? "保存修改"
-            : "创建路线"}
+          {submitting ? "保存中..." : isEdit ? "保存修改" : "创建路线"}
         </button>
         <button
           type="button"

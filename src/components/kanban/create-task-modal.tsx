@@ -74,7 +74,7 @@ export function CreateTaskModal({
   }, []);
 
   const handleSubmit = useCallback(
-    async (e: { preventDefault: () => void; }) => {
+    async (e: { preventDefault: () => void }) => {
       e.preventDefault();
       if (!title.trim() || !columnId) return;
 
@@ -96,7 +96,18 @@ export function CreateTaskModal({
         setSubmitting(false);
       }
     },
-    [title, description, columnId, priority, assignee, tags, dueDate, estimatedHours, onCreated, onOpenChange]
+    [
+      title,
+      description,
+      columnId,
+      priority,
+      assignee,
+      tags,
+      dueDate,
+      estimatedHours,
+      onCreated,
+      onOpenChange,
+    ]
   );
 
   return (
@@ -230,7 +241,10 @@ export function CreateTaskModal({
                   {tags.map((tag) => (
                     <Badge key={tag} variant="secondary" className="cursor-pointer gap-1">
                       {tag}
-                      <span onClick={() => handleRemoveTag(tag)} className="ml-1 hover:text-destructive">
+                      <span
+                        onClick={() => handleRemoveTag(tag)}
+                        className="ml-1 hover:text-destructive"
+                      >
                         ×
                       </span>
                     </Badge>

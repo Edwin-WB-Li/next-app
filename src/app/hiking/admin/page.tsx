@@ -14,12 +14,8 @@ export default async function AdminPage() {
       {/* 头部 */}
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
-            行程管理
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            共 {routes.length} 条徒步路线
-          </p>
+          <h1 className="text-2xl font-bold tracking-tight text-foreground">行程管理</h1>
+          <p className="mt-1 text-sm text-muted-foreground">共 {routes.length} 条徒步路线</p>
         </div>
         <div className="flex items-center gap-3">
           <Link
@@ -53,9 +49,7 @@ export default async function AdminPage() {
           <table className="w-full text-sm">
             <thead className="bg-muted">
               <tr>
-                <th className="px-4 py-3 text-left font-medium text-foreground">
-                  路线名称
-                </th>
+                <th className="px-4 py-3 text-left font-medium text-foreground">路线名称</th>
                 <th className="hidden px-4 py-3 text-left font-medium text-foreground sm:table-cell">
                   省份
                 </th>
@@ -68,17 +62,12 @@ export default async function AdminPage() {
                 <th className="hidden px-4 py-3 text-left font-medium text-foreground lg:table-cell">
                   距离
                 </th>
-                <th className="px-4 py-3 text-right font-medium text-foreground">
-                  操作
-                </th>
+                <th className="px-4 py-3 text-right font-medium text-foreground">操作</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
               {routes.map((route) => (
-                <tr
-                  key={route.id}
-                  className="transition-colors hover:bg-muted/50"
-                >
+                <tr key={route.id} className="transition-colors hover:bg-muted/50">
                   <td className="px-4 py-3">
                     <Link
                       href={`/hiking/${route.provinceCode}#${route.id}`}
@@ -99,8 +88,8 @@ export default async function AdminPage() {
                         route.difficulty === "休闲"
                           ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400"
                           : route.difficulty === "进阶"
-                          ? "bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400"
-                          : "bg-red-50 text-red-700 dark:bg-red-950/30 dark:text-red-400"
+                            ? "bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400"
+                            : "bg-red-50 text-red-700 dark:bg-red-950/30 dark:text-red-400"
                       }`}
                     >
                       {route.difficulty}
@@ -117,10 +106,7 @@ export default async function AdminPage() {
                       >
                         编辑
                       </Link>
-                      <DeleteRouteButton
-                        routeId={route.id}
-                        routeName={route.name}
-                      />
+                      <DeleteRouteButton routeId={route.id} routeName={route.name} />
                     </div>
                   </td>
                 </tr>

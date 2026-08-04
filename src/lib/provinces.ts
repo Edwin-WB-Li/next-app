@@ -36,6 +36,7 @@ export const PROVINCE_CODE_MAP: Record<string, string> = {
   澳门特别行政区: "820000",
 };
 
-export const PROVINCE_OPTIONS = Object.entries(PROVINCE_CODE_MAP).map(
-  ([name, code]) => ({ name, code })
-);
+export const PROVINCE_OPTIONS = Object.entries(PROVINCE_CODE_MAP).map(([name, code]) => ({
+  name,
+  code,
+}));

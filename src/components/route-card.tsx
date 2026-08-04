@@ -39,9 +39,7 @@ export default function RouteCard({ route, index }: RouteCardProps) {
             {index + 1}
           </span>
           <div>
-            <h3 className="text-base font-semibold text-foreground">
-              {route.name}
-            </h3>
+            <h3 className="text-base font-semibold text-foreground">{route.name}</h3>
             <p className="mt-0.5 text-sm text-muted-foreground">
               {route.date} · {route.season}
             </p>
@@ -63,11 +61,7 @@ export default function RouteCard({ route, index }: RouteCardProps) {
             stroke="currentColor"
             strokeWidth={2}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
           </svg>
         </div>
       </button>
@@ -81,34 +75,26 @@ export default function RouteCard({ route, index }: RouteCardProps) {
               <p className="text-xs text-muted-foreground">往返天数</p>
               <p className="mt-1 text-lg font-bold text-foreground">
                 {route.days}
-                <span className="ml-0.5 text-xs font-normal text-muted-foreground">
-                  天
-                </span>
+                <span className="ml-0.5 text-xs font-normal text-muted-foreground">天</span>
               </p>
             </div>
             <div className="rounded-lg bg-muted/50 p-3">
               <p className="text-xs text-muted-foreground">全程距离</p>
               <p className="mt-1 text-lg font-bold text-foreground">
                 {route.distance}
-                <span className="ml-0.5 text-xs font-normal text-muted-foreground">
-                  km
-                </span>
+                <span className="ml-0.5 text-xs font-normal text-muted-foreground">km</span>
               </p>
             </div>
             <div className="rounded-lg bg-muted/50 p-3">
               <p className="text-xs text-muted-foreground">最高海拔</p>
               <p className="mt-1 text-lg font-bold text-foreground">
                 {route.maxAltitude}
-                <span className="ml-0.5 text-xs font-normal text-muted-foreground">
-                  m
-                </span>
+                <span className="ml-0.5 text-xs font-normal text-muted-foreground">m</span>
               </p>
             </div>
             <div className="rounded-lg bg-muted/50 p-3">
               <p className="text-xs text-muted-foreground">出行季节</p>
-              <p className="mt-1 text-lg font-bold text-foreground">
-                {route.season}
-              </p>
+              <p className="mt-1 text-lg font-bold text-foreground">{route.season}</p>
             </div>
           </div>
 

@@ -41,9 +41,7 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
 
   const handleToggleFlag = useCallback(() => {
     const id = currentQuestion.id;
-    setFlagged((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
-    );
+    setFlagged((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
   }, [currentQuestion.id]);
 
   const handlePrev = useCallback(() => {
@@ -58,9 +56,7 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
     async (force = false) => {
       if (submittingRef.current) return;
 
-      const unanswered = questions.filter(
-        (q) => (answers[q.id]?.length ?? 0) === 0
-      );
+      const unanswered = questions.filter((q) => (answers[q.id]?.length ?? 0) === 0);
       if (unanswered.length > 0 && !force) {
         setShowConfirm(true);
         return;
@@ -206,7 +202,17 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
             disabled={currentIndex === 0}
             className="inline-flex items-center gap-1.5 rounded border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted disabled:opacity-40 disabled:hover:bg-card focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
               <path d="m15 18-6-6 6-6" />
             </svg>
             上一题
@@ -219,7 +225,17 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
               className="inline-flex items-center gap-1.5 rounded border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               下一题
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
                 <path d="m9 18 6-6-6-6" />
               </svg>
             </button>
@@ -264,10 +280,7 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
           }}
         >
           <div className="w-full max-w-sm border border-border bg-background p-6 shadow-lg">
-            <h3
-              id="confirm-title"
-              className="text-base font-semibold text-foreground"
-            >
+            <h3 id="confirm-title" className="text-base font-semibold text-foreground">
               确认交卷？
             </h3>
             <p className="mt-2 text-sm text-muted-foreground">

@@ -89,10 +89,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
         </p>
         <ul className="space-y-1 border-l border-border">
           {headings.map((item) => (
-            <li
-              key={item.id}
-              className={item.level === 3 ? "ml-3" : ""}
-            >
+            <li key={item.id} className={item.level === 3 ? "ml-3" : ""}>
               <a
                 href={`#${item.id}`}
                 onClick={(e) => {

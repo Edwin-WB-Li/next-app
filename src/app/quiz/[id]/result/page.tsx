@@ -22,10 +22,7 @@ export default async function QuizResultPage({
     notFound();
   }
 
-  const [questions, record] = await Promise.all([
-    getQuestions(),
-    getRecordById(recordId),
-  ]);
+  const [questions, record] = await Promise.all([getQuestions(), getRecordById(recordId)]);
 
   if (!record || questions.length === 0) {
     notFound();
@@ -80,19 +77,37 @@ export default async function QuizResultPage({
             return (
               <div key={question.id} className="border border-border bg-card">
                 <div className="flex items-center gap-3 border-b border-border px-5 py-3">
-                  <span className="text-sm font-medium text-foreground">
-                    {index + 1}.
-                  </span>
+                  <span className="text-sm font-medium text-foreground">{index + 1}.</span>
                   {isCorrect ? (
                     <span className="inline-flex items-center gap-1 text-xs font-medium text-success dark:text-success">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
                       正确
                     </span>
                   ) : (
                     <span className="inline-flex items-center gap-1 text-xs font-medium text-error dark:text-error">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
                         <path d="M18 6 6 18" />
                         <path d="m6 6 12 12" />
                       </svg>
@@ -104,11 +119,7 @@ export default async function QuizResultPage({
                   <p className="text-sm font-medium text-foreground">{question.content}</p>
                 </div>
                 <div className="px-5 pb-4">
-                  <OptionList
-                    question={question}
-                    selected={userAnswer}
-                    review
-                  />
+                  <OptionList question={question} selected={userAnswer} review />
                 </div>
                 <div className="border-t border-border bg-muted/30 px-5 py-3">
                   <p className="text-sm text-muted-foreground">
@@ -128,7 +139,17 @@ export default async function QuizResultPage({
           href="/quiz"
           className="inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-info dark:hover:text-info focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
             <path d="m12 19-7-7 7-7" />
             <path d="M19 12H5" />
           </svg>
@@ -139,7 +160,17 @@ export default async function QuizResultPage({
           className="inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-info dark:hover:text-info focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
         >
           查看错题本
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
             <path d="m12 19-7-7 7-7" />
             <path d="M19 12H5" />
           </svg>

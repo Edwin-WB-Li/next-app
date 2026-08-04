@@ -29,9 +29,7 @@ const mockColumn: KanbanColumnType = {
   color: null,
 };
 
-const mockUsers: KanbanUser[] = [
-  { id: "user-1", name: "张三", avatar: "" },
-];
+const mockUsers: KanbanUser[] = [{ id: "user-1", name: "张三", avatar: "" }];
 
 const mockTasks: KanbanTask[] = [];
 
@@ -54,7 +52,6 @@ function Wrapper({ children }: { children: React.ReactNode }) {
 
 describe("KanbanColumn quick add - blur race condition", () => {
   it("should keep input open when clicking add button after typing", async () => {
-
     render(
       <Wrapper>
         <KanbanColumn column={mockColumn} tasks={mockTasks} />

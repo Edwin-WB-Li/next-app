@@ -1,6 +1,15 @@
 "use client";
 
-import { useState, useEffect, useMemo, createContext, useContext, Children, type ReactNode, type HTMLAttributes } from "react";
+import {
+  useState,
+  useEffect,
+  useMemo,
+  createContext,
+  useContext,
+  Children,
+  type ReactNode,
+  type HTMLAttributes,
+} from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -10,10 +19,7 @@ import { oneDark, oneLight } from "react-syntax-highlighter/dist/esm/styles/pris
 import { slugify } from "@/lib/slugify";
 import { remarkEmoji } from "@/lib/remark-emoji";
 import remarkDirective from "remark-directive";
-import {
-  preprocessContainers,
-  remarkContainer,
-} from "@/lib/remark-container";
+import { preprocessContainers, remarkContainer } from "@/lib/remark-container";
 import "katex/dist/katex.min.css";
 
 interface MarkdownRendererProps {
@@ -83,23 +89,21 @@ function MarkdownDiv({ className, children, ...props }: HTMLAttributes<HTMLDivEl
         danger: "text-red-600 dark:text-red-400",
       };
       return (
-        <div className={`mb-2 text-sm font-semibold ${titleColors[type] || titleColors.info}`} {...props}>
+        <div
+          className={`mb-2 text-sm font-semibold ${titleColors[type] || titleColors.info}`}
+          {...props}
+        >
           {children}
         </div>
       );
     }
     if (className.split(" ").includes("custom-block")) {
-      const type =
-        className
-          .split(" ")
-          .find((c) => c !== "custom-block") || "default";
+      const type = className.split(" ").find((c) => c !== "custom-block") || "default";
       const typeStyles: Record<string, string> = {
         tip: "border-l-blue-500 bg-blue-50/50 dark:bg-blue-950/20 dark:border-l-blue-400",
         info: "border-l-blue-500 bg-blue-50/50 dark:bg-blue-950/20 dark:border-l-blue-400",
-        warning:
-          "border-l-amber-500 bg-amber-50/50 dark:bg-amber-950/20 dark:border-l-amber-400",
-        danger:
-          "border-l-red-500 bg-red-50/50 dark:bg-red-950/20 dark:border-l-red-400",
+        warning: "border-l-amber-500 bg-amber-50/50 dark:bg-amber-950/20 dark:border-l-amber-400",
+        danger: "border-l-red-500 bg-red-50/50 dark:bg-red-950/20 dark:border-l-red-400",
       };
       return (
         <div
@@ -119,9 +123,7 @@ function MarkdownDiv({ className, children, ...props }: HTMLAttributes<HTMLDivEl
 }
 
 function MarkdownDetails({ className, children, ...props }: HTMLAttributes<HTMLDetailsElement>) {
-  const isCustomBlock =
-    typeof className === "string" &&
-    className.includes("custom-block");
+  const isCustomBlock = typeof className === "string" && className.includes("custom-block");
   if (isCustomBlock) {
     return (
       <details
@@ -141,15 +143,11 @@ function MarkdownDetails({ className, children, ...props }: HTMLAttributes<HTMLD
 
 const markdownComponents = {
   h1: ({ children }: { children?: ReactNode }) => (
-    <h1 className="mt-8 mb-4 text-3xl font-bold tracking-tight text-foreground">
-      {children}
-    </h1>
+    <h1 className="mt-8 mb-4 text-3xl font-bold tracking-tight text-foreground">{children}</h1>
   ),
   h2: MarkdownH2,
   h3: MarkdownH3,
-  p: ({ children }: { children?: ReactNode }) => (
-    <p className="my-4 leading-7">{children}</p>
-  ),
+  p: ({ children }: { children?: ReactNode }) => <p className="my-4 leading-7">{children}</p>,
   ul: ({ children }: { children?: ReactNode }) => (
     <ul className="my-4 ml-6 list-disc">{children}</ul>
   ),
@@ -178,13 +176,9 @@ const markdownComponents = {
       <table className="w-full border-collapse text-sm">{children}</table>
     </div>
   ),
-  thead: ({ children }: { children?: ReactNode }) => (
-    <thead className="bg-muted">{children}</thead>
-  ),
+  thead: ({ children }: { children?: ReactNode }) => <thead className="bg-muted">{children}</thead>,
   th: ({ children }: { children?: ReactNode }) => (
-    <th className="border border-border px-4 py-2 text-left font-semibold">
-      {children}
-    </th>
+    <th className="border border-border px-4 py-2 text-left font-semibold">{children}</th>
   ),
   td: ({ children }: { children?: ReactNode }) => (
     <td className="border border-border px-4 py-2">{children}</td>

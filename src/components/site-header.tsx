@@ -22,9 +22,7 @@ function Logo() {
         <IconLogo />
       </div>
       <div className="flex flex-col gap-1 leading-none">
-        <span className="text-[15px] font-bold tracking-tight text-foreground">
-          路人甲
-        </span>
+        <span className="text-[15px] font-bold tracking-tight text-foreground">路人甲</span>
         <span className="text-[10px] font-medium tracking-wider text-muted-foreground/70 uppercase">
           Personal Blog
         </span>
@@ -35,8 +33,7 @@ function Logo() {
 
 function NavLink({ href, label, onClick }: { href: string; label: string; onClick?: () => void }) {
   const pathname = usePathname();
-  const isActive =
-    pathname === href || (href !== "/" && pathname.startsWith(href));
+  const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
 
   return (
     <Link
@@ -44,11 +41,7 @@ function NavLink({ href, label, onClick }: { href: string; label: string; onClic
       onClick={onClick}
       className={`
         relative py-1.5 text-[13px] font-medium transition-colors duration-200 focus-visible:rounded-md focus-visible:px-1 focus-visible:py-0.5
-        ${
-          isActive
-            ? "text-foreground"
-            : "text-muted-foreground hover:text-foreground"
-        }
+        ${isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"}
       `}
     >
       {label}
@@ -141,12 +134,32 @@ export default function SiteHeader() {
             aria-controls="mobile-menu"
           >
             {menuOpen ? (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
                 <path d="M18 6 6 18" />
                 <path d="m6 6 12 12" />
               </svg>
             ) : (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
                 <path d="M4 12h16" />
                 <path d="M4 6h16" />
                 <path d="M4 18h16" />

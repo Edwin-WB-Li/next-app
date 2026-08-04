@@ -1,7 +1,7 @@
 "use client";
 
 // import * as React from "react";
-import { useState, useEffect, useCallback, useRef, memo ,type KeyboardEvent} from "react";
+import { useState, useEffect, useCallback, useRef, memo, type KeyboardEvent } from "react";
 
 import { Droppable } from "@hello-pangea/dnd";
 import { Plus, MoreHorizontal, Settings } from "lucide-react";
@@ -23,10 +23,7 @@ interface KanbanColumnProps {
   tasks: KanbanTask[];
 }
 
-export const KanbanColumn = memo(function KanbanColumn({
-  column,
-  tasks,
-}: KanbanColumnProps) {
+export const KanbanColumn = memo(function KanbanColumn({ column, tasks }: KanbanColumnProps) {
   const { onSettingsClick, onTaskCreated } = useKanbanBoard();
   const [isAdding, setIsAdding] = useState(false);
   const [newTitle, setNewTitle] = useState("");
@@ -94,9 +91,10 @@ export const KanbanColumn = memo(function KanbanColumn({
             className={`
               inline-flex items-center justify-center rounded-lg px-2 py-0.5 text-[11px] font-bold
               shrink-0 transition-colors
-              ${wipExceeded
-                ? "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300"
-                : "bg-secondary/80 text-secondary-foreground/80"
+              ${
+                wipExceeded
+                  ? "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300"
+                  : "bg-secondary/80 text-secondary-foreground/80"
               }
             `}
           >
@@ -146,9 +144,8 @@ export const KanbanColumn = memo(function KanbanColumn({
             className={`
               space-y-2.5 min-h-[100px] rounded-xl
               motion-safe:transition-colors motion-safe:duration-200
-              ${snapshot.isDraggingOver
-                ? "bg-primary/[0.04] ring-1 ring-primary/20"
-                : "bg-muted/40"
+              ${
+                snapshot.isDraggingOver ? "bg-primary/[0.04] ring-1 ring-primary/20" : "bg-muted/40"
               }
               p-2
             `}
@@ -216,4 +213,4 @@ export const KanbanColumn = memo(function KanbanColumn({
       </Droppable>
     </div>
   );
-})
+});

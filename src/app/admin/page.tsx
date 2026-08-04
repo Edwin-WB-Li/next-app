@@ -35,10 +35,7 @@ export default async function AdminPage() {
             ))}
             {posts.length === 0 && (
               <tr>
-                <td
-                  colSpan={6}
-                  className="px-4 py-8 text-center text-foreground/60"
-                >
+                <td colSpan={6} className="px-4 py-8 text-center text-foreground/60">
                   暂无文章，点击「新建文章」开始创作。
                 </td>
               </tr>

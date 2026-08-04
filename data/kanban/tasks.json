@@ -6,10 +6,7 @@
     "columnId": "col-3",
     "priority": "P1",
     "assignee": "user-1",
-    "tags": [
-      "设计",
-      "UI"
-    ],
+    "tags": ["设计", "UI"],
     "dueDate": "2026-07-20",
     "estimatedHours": 16,
     "createdAt": "2026-07-10T08:00:00.000Z",
@@ -120,10 +117,7 @@
     "columnId": "col-4",
     "priority": "P0",
     "assignee": "user-2",
-    "tags": [
-      "后端",
-      "安全"
-    ],
+    "tags": ["后端", "安全"],
     "dueDate": "2026-07-25",
     "estimatedHours": 24,
     "createdAt": "2026-07-12T09:00:00.000Z",
@@ -247,10 +241,7 @@
     "columnId": "col-5",
     "priority": "P2",
     "assignee": "user-3",
-    "tags": [
-      "性能",
-      "前端"
-    ],
+    "tags": ["性能", "前端"],
     "dueDate": "2026-07-28",
     "estimatedHours": 8,
     "createdAt": "2026-07-13T10:00:00.000Z",
@@ -394,9 +385,7 @@
     "columnId": "col-1",
     "priority": "P3",
     "assignee": null,
-    "tags": [
-      "文档"
-    ],
+    "tags": ["文档"],
     "dueDate": "2026-08-01",
     "estimatedHours": 12,
     "createdAt": "2026-07-14T14:00:00.000Z",
@@ -479,10 +468,7 @@
     "columnId": "col-2",
     "priority": "P1",
     "assignee": "user-1",
-    "tags": [
-      "Bug",
-      "移动端"
-    ],
+    "tags": ["Bug", "移动端"],
     "dueDate": "2026-07-22",
     "estimatedHours": 4,
     "createdAt": "2026-07-15T08:30:00.000Z",

@@ -7,10 +7,7 @@
     "published": true,
     "createdAt": "2026-07-16T07:39:25.255Z",
     "updatedAt": "2026-07-16T07:39:25.255Z",
-    "tags": [
-      "Electron",
-      "Desktop"
-    ],
+    "tags": ["Electron", "Desktop"],
     "coverImage": "https://picsum.photos/seed/electron/800/400"
   },
   {
@@ -21,10 +18,7 @@
     "published": true,
     "createdAt": "2026-07-16T03:01:25.360Z",
     "updatedAt": "2026-07-16T03:01:25.360Z",
-    "tags": [
-      "Markdown",
-      "Guide"
-    ],
+    "tags": ["Markdown", "Guide"],
     "coverImage": "https://picsum.photos/seed/markdown/800/400"
   },
   {
@@ -35,10 +29,7 @@
     "published": true,
     "createdAt": "2026-07-15T08:00:00.000Z",
     "updatedAt": "2026-07-16T07:23:53.530Z",
-    "tags": [
-      "Blog",
-      "Intro"
-    ],
+    "tags": ["Blog", "Intro"],
     "coverImage": "https://picsum.photos/seed/welcome/800/400"
   },
   {
@@ -49,10 +40,7 @@
     "published": true,
     "createdAt": "2026-07-14T10:30:00.000Z",
     "updatedAt": "2026-07-17T06:15:17.741Z",
-    "tags": [
-      "Markdown",
-      "Writing"
-    ],
+    "tags": ["Markdown", "Writing"],
     "coverImage": "https://picsum.photos/seed/guide/800/400"
   },
   {
@@ -63,9 +51,7 @@
     "published": false,
     "createdAt": "2026-07-13T14:00:00.000Z",
     "updatedAt": "2026-07-13T14:00:00.000Z",
-    "tags": [
-      "Draft"
-    ],
+    "tags": ["Draft"],
     "coverImage": "https://picsum.photos/seed/draft/800/400"
   }
 ]

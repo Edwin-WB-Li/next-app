@@ -44,8 +44,6 @@ export interface RouteFormData {
   notesContent?: string;
 }
 
-
-
 const DATA_DIR = path.join(process.cwd(), "data");
 const HIKING_FILE = path.join(DATA_DIR, "hiking.json");
 const HIKING_DIR = path.join(DATA_DIR, "hiking");
@@ -73,17 +71,13 @@ export async function getHikingData(): Promise<HikingData> {
   return readHikingData();
 }
 
-export async function getProvinceData(
-  code: string
-): Promise<ProvinceData | null> {
+export async function getProvinceData(code: string): Promise<ProvinceData | null> {
   const data = await readHikingData();
   const provinceMap = new Map(data.provinces.map((p) => [p.code, p]));
   return provinceMap.get(code) ?? null;
 }
 
-export async function getProvinceByName(
-  name: string
-): Promise<ProvinceData | null> {
+export async function getProvinceByName(name: string): Promise<ProvinceData | null> {
   const data = await readHikingData();
   const provinceMap = new Map(data.provinces.map((p) => [p.name, p]));
   return provinceMap.get(name) ?? null;
@@ -102,15 +96,10 @@ export async function getAllRoutes(): Promise<
   );
 }
 
-export async function getRouteNotes(
-  notesFile?: string
-): Promise<string> {
+export async function getRouteNotes(notesFile?: string): Promise<string> {
   if (!notesFile) return "";
   try {
-    const content = await fs.readFile(
-      path.join(HIKING_DIR, notesFile),
-      "utf-8"
-    );
+    const content = await fs.readFile(path.join(HIKING_DIR, notesFile), "utf-8");
     return content;
   } catch {
     return "";
@@ -213,7 +202,10 @@ export async function createRoute(provinceCode: string, formData: RouteFormData)
   return newRoute;
 }
 
-export async function updateRoute(routeId: string, formData: RouteFormData & { provinceCode?: string }) {
+export async function updateRoute(
+  routeId: string,
+  formData: RouteFormData & { provinceCode?: string }
+) {
   const data = await readHikingData();
 
   // 找到路线所在省份
@@ -241,11 +233,7 @@ export async function updateRoute(routeId: string, formData: RouteFormData & { p
   if (!targetProvince) {
     throw new Error("目标省份不存在");
   }
-  if (
-    targetProvince.routes.some(
-      (r) => r.name === formData.name && r.id !== routeId
-    )
-  ) {
+  if (targetProvince.routes.some((r) => r.name === formData.name && r.id !== routeId)) {
     throw new Error("目标省份下已存在同名路线");
   }
 

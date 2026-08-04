@@ -16,9 +16,7 @@ import { KanbanBoardProvider } from "@/components/kanban/kanban-board-context";
  * - 影响: 键盘 Tab 聚焦到按钮时，按钮仍然不可见（除非同时 hover 了列）
  */
 
-const mockUsers: KanbanUser[] = [
-  { id: "user-1", name: "张三", avatar: "" },
-];
+const mockUsers: KanbanUser[] = [{ id: "user-1", name: "张三", avatar: "" }];
 
 const mockTask: KanbanTask = {
   id: "task-test-1",
@@ -40,12 +38,16 @@ const mockTask: KanbanTask = {
 // Mock @hello-pangea/dnd 以便在 jsdom 中测试组件结构
 vi.mock("@hello-pangea/dnd", () => ({
   DragDropContext: ({ children }: { children: ReactNode }) => <>{children}</>,
-  Droppable: ({ children }: { children: (provided: unknown, snapshot: { isDraggingOver: boolean }) => ReactNode }) =>
-    children(
-      { innerRef: null, droppableProps: {} },
-      { isDraggingOver: false }
-    ),
-  Draggable: ({ children }: { children: (provided: unknown, snapshot: { isDragging: boolean }) => ReactNode }) =>
+  Droppable: ({
+    children,
+  }: {
+    children: (provided: unknown, snapshot: { isDraggingOver: boolean }) => ReactNode;
+  }) => children({ innerRef: null, droppableProps: {} }, { isDraggingOver: false }),
+  Draggable: ({
+    children,
+  }: {
+    children: (provided: unknown, snapshot: { isDragging: boolean }) => ReactNode;
+  }) =>
     children(
       {
         innerRef: null,

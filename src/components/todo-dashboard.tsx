@@ -39,9 +39,7 @@ function ProgressRing({ value }: { value: number }) {
           className="text-primary motion-safe:transition-all motion-safe:duration-700"
         />
       </svg>
-      <span className="absolute text-sm font-semibold text-foreground">
-        {Math.round(value)}%
-      </span>
+      <span className="absolute text-sm font-semibold text-foreground">{Math.round(value)}%</span>
     </div>
   );
 }
@@ -53,10 +51,7 @@ function getGreeting() {
   return "晚上好";
 }
 
-export default memo(function TodoDashboard({
-  total,
-  completed,
-}: TodoDashboardProps) {
+export default memo(function TodoDashboard({ total, completed }: TodoDashboardProps) {
   const now = new Date();
   const weekday = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
   const dateStr = `${now.getMonth() + 1}月${now.getDate()}日`;

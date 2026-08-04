@@ -45,7 +45,7 @@ export function ColumnSettingsModal({
   }, [column]);
 
   const handleUpdate = useCallback(
-    async (e: { preventDefault: () => void; }) => {
+    async (e: { preventDefault: () => void }) => {
       e.preventDefault();
       if (!column || !name.trim()) return;
 
@@ -138,4 +138,3 @@ export function ColumnSettingsModal({
     </Dialog>
   );
 }
-

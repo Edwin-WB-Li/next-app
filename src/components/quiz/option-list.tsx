@@ -77,7 +77,9 @@ function OptionList({ question, selected, onChange, review }: OptionListProps) {
               className="h-4 w-4 shrink-0 accent-foreground"
               aria-labelledby={`opt-${question.id}-${option.id}`}
             />
-            <span id={`opt-${question.id}-${option.id}`} className="text-sm text-foreground">{option.text}</span>
+            <span id={`opt-${question.id}-${option.id}`} className="text-sm text-foreground">
+              {option.text}
+            </span>
             {review && status === "correct" && (
               <svg
                 width="16"

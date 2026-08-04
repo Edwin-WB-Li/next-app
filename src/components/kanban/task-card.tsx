@@ -22,10 +22,7 @@ function isOverdue(dueDate: string | null): boolean {
   return new Date(dueDate) < new Date(new Date().toDateString());
 }
 
-const priorityConfig: Record<
-  Priority,
-  { bar: string; dot: string; label: string }
-> = {
+const priorityConfig: Record<Priority, { bar: string; dot: string; label: string }> = {
   P0: {
     bar: "bg-red-500 dark:bg-red-400",
     dot: "bg-red-500 dark:bg-red-400",
@@ -50,10 +47,7 @@ const priorityConfig: Record<
 
 export const TaskCard = memo(function TaskCard({ task, index }: TaskCardProps) {
   const { users, onTaskClick } = useKanbanBoard();
-  const assignee = useMemo(
-    () => users.find((u) => u.id === task.assignee),
-    [users, task.assignee]
-  );
+  const assignee = useMemo(() => users.find((u) => u.id === task.assignee), [users, task.assignee]);
   const overdue = useMemo(() => isOverdue(task.dueDate), [task.dueDate]);
   const priority = priorityConfig[task.priority];
   const subtaskProgress = useMemo(() => {
@@ -153,9 +147,7 @@ export const TaskCard = memo(function TaskCard({ task, index }: TaskCardProps) {
                 {task.dueDate ? (
                   <span
                     className={`flex items-center gap-0.5 text-[10px] font-medium ${
-                      overdue
-                        ? "text-red-500 dark:text-red-400"
-                        : "text-muted-foreground/70"
+                      overdue ? "text-red-500 dark:text-red-400" : "text-muted-foreground/70"
                     }`}
                   >
                     <Calendar className="h-2.5 w-2.5" />
@@ -191,4 +183,4 @@ export const TaskCard = memo(function TaskCard({ task, index }: TaskCardProps) {
       )}
     </Draggable>
   );
-})
+});

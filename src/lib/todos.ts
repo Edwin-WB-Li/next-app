@@ -73,17 +73,12 @@ export async function toggleTodo(id: string): Promise<Todo | null> {
   if (index === -1) return null;
 
   todos[index].completed = !todos[index].completed;
-  todos[index].completedAt = todos[index].completed
-    ? new Date().toISOString()
-    : null;
+  todos[index].completedAt = todos[index].completed ? new Date().toISOString() : null;
   await writeTodos(todos);
   return todos[index];
 }
 
-export async function updateTodoTitle(
-  id: string,
-  title: string
-): Promise<Todo | null> {
+export async function updateTodoTitle(id: string, title: string): Promise<Todo | null> {
   const todos = await readTodos();
   const index = todos.findIndex((t) => t.id === id);
   if (index === -1) return null;

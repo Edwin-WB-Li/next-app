@@ -109,14 +109,7 @@ describe("OptionList - true/false", () => {
 
 describe("OptionList - review mode", () => {
   it("review 模式显示正确和错误状态", () => {
-    render(
-      <OptionList
-        question={singleQuestion}
-        selected={["a"]}
-        onChange={vi.fn()}
-        review
-      />
-    );
+    render(<OptionList question={singleQuestion} selected={["a"]} onChange={vi.fn()} review />);
     // 正确选项应标记为正确
     const correctOption = screen.getByLabelText("B").closest("label");
     expect(correctOption).toHaveAttribute("data-status", "correct");

@@ -1,6 +1,6 @@
 "use client";
 
-import {useState,useEffect,useCallback} from "react";
+import { useState, useEffect, useCallback } from "react";
 function formatDateTime(isoString: string): string {
   const d = new Date(isoString);
   const pad = (n: number) => n.toString().padStart(2, "0");
@@ -108,7 +108,19 @@ export function TaskDetailDrawer({
     } finally {
       setSubmitting(false);
     }
-  }, [task, title, description, priority, assignee, columnId, dueDate, estimatedHours, tags, subtasks, onUpdated]);
+  }, [
+    task,
+    title,
+    description,
+    priority,
+    assignee,
+    columnId,
+    dueDate,
+    estimatedHours,
+    tags,
+    subtasks,
+    onUpdated,
+  ]);
 
   const handleAddComment = useCallback(async () => {
     if (!task || !commentText.trim()) return;
@@ -387,7 +399,9 @@ export function TaskDetailDrawer({
                       <AvatarFallback>{user?.name?.[0] ?? "?"}</AvatarFallback>
                     </Avatar>
                     <span className="text-muted-foreground">
-                      <span className="font-medium text-foreground">{user?.name ?? "未知用户"}</span>{" "}
+                      <span className="font-medium text-foreground">
+                        {user?.name ?? "未知用户"}
+                      </span>{" "}
                       {activity.action}
                     </span>
                     <span className="text-xs text-muted-foreground ml-auto">

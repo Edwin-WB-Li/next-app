@@ -24,10 +24,7 @@ describe("kanban server actions - concurrency", () => {
     }
 
     // 并发创建两个任务
-    await Promise.all([
-      unsafeCreateTask("任务A"),
-      unsafeCreateTask("任务B"),
-    ]);
+    await Promise.all([unsafeCreateTask("任务A"), unsafeCreateTask("任务B")]);
 
     const result = JSON.parse(fileContent);
     // 无锁情况下，只有一个任务会被保存（后写入覆盖先写入）
@@ -41,7 +38,10 @@ describe("kanban server actions - concurrency", () => {
     async function withLock<T>(key: string, fn: () => Promise<T>): Promise<T> {
       const prev = lockMap.get(key);
       const release = Promise.resolve(prev).then(() => fn());
-      lockMap.set(key, release.then(() => {}).catch(() => {}));
+      lockMap.set(
+        key,
+        release.then(() => {}).catch(() => {})
+      );
       return release;
     }
 

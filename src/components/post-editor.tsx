@@ -33,9 +33,7 @@ export default function PostEditor({
   const [summary, setSummary] = useState(initialSummary);
   const [content, setContent] = useState(initialContent);
   const [published] = useState(initialPublished);
-  const [previewMode, setPreviewMode] = useState<"edit" | "preview" | "split">(
-    "split"
-  );
+  const [previewMode, setPreviewMode] = useState<"edit" | "preview" | "split">("split");
 
   const { isSaving, error, handleSave } = usePostSave({
     postId,
@@ -57,14 +55,19 @@ export default function PostEditor({
   return (
     <div className="flex flex-col gap-6">
       {error ? (
-        <div role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-900 dark:bg-red-900/20 dark:text-red-400">
+        <div
+          role="alert"
+          className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-900 dark:bg-red-900/20 dark:text-red-400"
+        >
           {error}
         </div>
       ) : null}
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="post-title" className="mb-1.5 block text-sm font-medium">标题</label>
+          <label htmlFor="post-title" className="mb-1.5 block text-sm font-medium">
+            标题
+          </label>
           <Input
             id="post-title"
             type="text"
@@ -74,7 +77,9 @@ export default function PostEditor({
           />
         </div>
         <div>
-          <label htmlFor="post-slug" className="mb-1.5 block text-sm font-medium">Slug</label>
+          <label htmlFor="post-slug" className="mb-1.5 block text-sm font-medium">
+            Slug
+          </label>
           <Input
             id="post-slug"
             type="text"
@@ -87,7 +92,9 @@ export default function PostEditor({
       </div>
 
       <div>
-        <label htmlFor="post-summary" className="mb-1.5 block text-sm font-medium">摘要</label>
+        <label htmlFor="post-summary" className="mb-1.5 block text-sm font-medium">
+          摘要
+        </label>
         <Input
           id="post-summary"
           type="text"
@@ -116,9 +123,7 @@ export default function PostEditor({
             </button>
           ))}
         </div>
-        <div className="text-xs text-foreground/50">
-          {content.length} 字符
-        </div>
+        <div className="text-xs text-foreground/50">{content.length} 字符</div>
       </div>
 
       <div
@@ -126,7 +131,7 @@ export default function PostEditor({
           previewMode === "split" ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1"
         }`}
       >
-        {(previewMode === "edit" || previewMode === "split") ? (
+        {previewMode === "edit" || previewMode === "split" ? (
           <div className="flex flex-col">
             <label htmlFor="post-content" className="mb-1.5 block text-sm font-medium">
               Markdown 内容
@@ -141,7 +146,7 @@ export default function PostEditor({
           </div>
         ) : null}
 
-        {(previewMode === "preview" || previewMode === "split") ? (
+        {previewMode === "preview" || previewMode === "split" ? (
           <div className="flex flex-col">
             <span className="mb-1.5 block text-sm font-medium">预览</span>
             <div className="min-h-[500px] w-full overflow-auto rounded-lg border border-input bg-card px-4 py-3">

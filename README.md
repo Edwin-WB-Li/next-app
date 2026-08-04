@@ -35,6 +35,17 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
+## 大模型
+```
+Qwen3.6-plus
+Qwen3-coder
+deeepseek-v4-pro
+Qwen3-thinking
+Qwen3-max
+kimi-k2.6
+minimax-m2.7
+```
+
 ## skills
 
 ```
@@ -72,7 +83,6 @@ verification-before-completion →  审查后强制验证，没证据不算完�
 - 必须通过验证才能算完成
 - [如果有 Bug：用系统化调试流程定位根因，不要猜]
 ```
-
 ---
 
 我在做一个 Next.js + Typescript + tailwind 项目，需要在项目中开发一个答题系统功能。要求视觉风格独特，不要千篇一律的 AI 审美。开发时先写测试再写实现，走 TDD 流程。代码要符合 React 性能最佳实践，最终页面要通过 可访问性和 UI 规范审查

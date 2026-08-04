@@ -9,10 +9,7 @@ interface DeleteRouteButtonProps {
   routeName: string;
 }
 
-export default function DeleteRouteButton({
-  routeId,
-  routeName,
-}: DeleteRouteButtonProps) {
+export default function DeleteRouteButton({ routeId, routeName }: DeleteRouteButtonProps) {
   const router = useRouter();
   const [confirming, setConfirming] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -33,9 +30,7 @@ export default function DeleteRouteButton({
   if (confirming) {
     return (
       <div className="flex items-center gap-2">
-        <span className="text-xs text-muted-foreground">
-          确认删除「{routeName}」？
-        </span>
+        <span className="text-xs text-muted-foreground">确认删除「{routeName}」？</span>
         <button
           onClick={handleDelete}
           disabled={deleting}

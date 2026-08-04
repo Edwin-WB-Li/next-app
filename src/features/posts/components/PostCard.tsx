@@ -14,9 +14,7 @@ interface PostCardProps {
 
 function PostCard({ post, index }: PostCardProps) {
   return (
-    <article
-      className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm motion-safe:transition motion-safe:duration-300 motion-safe:hover:shadow-md motion-safe:hover:-translate-y-0.5"
-    >
+    <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm motion-safe:transition motion-safe:duration-300 motion-safe:hover:shadow-md motion-safe:hover:-translate-y-0.5">
       <Link
         href={`/posts/${post.slug}`}
         aria-label={`阅读文章：${post.title}`}
