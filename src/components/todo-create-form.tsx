@@ -4,6 +4,7 @@ import { useState, useTransition, useCallback, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import type { Priority } from "@/lib/todos";
+import { IconPlus } from "@/shared/components/icons";
 
 interface TodoCreateFormProps {
   onCreate: (title: string, priority: Priority, dueDate: string | null) => void;
@@ -56,21 +57,7 @@ export default function TodoCreateForm({ onCreate }: TodoCreateFormProps) {
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-primary"
-              aria-hidden="true"
-            >
-              <path d="M12 5v14" />
-              <path d="M5 12h14" />
-            </svg>
+            <IconPlus className="text-primary" />
           </div>
           <Input
             ref={inputRef}

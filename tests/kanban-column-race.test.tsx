@@ -1,9 +1,9 @@
+import type { KanbanColumn as KanbanColumnType, KanbanTask, KanbanUser } from "@/lib/kanban-types";
 import { describe, it, expect } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { KanbanColumn } from "@/components/kanban/kanban-column";
 import { KanbanBoardProvider } from "@/components/kanban/kanban-board-context";
-import type { KanbanColumn as KanbanColumnType, KanbanTask, KanbanUser } from "@/lib/kanban-types";
 
 /**
  * 测试复现 kanban-column.tsx 的 onBlur 竞态条件。

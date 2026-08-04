@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, createContext, useContext, Children, type ReactNode, type HTMLAttributes } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -20,10 +20,10 @@ interface MarkdownRendererProps {
   content: string;
 }
 
-const ThemeContext = React.createContext(false);
+const ThemeContext = createContext(false);
 
-function CodeBlock({ children, className }: { children?: React.ReactNode; className?: string }) {
-  const isDark = React.useContext(ThemeContext);
+function CodeBlock({ children, className }: { children?: ReactNode; className?: string }) {
+  const isDark = useContext(ThemeContext);
   const match = /language-(\w+)/.exec(className || "");
   const language = match ? match[1] : "";
   const isInline = !className;
@@ -48,8 +48,8 @@ function CodeBlock({ children, className }: { children?: React.ReactNode; classN
   );
 }
 
-function MarkdownH2({ children }: { children?: React.ReactNode }) {
-  const text = React.Children.toArray(children).join("");
+function MarkdownH2({ children }: { children?: ReactNode }) {
+  const text = Children.toArray(children).join("");
   return (
     <h2
       id={slugify(text)}
@@ -60,8 +60,8 @@ function MarkdownH2({ children }: { children?: React.ReactNode }) {
   );
 }
 
-function MarkdownH3({ children }: { children?: React.ReactNode }) {
-  const text = React.Children.toArray(children).join("");
+function MarkdownH3({ children }: { children?: ReactNode }) {
+  const text = Children.toArray(children).join("");
   return (
     <h3
       id={slugify(text)}
@@ -72,7 +72,7 @@ function MarkdownH3({ children }: { children?: React.ReactNode }) {
   );
 }
 
-function MarkdownDiv({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+function MarkdownDiv({ className, children, ...props }: HTMLAttributes<HTMLDivElement>) {
   if (typeof className === "string") {
     if (className?.startsWith("custom-block-title")) {
       const type = className.split("--")[1] || "info";
@@ -118,7 +118,7 @@ function MarkdownDiv({ className, children, ...props }: React.HTMLAttributes<HTM
   );
 }
 
-function MarkdownDetails({ className, children, ...props }: React.HTMLAttributes<HTMLDetailsElement>) {
+function MarkdownDetails({ className, children, ...props }: HTMLAttributes<HTMLDetailsElement>) {
   const isCustomBlock =
     typeof className === "string" &&
     className.includes("custom-block");
@@ -140,30 +140,30 @@ function MarkdownDetails({ className, children, ...props }: React.HTMLAttributes
 }
 
 const markdownComponents = {
-  h1: ({ children }: { children?: React.ReactNode }) => (
+  h1: ({ children }: { children?: ReactNode }) => (
     <h1 className="mt-8 mb-4 text-3xl font-bold tracking-tight text-foreground">
       {children}
     </h1>
   ),
   h2: MarkdownH2,
   h3: MarkdownH3,
-  p: ({ children }: { children?: React.ReactNode }) => (
+  p: ({ children }: { children?: ReactNode }) => (
     <p className="my-4 leading-7">{children}</p>
   ),
-  ul: ({ children }: { children?: React.ReactNode }) => (
+  ul: ({ children }: { children?: ReactNode }) => (
     <ul className="my-4 ml-6 list-disc">{children}</ul>
   ),
-  ol: ({ children }: { children?: React.ReactNode }) => (
+  ol: ({ children }: { children?: ReactNode }) => (
     <ol className="my-4 ml-6 list-decimal">{children}</ol>
   ),
-  li: ({ children }: { children?: React.ReactNode }) => <li className="my-1">{children}</li>,
-  blockquote: ({ children }: { children?: React.ReactNode }) => (
+  li: ({ children }: { children?: ReactNode }) => <li className="my-1">{children}</li>,
+  blockquote: ({ children }: { children?: ReactNode }) => (
     <blockquote className="my-4 border-l-4 border-primary/30 pl-4 italic text-foreground/70">
       {children}
     </blockquote>
   ),
   code: CodeBlock,
-  a: ({ children, href }: { children?: React.ReactNode; href?: string }) => (
+  a: ({ children, href }: { children?: ReactNode; href?: string }) => (
     <a
       href={href}
       className="font-medium text-primary underline underline-offset-4 hover:text-primary/80"
@@ -173,20 +173,20 @@ const markdownComponents = {
       {children}
     </a>
   ),
-  table: ({ children }: { children?: React.ReactNode }) => (
+  table: ({ children }: { children?: ReactNode }) => (
     <div className="my-4 overflow-x-auto">
       <table className="w-full border-collapse text-sm">{children}</table>
     </div>
   ),
-  thead: ({ children }: { children?: React.ReactNode }) => (
+  thead: ({ children }: { children?: ReactNode }) => (
     <thead className="bg-muted">{children}</thead>
   ),
-  th: ({ children }: { children?: React.ReactNode }) => (
+  th: ({ children }: { children?: ReactNode }) => (
     <th className="border border-border px-4 py-2 text-left font-semibold">
       {children}
     </th>
   ),
-  td: ({ children }: { children?: React.ReactNode }) => (
+  td: ({ children }: { children?: ReactNode }) => (
     <td className="border border-border px-4 py-2">{children}</td>
   ),
   hr: () => <hr className="my-8 border-border" />,

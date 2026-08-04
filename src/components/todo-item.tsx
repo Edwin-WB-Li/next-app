@@ -1,67 +1,16 @@
 "use client";
 
+import type { Todo } from "@/lib/todos";
 import { useState, useTransition, useCallback, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
-import type { Todo } from "@/lib/todos";
+import { formatDueDate } from "@/shared/utils/date";
+import { IconCheck, IconUndo, IconPencil, IconTrash } from "@/shared/components/icons";
 
 interface TodoItemProps {
   todo: Todo;
   onToggle: (id: string) => void;
   onUpdateTitle: (id: string, title: string) => void;
   onDelete: (id: string) => void;
-}
-
-function formatDate(dateStr: string | null): string {
-  if (!dateStr) return "";
-  const d = new Date(dateStr);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const due = new Date(d.getTime());
-  due.setHours(0, 0, 0, 0);
-  const diffDays = Math.round(
-    (due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-  );
-
-  if (diffDays === 0) return "今天";
-  if (diffDays === 1) return "明天";
-  if (diffDays === -1) return "昨天";
-  if (diffDays < 0) return `${Math.abs(diffDays)}天前截止`;
-  return `${diffDays}天后`;
-}
-
-function IconCheck({ className }: { className?: string }) {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
-
-function IconUndo({ className }: { className?: string }) {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-      <path d="M3 7v6h6" />
-      <path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13" />
-    </svg>
-  );
-}
-
-function IconPencil({ className }: { className?: string }) {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-    </svg>
-  );
-}
-
-function IconTrash({ className }: { className?: string }) {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-      <path d="M3 6h18" />
-      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-    </svg>
-  );
 }
 
 export default function TodoItem({
@@ -117,7 +66,7 @@ export default function TodoItem({
     });
   }, [todo.id, onDelete]);
 
-  const dueText = formatDate(todo.dueDate);
+  const dueText = formatDueDate(todo.dueDate);
   const isOverdue =
     todo.dueDate &&
     !todo.completed &&

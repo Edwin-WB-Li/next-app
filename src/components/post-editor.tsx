@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createPost, updatePost } from "@/lib/posts";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import MarkdownRenderer from "./markdown-renderer";
+import { generateSlug } from "@/shared/utils/text";
+import { usePostSave } from "@/features/posts/hooks/usePostSave";
 
 interface PostEditorProps {
   postId?: string;
@@ -35,57 +36,21 @@ export default function PostEditor({
   const [previewMode, setPreviewMode] = useState<"edit" | "preview" | "split">(
     "split"
   );
-  const [isSaving, setIsSaving] = useState(false);
-  const [error, setError] = useState("");
 
-  function generateSlug(titleText: string) {
-    return titleText
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, "")
-      .replace(/\s+/g, "-")
-      .substring(0, 60);
-  }
+  const { isSaving, error, handleSave } = usePostSave({
+    postId,
+    isEditing,
+    title,
+    slug,
+    summary,
+    content,
+    published,
+  });
 
   function handleTitleChange(value: string) {
     setTitle(value);
     if (!isEditing) {
       setSlug(generateSlug(value));
-    }
-  }
-
-  async function handleSave(publishState?: boolean) {
-    setError("");
-    setIsSaving(true);
-
-    const finalPublished = publishState !== undefined ? publishState : published;
-
-    try {
-      if (!title.trim()) throw new Error("请输入标题");
-      if (!slug.trim()) throw new Error("请输入 Slug");
-      if (!content.trim()) throw new Error("请输入文章内容");
-
-      if (isEditing) {
-        await updatePost(postId, {
-          title,
-          slug,
-          summary,
-          content,
-          published: finalPublished,
-        });
-      } else {
-        await createPost({
-          title,
-          slug,
-          summary,
-          content,
-          published: finalPublished,
-        });
-      }
-
-      router.push("/admin");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "保存失败");
-      setIsSaving(false);
     }
   }
 

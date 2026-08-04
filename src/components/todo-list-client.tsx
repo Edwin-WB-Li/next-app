@@ -6,6 +6,7 @@ import TodoCreateForm from "./todo-create-form";
 import TodoItem from "./todo-item";
 import TodoDashboard from "./todo-dashboard";
 import type { Todo, Priority } from "@/lib/todos";
+import { IconCheck, IconChevronDown } from "@/shared/components/icons";
 
 interface TodoListClientProps {
   initialTodos: Todo[];
@@ -195,21 +196,7 @@ export default function TodoListClient({ initialTodos }: TodoListClientProps) {
       {totalTodos === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border py-20 text-center">
           <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-muted">
-            <svg
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-muted-foreground"
-              aria-hidden="true"
-            >
-              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-              <path d="m9 12 2 2 4-4" />
-            </svg>
+            <IconCheck className="h-7 w-7 text-muted-foreground" />
           </div>
           <h3 className="text-base font-semibold text-foreground">
             还没有待办事项
@@ -223,20 +210,7 @@ export default function TodoListClient({ initialTodos }: TodoListClientProps) {
           {activeTodos.length === 0 && completedCount > 0 ? (
             <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border py-16 text-center">
               <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-green-50 dark:bg-green-900/20">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-green-500"
-                  aria-hidden="true"
-                >
-                  <path d="M20 6 9 17l-5-5" />
-                </svg>
+                <IconCheck className="h-6 w-6 text-green-500" />
               </div>
               <p className="text-sm font-medium text-foreground">
                 全部完成！
@@ -285,40 +259,14 @@ export default function TodoListClient({ initialTodos }: TodoListClientProps) {
                 className="flex w-full items-center justify-between rounded-xl border border-border/60 bg-muted/30 px-4 py-3 text-sm text-muted-foreground hover:bg-muted/50 motion-safe:transition-colors motion-safe:duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 <span className="flex items-center gap-2">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-green-500"
-                    aria-hidden="true"
-                  >
-                    <path d="M20 6 9 17l-5-5" />
-                  </svg>
+                  <IconCheck className="h-4 w-4 text-green-500" />
                   {showCompleted
                     ? "隐藏已完成"
                     : `显示 ${completedCount} 项已完成`}
                 </span>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className={`motion-safe:transition-transform motion-safe:duration-200 ${
-                    showCompleted ? "rotate-180" : ""
-                  }`}
-                  aria-hidden="true"
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
+                <IconChevronDown className={`h-4 w-4 motion-safe:transition-transform motion-safe:duration-200 ${
+                  showCompleted ? "rotate-180" : ""
+                }`} />
               </button>
 
               {showCompleted ? (

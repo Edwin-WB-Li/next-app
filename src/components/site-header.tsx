@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef, useCallback, memo } from "react";
 import ThemeToggle from "./theme-toggle";
+import { IconLogo } from "@/shared/components/icons";
 
 const navLinks = [
   { href: "/", label: "首页" },
@@ -11,27 +12,14 @@ const navLinks = [
   { href: "/kanban", label: "看板" },
   { href: "/todos", label: "待办" },
   { href: "/quiz", label: "答题" },
-  { href: "/admin", label: "文章管理" },
+  // { href: "/admin", label: "文章管理" },
 ];
 
 function Logo() {
   return (
     <Link href="/" className="group flex items-center gap-2.5 focus-visible:rounded-lg">
       <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-foreground text-background motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:rotate-3 motion-safe:group-hover:scale-105">
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M12 2 2 12l10 10 10-10L12 2z" />
-          <path d="m12 7 4 5h-8l4-5z" />
-        </svg>
+        <IconLogo />
       </div>
       <div className="flex flex-col gap-1 leading-none">
         <span className="text-[15px] font-bold tracking-tight text-foreground">
@@ -152,30 +140,18 @@ export default function SiteHeader() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
           >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              {menuOpen ? (
-                <>
-                  <path d="M18 6 6 18" />
-                  <path d="m6 6 12 12" />
-                </>
-              ) : (
-                <>
-                  <path d="M4 12h16" />
-                  <path d="M4 6h16" />
-                  <path d="M4 18h16" />
-                </>
-              )}
-            </svg>
+            {menuOpen ? (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            ) : (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M4 12h16" />
+                <path d="M4 6h16" />
+                <path d="M4 18h16" />
+              </svg>
+            )}
           </button>
         </div>
       </div>

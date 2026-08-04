@@ -1,23 +1,8 @@
 import Link from "next/link";
 import { getHikingData, getHikingStats } from "@/lib/hiking";
 import HikingStats from "@/components/hiking-stats";
-import ChinaMap from "@/components/china-map";
-
-function IconSliders() {
-  return (
-    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
-    </svg>
-  );
-}
-
-function IconChevronRight() {
-  return (
-    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-    </svg>
-  );
-}
+import ChinaMapDynamic from "@/features/hiking/components/ChinaMapDynamic";
+import { IconChevronRight } from "@/shared/components/icons";
 
 export const metadata = {
   title: "旅行足迹 | 我的博客",
@@ -47,7 +32,9 @@ export default async function HikingPage() {
             href="/hiking/admin"
             className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
           >
-            <IconSliders />
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+            </svg>
             管理行程
           </Link>
         </div>
@@ -75,7 +62,7 @@ export default async function HikingPage() {
             </div>
           </div>
         </div>
-        <ChinaMap hikingData={hikingData} />
+        <ChinaMapDynamic hikingData={hikingData} />
       </section>
 
       {/* 已打卡省份列表 */}
@@ -101,7 +88,7 @@ export default async function HikingPage() {
                   </p>
                 </div>
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--hiking-primary-light)] text-[var(--hiking-primary)] transition-colors group-hover:bg-[var(--hiking-primary)] group-hover:text-white">
-                  <IconChevronRight />
+                  <IconChevronRight className="h-4 w-4" />
                 </span>
               </div>
               <div className="mt-3 flex flex-wrap gap-2">

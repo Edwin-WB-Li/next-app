@@ -1,7 +1,9 @@
 "use client";
 
+import type { TouchEvent } from "react";
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
+import { IconChevronLeft, IconChevronRight } from "@/shared/components/icons";
 
 interface PhotoGalleryProps {
   photos: string[];
@@ -34,10 +36,10 @@ export default function PhotoGallery({ photos, title }: PhotoGalleryProps) {
   }, [lightboxIndex, closeLightbox, goPrev, goNext]);
 
   const touchStartX = useRef(0);
-  const handleTouchStart = (e: React.TouchEvent) => {
+  const handleTouchStart = (e: TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   };
-  const handleTouchEnd = (e: React.TouchEvent) => {
+  const handleTouchEnd = (e: TouchEvent) => {
     const diff = e.changedTouches[0].clientX - touchStartX.current;
     if (diff > 50) goPrev();
     if (diff < -50) goNext();
@@ -106,9 +108,7 @@ export default function PhotoGallery({ photos, title }: PhotoGalleryProps) {
               onClick={(e) => { e.stopPropagation(); goPrev(); }}
               aria-label="上一张"
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-              </svg>
+              <IconChevronLeft className="h-6 w-6" />
             </button>
           )}
 
@@ -135,9 +135,7 @@ export default function PhotoGallery({ photos, title }: PhotoGalleryProps) {
               onClick={(e) => { e.stopPropagation(); goNext(); }}
               aria-label="下一张"
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-              </svg>
+              <IconChevronRight className="h-6 w-6" />
             </button>
           )}
         </div>
