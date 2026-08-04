@@ -17,7 +17,7 @@ function DifficultyBadge({ level }: { level: string }) {
     hard: "难",
   };
   return (
-    <span className="inline-flex items-center rounded border border-border px-1.5 py-0.5 text-[11px] font-medium text-muted-foreground">
+    <span className="border-border text-muted-foreground inline-flex items-center rounded border px-1.5 py-0.5 text-[11px] font-medium">
       {labelMap[level] ?? level}
     </span>
   );
@@ -43,20 +43,20 @@ export default function QuizCard({ id, title, description, questions }: QuizCard
   );
 
   return (
-    <div className="flex flex-col border border-border bg-card">
-      <div className="flex items-start justify-between border-b border-border px-5 py-4">
+    <div className="border-border bg-card flex flex-col border">
+      <div className="border-border flex items-start justify-between border-b px-5 py-4">
         <div>
-          <h3 className="text-base font-semibold text-foreground">{title}</h3>
-          <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+          <h3 className="text-foreground text-base font-semibold">{title}</h3>
+          <p className="text-muted-foreground mt-1 text-sm">{description}</p>
         </div>
-        <span className="shrink-0 rounded border border-border bg-muted px-2 py-1 text-xs font-medium text-muted-foreground">
+        <span className="border-border bg-muted text-muted-foreground shrink-0 rounded border px-2 py-1 text-xs font-medium">
           {total} 题
         </span>
       </div>
 
-      <div className="flex flex-wrap gap-x-4 gap-y-2 border-b border-border px-5 py-3 text-sm text-muted-foreground">
+      <div className="border-border text-muted-foreground flex flex-wrap gap-x-4 gap-y-2 border-b px-5 py-3 text-sm">
         <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground/60">难度</span>
+          <span className="text-muted-foreground/60 text-xs">难度</span>
           <div className="flex gap-1.5">
             {Object.entries(difficultyCount).map(([level]) => (
               <DifficultyBadge key={level} level={level} />
@@ -64,7 +64,7 @@ export default function QuizCard({ id, title, description, questions }: QuizCard
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground/60">题型</span>
+          <span className="text-muted-foreground/60 text-xs">题型</span>
           <div className="flex gap-2">
             {Object.entries(typeCount).map(([type, count]) => (
               <span key={type} className="text-xs">
@@ -82,7 +82,7 @@ export default function QuizCard({ id, title, description, questions }: QuizCard
             .map((tag) => (
               <span
                 key={tag}
-                className="rounded bg-secondary px-1.5 py-0.5 text-[11px] text-secondary-foreground"
+                className="bg-secondary text-secondary-foreground rounded px-1.5 py-0.5 text-[11px]"
               >
                 {tag}
               </span>
@@ -90,7 +90,7 @@ export default function QuizCard({ id, title, description, questions }: QuizCard
         </div>
         <Link
           href={`/quiz/${id}`}
-          className="inline-flex items-center gap-1.5 rounded bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-foreground/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-ring focus-visible:ring-offset-background inline-flex items-center gap-1.5 rounded px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2"
         >
           开始答题
           <svg

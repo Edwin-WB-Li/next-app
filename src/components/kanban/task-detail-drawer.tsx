@@ -139,10 +139,10 @@ export function TaskDetailDrawer({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-full sm:max-w-xl overflow-y-auto">
-        <SheetHeader className="pb-4 border-b border-border">
+      <SheetContent side="right" className="w-full overflow-y-auto sm:max-w-xl">
+        <SheetHeader className="border-border border-b pb-4">
           <div className="flex items-center justify-between">
-            <SheetDescription className="text-xs font-mono text-muted-foreground">
+            <SheetDescription className="text-muted-foreground font-mono text-xs">
               {displayTask.id.toUpperCase()}
             </SheetDescription>
             <Button
@@ -158,7 +158,7 @@ export function TaskDetailDrawer({
             <Input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="text-lg font-semibold mt-2"
+              className="mt-2 text-lg font-semibold"
             />
           ) : (
             <SheetTitle className="mt-2">{displayTask.title}</SheetTitle>
@@ -169,13 +169,13 @@ export function TaskDetailDrawer({
           {/* 基本信息 */}
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div className="flex items-center gap-2">
-              <AlertCircle className="h-4 w-4 text-muted-foreground" />
+              <AlertCircle className="text-muted-foreground h-4 w-4" />
               <span className="text-muted-foreground">优先级</span>
               {isEditing ? (
                 <select
                   value={priority}
                   onChange={(e) => setPriority(e.target.value as typeof priority)}
-                  className="ml-auto rounded border border-border bg-card px-2 py-0.5 text-sm"
+                  className="border-border bg-card ml-auto rounded border px-2 py-0.5 text-sm"
                 >
                   <option value="P0">P0</option>
                   <option value="P1">P1</option>
@@ -190,13 +190,13 @@ export function TaskDetailDrawer({
             </div>
 
             <div className="flex items-center gap-2">
-              <User className="h-4 w-4 text-muted-foreground" />
+              <User className="text-muted-foreground h-4 w-4" />
               <span className="text-muted-foreground">负责人</span>
               {isEditing ? (
                 <select
                   value={assignee ?? ""}
                   onChange={(e) => setAssignee(e.target.value || null)}
-                  className="ml-auto rounded border border-border bg-card px-2 py-0.5 text-sm"
+                  className="border-border bg-card ml-auto rounded border px-2 py-0.5 text-sm"
                 >
                   <option value="">未分配</option>
                   {users.map((u) => (
@@ -214,12 +214,12 @@ export function TaskDetailDrawer({
                   <span>{assigneeUser.name}</span>
                 </div>
               ) : (
-                <span className="ml-auto text-muted-foreground">未分配</span>
+                <span className="text-muted-foreground ml-auto">未分配</span>
               )}
             </div>
 
             <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-muted-foreground" />
+              <Calendar className="text-muted-foreground h-4 w-4" />
               <span className="text-muted-foreground">截止日期</span>
               {isEditing ? (
                 <Input
@@ -231,12 +231,12 @@ export function TaskDetailDrawer({
               ) : displayTask.dueDate ? (
                 <span className="ml-auto">{displayTask.dueDate}</span>
               ) : (
-                <span className="ml-auto text-muted-foreground">无</span>
+                <span className="text-muted-foreground ml-auto">无</span>
               )}
             </div>
 
             <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-muted-foreground" />
+              <Clock className="text-muted-foreground h-4 w-4" />
               <span className="text-muted-foreground">预估工时</span>
               {isEditing ? (
                 <Input
@@ -248,18 +248,18 @@ export function TaskDetailDrawer({
               ) : displayTask.estimatedHours ? (
                 <span className="ml-auto">{displayTask.estimatedHours}h</span>
               ) : (
-                <span className="ml-auto text-muted-foreground">无</span>
+                <span className="text-muted-foreground ml-auto">无</span>
               )}
             </div>
 
-            <div className="flex items-center gap-2 col-span-2">
-              <Tag className="h-4 w-4 text-muted-foreground" />
+            <div className="col-span-2 flex items-center gap-2">
+              <Tag className="text-muted-foreground h-4 w-4" />
               <span className="text-muted-foreground">状态列</span>
               {isEditing ? (
                 <select
                   value={columnId}
                   onChange={(e) => setColumnId(e.target.value)}
-                  className="ml-auto rounded border border-border bg-card px-2 py-0.5 text-sm"
+                  className="border-border bg-card ml-auto rounded border px-2 py-0.5 text-sm"
                 >
                   {columns.map((c) => (
                     <option key={c.id} value={c.id}>
@@ -286,7 +286,7 @@ export function TaskDetailDrawer({
 
           {/* 描述 */}
           <div>
-            <Label className="text-sm font-medium mb-2 block">描述</Label>
+            <Label className="mb-2 block text-sm font-medium">描述</Label>
             {isEditing ? (
               <Textarea
                 value={description}
@@ -294,7 +294,7 @@ export function TaskDetailDrawer({
                 rows={4}
               />
             ) : (
-              <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+              <p className="text-muted-foreground text-sm whitespace-pre-wrap">
                 {displayTask.description || "暂无描述"}
               </p>
             )}
@@ -303,10 +303,10 @@ export function TaskDetailDrawer({
           {/* 子任务 */}
           {subtasks.length > 0 ? (
             <div>
-              <div className="flex items-center gap-2 mb-2">
+              <div className="mb-2 flex items-center gap-2">
                 <CheckSquare className="h-4 w-4" />
                 <Label className="text-sm font-medium">子任务</Label>
-                <span className="text-xs text-muted-foreground ml-auto">
+                <span className="text-muted-foreground ml-auto text-xs">
                   {subtasks.filter((s) => s.completed).length}/{subtasks.length}
                 </span>
               </div>
@@ -314,16 +314,16 @@ export function TaskDetailDrawer({
                 {subtasks.map((sub) => (
                   <label
                     key={sub.id}
-                    className="flex items-center gap-2 rounded px-2 py-1.5 hover:bg-accent cursor-pointer"
+                    className="hover:bg-accent flex cursor-pointer items-center gap-2 rounded px-2 py-1.5"
                   >
                     <input
                       type="checkbox"
                       checked={sub.completed}
                       onChange={() => toggleSubtask(sub.id)}
-                      className="h-4 w-4 rounded border-border"
+                      className="border-border h-4 w-4 rounded"
                     />
                     <span
-                      className={`text-sm ${sub.completed ? "line-through text-muted-foreground" : ""}`}
+                      className={`text-sm ${sub.completed ? "text-muted-foreground line-through" : ""}`}
                     >
                       {sub.title}
                     </span>
@@ -335,11 +335,11 @@ export function TaskDetailDrawer({
 
           {/* 评论 */}
           <div>
-            <div className="flex items-center gap-2 mb-3">
+            <div className="mb-3 flex items-center gap-2">
               <MessageSquare className="h-4 w-4" />
               <Label className="text-sm font-medium">评论</Label>
             </div>
-            <div className="flex gap-2 mb-3">
+            <div className="mb-3 flex gap-2">
               <Input
                 placeholder="添加评论..."
                 value={commentText}
@@ -356,7 +356,7 @@ export function TaskDetailDrawer({
               </Button>
             </div>
             {displayTask.comments.length === 0 ? (
-              <p className="text-sm text-muted-foreground">暂无评论</p>
+              <p className="text-muted-foreground text-sm">暂无评论</p>
             ) : (
               <div className="space-y-3">
                 {displayTask.comments.map((comment) => {
@@ -370,11 +370,11 @@ export function TaskDetailDrawer({
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-medium">{user?.name ?? "未知用户"}</span>
-                          <span className="text-xs text-muted-foreground">
+                          <span className="text-muted-foreground text-xs">
                             {formatDateTime(comment.createdAt)}
                           </span>
                         </div>
-                        <p className="text-sm text-muted-foreground mt-0.5">{comment.content}</p>
+                        <p className="text-muted-foreground mt-0.5 text-sm">{comment.content}</p>
                       </div>
                     </div>
                   );
@@ -385,7 +385,7 @@ export function TaskDetailDrawer({
 
           {/* 活动日志 */}
           <div>
-            <div className="flex items-center gap-2 mb-3">
+            <div className="mb-3 flex items-center gap-2">
               <Activity className="h-4 w-4" />
               <Label className="text-sm font-medium">活动日志</Label>
             </div>
@@ -399,12 +399,12 @@ export function TaskDetailDrawer({
                       <AvatarFallback>{user?.name?.[0] ?? "?"}</AvatarFallback>
                     </Avatar>
                     <span className="text-muted-foreground">
-                      <span className="font-medium text-foreground">
+                      <span className="text-foreground font-medium">
                         {user?.name ?? "未知用户"}
                       </span>{" "}
                       {activity.action}
                     </span>
-                    <span className="text-xs text-muted-foreground ml-auto">
+                    <span className="text-muted-foreground ml-auto text-xs">
                       {formatDateTime(activity.createdAt)}
                     </span>
                   </div>

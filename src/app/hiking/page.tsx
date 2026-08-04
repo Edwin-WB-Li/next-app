@@ -18,14 +18,14 @@ export default async function HikingPage() {
       <div className="mb-8">
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
           <div className="text-center sm:text-left">
-            <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <h1 className="text-foreground text-3xl font-bold tracking-tight sm:text-4xl">
               徒步足迹
             </h1>
-            <p className="mt-2 text-muted-foreground">用双脚丈量山河，记录每一次出发与抵达</p>
+            <p className="text-muted-foreground mt-2">用双脚丈量山河，记录每一次出发与抵达</p>
           </div>
           <Link
             href="/hiking/admin"
-            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+            className="border-border bg-card text-foreground hover:bg-muted inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium transition-colors"
           >
             <svg
               className="h-4 w-4"
@@ -53,8 +53,8 @@ export default async function HikingPage() {
       {/* 交互地图 */}
       <section className="mb-8">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-foreground">全国徒步地图</h2>
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+          <h2 className="text-foreground text-lg font-semibold">全国徒步地图</h2>
+          <div className="text-muted-foreground flex items-center gap-4 text-sm">
             <div className="flex items-center gap-1.5">
               <span className="inline-block h-3 w-3 rounded-sm bg-[var(--hiking-primary)]" />
               <span>已打卡</span>
@@ -70,20 +70,20 @@ export default async function HikingPage() {
 
       {/* 已打卡省份列表 */}
       <section>
-        <h2 className="mb-4 text-lg font-semibold text-foreground">已打卡省份</h2>
+        <h2 className="text-foreground mb-4 text-lg font-semibold">已打卡省份</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {hikingData.provinces.map((province) => (
             <a
               key={province.code}
               href={`/hiking/${province.code}`}
-              className="group rounded-xl border border-border bg-card p-5 transition-all hover:border-[var(--hiking-primary)] hover:shadow-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="group border-border bg-card focus-visible:ring-ring rounded-xl border p-5 transition-all hover:border-[var(--hiking-primary)] hover:shadow-sm focus-visible:ring-2 focus-visible:ring-offset-2"
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="text-base font-semibold text-foreground group-hover:text-[var(--hiking-primary)]">
+                  <h3 className="text-foreground text-base font-semibold group-hover:text-[var(--hiking-primary)]">
                     {province.name}
                   </h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
+                  <p className="text-muted-foreground mt-1 text-sm">
                     {province.routes.length} 条路线 ·{" "}
                     {province.routes.reduce((sum, r) => sum + r.distance, 0)} km
                   </p>

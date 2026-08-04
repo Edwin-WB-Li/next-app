@@ -47,8 +47,8 @@ export default async function EditRoutePage({ params }: EditRoutePageProps) {
   return (
     <main className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">编辑路线</h1>
-        <p className="mt-1 text-sm text-muted-foreground">修改「{route.name}」的信息</p>
+        <h1 className="text-foreground text-2xl font-bold tracking-tight">编辑路线</h1>
+        <p className="text-muted-foreground mt-1 text-sm">修改「{route.name}」的信息</p>
       </div>
       <RouteForm
         provinces={hikingData.provinces}

@@ -183,22 +183,22 @@ export default function TodoListClient({ initialTodos }: TodoListClientProps) {
       <TodoCreateForm onCreate={handleCreate} />
 
       {totalTodos === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border py-20 text-center">
-          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-muted">
-            <IconCheck className="h-7 w-7 text-muted-foreground" />
+        <div className="border-border flex flex-col items-center justify-center rounded-2xl border border-dashed py-20 text-center">
+          <div className="bg-muted mb-4 flex h-14 w-14 items-center justify-center rounded-full">
+            <IconCheck className="text-muted-foreground h-7 w-7" />
           </div>
-          <h3 className="text-base font-semibold text-foreground">还没有待办事项</h3>
-          <p className="mt-1 text-sm text-muted-foreground">在上方添加一个，开始规划你的每一天</p>
+          <h3 className="text-foreground text-base font-semibold">还没有待办事项</h3>
+          <p className="text-muted-foreground mt-1 text-sm">在上方添加一个，开始规划你的每一天</p>
         </div>
       ) : (
         <div className="flex flex-col gap-6">
           {activeTodos.length === 0 && completedCount > 0 ? (
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border py-16 text-center">
+            <div className="border-border flex flex-col items-center justify-center rounded-2xl border border-dashed py-16 text-center">
               <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-green-50 dark:bg-green-900/20">
                 <IconCheck className="h-6 w-6 text-green-500" />
               </div>
-              <p className="text-sm font-medium text-foreground">全部完成！</p>
-              <p className="mt-0.5 text-xs text-muted-foreground">享受你的自由时间</p>
+              <p className="text-foreground text-sm font-medium">全部完成！</p>
+              <p className="text-muted-foreground mt-0.5 text-xs">享受你的自由时间</p>
             </div>
           ) : null}
 
@@ -210,12 +210,12 @@ export default function TodoListClient({ initialTodos }: TodoListClientProps) {
                 <h2
                   className={`mb-3 flex items-center gap-2 text-xs font-semibold tracking-wide uppercase ${section.accent}`}
                 >
-                  <span className="h-px flex-1 bg-border" />
+                  <span className="bg-border h-px flex-1" />
                   <span>{section.label}</span>
-                  <span className="rounded-full bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                  <span className="bg-muted text-muted-foreground rounded-full px-1.5 py-0.5 text-[10px]">
                     {items.length}
                   </span>
-                  <span className="h-px flex-1 bg-border" />
+                  <span className="bg-border h-px flex-1" />
                 </h2>
                 <div className="flex flex-col gap-2">
                   {items.map((todo) => (
@@ -237,7 +237,7 @@ export default function TodoListClient({ initialTodos }: TodoListClientProps) {
               <button
                 type="button"
                 onClick={() => setShowCompleted((prev) => !prev)}
-                className="flex w-full items-center justify-between rounded-xl border border-border/60 bg-muted/30 px-4 py-3 text-sm text-muted-foreground hover:bg-muted/50 motion-safe:transition-colors motion-safe:duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className="border-border/60 bg-muted/30 text-muted-foreground hover:bg-muted/50 focus-visible:ring-ring flex w-full items-center justify-between rounded-xl border px-4 py-3 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none motion-safe:transition-colors motion-safe:duration-200"
               >
                 <span className="flex items-center gap-2">
                   <IconCheck className="h-4 w-4 text-green-500" />
@@ -258,7 +258,7 @@ export default function TodoListClient({ initialTodos }: TodoListClientProps) {
                       size="sm"
                       onClick={handleClearCompleted}
                       disabled={isPending}
-                      className="text-xs text-muted-foreground hover:text-destructive"
+                      className="text-muted-foreground hover:text-destructive text-xs"
                     >
                       清空已完成
                     </Button>

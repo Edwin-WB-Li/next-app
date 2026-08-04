@@ -69,7 +69,7 @@ export default function ImageUploader({ photos, onChange }: ImageUploaderProps) 
           {photos.map((photo, index) => (
             <div
               key={`${photo}-${index}`}
-              className="group relative aspect-square overflow-hidden rounded-lg border border-border bg-muted"
+              className="group border-border bg-muted relative aspect-square overflow-hidden rounded-lg border"
             >
               <Image
                 src={photo}
@@ -82,7 +82,7 @@ export default function ImageUploader({ photos, onChange }: ImageUploaderProps) 
                 type="button"
                 onClick={() => removePhoto(index)}
                 aria-label={`删除图片 ${index + 1}`}
-                className="absolute right-1 top-1 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
+                className="absolute top-1 right-1 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
               >
                 <svg
                   className="h-3.5 w-3.5"
@@ -112,12 +112,12 @@ export default function ImageUploader({ photos, onChange }: ImageUploaderProps) 
             }
           }}
           placeholder="输入图片 URL，按回车添加"
-          className="flex-1 rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
+          className="border-border bg-background text-foreground placeholder:text-muted-foreground flex-1 rounded-md border px-3 py-2 text-sm transition-colors outline-none focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
         />
         <button
           type="button"
           onClick={addUrl}
-          className="rounded-md border border-border bg-muted px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted/80"
+          className="border-border bg-muted text-foreground hover:bg-muted/80 rounded-md border px-3 py-2 text-sm font-medium transition-colors"
         >
           添加
         </button>
@@ -136,7 +136,7 @@ export default function ImageUploader({ photos, onChange }: ImageUploaderProps) 
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
-          className="flex w-full items-center justify-center gap-2 rounded-md border border-dashed border-border bg-muted/50 py-3 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:opacity-50"
+          className="border-border bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground flex w-full items-center justify-center gap-2 rounded-md border border-dashed py-3 text-sm transition-colors disabled:opacity-50"
         >
           {uploading ? (
             <>

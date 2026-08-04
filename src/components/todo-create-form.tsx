@@ -52,11 +52,11 @@ export default function TodoCreateForm({ onCreate }: TodoCreateFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-2xl border border-border bg-card p-4 shadow-sm"
+      className="border-border bg-card rounded-2xl border p-4 shadow-sm"
     >
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+          <div className="bg-primary/10 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg">
             <IconPlus className="text-primary" />
           </div>
           <Input
@@ -67,19 +67,19 @@ export default function TodoCreateForm({ onCreate }: TodoCreateFormProps) {
             onChange={(e) => setTitle(e.target.value)}
             onKeyDown={handleKeyDown}
             disabled={isPending}
-            className="h-10 border-0 bg-transparent text-base shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-muted-foreground/60"
+            className="placeholder:text-muted-foreground/60 h-10 border-0 bg-transparent text-base shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
             aria-label="待办事项内容"
           />
         </div>
 
-        <div className="flex items-center justify-between border-t border-border/60 pt-3">
+        <div className="border-border/60 flex items-center justify-between border-t pt-3">
           <div className="flex items-center gap-2">
             <select
               value={priority}
               onChange={(e) => setPriority(e.target.value as Priority)}
               disabled={isPending}
               aria-label="优先级"
-              className="h-8 rounded-lg border border-border/80 bg-muted/40 px-2.5 text-xs font-medium text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-safe:transition-colors"
+              className="border-border/80 bg-muted/40 text-foreground focus-visible:ring-ring h-8 rounded-lg border px-2.5 text-xs font-medium focus-visible:ring-1 focus-visible:outline-none motion-safe:transition-colors"
             >
               {priorityOptions.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -94,7 +94,7 @@ export default function TodoCreateForm({ onCreate }: TodoCreateFormProps) {
               onChange={(e) => setDueDate(e.target.value)}
               disabled={isPending}
               aria-label="截止日期"
-              className="h-8 rounded-lg border border-border/80 bg-muted/40 px-2.5 text-xs font-medium text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-safe:transition-colors"
+              className="border-border/80 bg-muted/40 text-foreground focus-visible:ring-ring h-8 rounded-lg border px-2.5 text-xs font-medium focus-visible:ring-1 focus-visible:outline-none motion-safe:transition-colors"
             />
           </div>
 

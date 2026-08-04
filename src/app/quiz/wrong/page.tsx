@@ -13,7 +13,7 @@ export default async function WrongBookPage() {
   return (
     <div className="mx-auto w-full max-w-5xl px-6 py-10">
       <div className="mb-8 flex items-center gap-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded bg-secondary">
+        <div className="bg-secondary flex h-8 w-8 items-center justify-center rounded">
           <svg
             width="16"
             height="16"
@@ -29,14 +29,14 @@ export default async function WrongBookPage() {
             <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">错题本</h1>
-        <span className="rounded border border-border bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+        <h1 className="text-foreground text-2xl font-bold tracking-tight">错题本</h1>
+        <span className="border-border bg-muted text-muted-foreground rounded border px-2 py-0.5 text-xs font-medium">
           {wrongQuestions.length} 题
         </span>
       </div>
 
       {wrongQuestions.length === 0 ? (
-        <div className="flex flex-col items-center border border-dashed border-border py-16 text-muted-foreground">
+        <div className="border-border text-muted-foreground flex flex-col items-center border border-dashed py-16">
           <svg
             width="40"
             height="40"
@@ -53,7 +53,7 @@ export default async function WrongBookPage() {
           <p className="mt-1 text-sm opacity-60">答错的题目会自动收录到这里</p>
           <Link
             href="/quiz"
-            className="mt-4 inline-flex items-center gap-2 rounded bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-foreground/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-ring focus-visible:ring-offset-background mt-4 inline-flex items-center gap-2 rounded px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2"
           >
             去答题
           </Link>
@@ -61,11 +61,11 @@ export default async function WrongBookPage() {
       ) : (
         <div className="flex flex-col gap-5">
           {wrongQuestions.map((question, index) => (
-            <div key={question.id} className="border border-border bg-card">
-              <div className="flex items-center justify-between border-b border-border px-5 py-3">
+            <div key={question.id} className="border-border bg-card border">
+              <div className="border-border flex items-center justify-between border-b px-5 py-3">
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-foreground">{index + 1}.</span>
-                  <span className="rounded border border-border px-1.5 py-0.5 text-[11px] text-muted-foreground">
+                  <span className="text-foreground text-sm font-medium">{index + 1}.</span>
+                  <span className="border-border text-muted-foreground rounded border px-1.5 py-0.5 text-[11px]">
                     {question.type === "single"
                       ? "单选"
                       : question.type === "multiple"
@@ -81,7 +81,7 @@ export default async function WrongBookPage() {
                 >
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors hover:text-success dark:hover:text-success focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
+                    className="text-muted-foreground hover:text-success dark:hover:text-success focus-visible:outline-ring inline-flex items-center gap-1 text-xs font-medium transition-colors focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                   >
                     <svg
                       width="14"
@@ -102,16 +102,16 @@ export default async function WrongBookPage() {
               </div>
 
               <div className="px-5 py-4">
-                <p className="text-sm font-medium text-foreground">{question.content}</p>
+                <p className="text-foreground text-sm font-medium">{question.content}</p>
               </div>
 
               <div className="px-5 pb-4">
                 <OptionList question={question} selected={question.correctAnswers} review />
               </div>
 
-              <div className="border-t border-border bg-muted/30 px-5 py-3">
-                <p className="text-sm text-muted-foreground">
-                  <span className="font-medium text-foreground">解析：</span>
+              <div className="border-border bg-muted/30 border-t px-5 py-3">
+                <p className="text-muted-foreground text-sm">
+                  <span className="text-foreground font-medium">解析：</span>
                   {question.explanation}
                 </p>
               </div>
@@ -120,10 +120,10 @@ export default async function WrongBookPage() {
         </div>
       )}
 
-      <div className="mt-8 border-t border-border pt-6">
+      <div className="border-border mt-8 border-t pt-6">
         <Link
           href="/quiz"
-          className="inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-info dark:hover:text-info focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
+          className="text-foreground hover:text-info dark:hover:text-info focus-visible:outline-ring inline-flex items-center gap-2 text-sm font-medium transition-colors focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
         >
           <svg
             width="16"

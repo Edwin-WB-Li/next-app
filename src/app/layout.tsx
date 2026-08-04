@@ -47,10 +47,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body className="bg-background text-foreground flex min-h-full flex-col">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:bg-background focus:px-4 focus:py-2 focus:text-foreground focus:shadow-lg"
+          className="focus:bg-background focus:text-foreground sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:px-4 focus:py-2 focus:shadow-lg"
         >
           跳到主内容
         </a>
@@ -61,8 +61,8 @@ export default function RootLayout({
           {children}
         </main>
 
-        <footer className="border-t border-border">
-          <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-2 px-6 py-5 text-sm text-muted-foreground sm:flex-row">
+        <footer className="border-border border-t">
+          <div className="text-muted-foreground mx-auto flex max-w-5xl flex-col items-center justify-between gap-2 px-6 py-5 text-sm sm:flex-row">
             <span>基于 Next.js 构建</span>
             <span>© {new Date().getFullYear()} My Blog</span>
           </div>

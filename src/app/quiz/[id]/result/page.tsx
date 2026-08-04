@@ -38,48 +38,48 @@ export default async function QuizResultPage({
   return (
     <div className="mx-auto w-full max-w-5xl px-6 py-10">
       {/* 结果概览 */}
-      <div className="mb-8 border border-border bg-card">
-        <div className="border-b border-border px-5 py-4">
-          <h1 className="text-xl font-bold text-foreground">答题结果</h1>
+      <div className="border-border bg-card mb-8 border">
+        <div className="border-border border-b px-5 py-4">
+          <h1 className="text-foreground text-xl font-bold">答题结果</h1>
         </div>
         <div className="grid grid-cols-2 gap-4 px-5 py-6 sm:grid-cols-4">
-          <div className="flex flex-col items-center border-r border-border py-2">
-            <span className="text-3xl font-bold text-foreground sm:text-4xl">{record.score}</span>
-            <span className="mt-2 text-xs text-muted-foreground">得分</span>
+          <div className="border-border flex flex-col items-center border-r py-2">
+            <span className="text-foreground text-3xl font-bold sm:text-4xl">{record.score}</span>
+            <span className="text-muted-foreground mt-2 text-xs">得分</span>
           </div>
-          <div className="flex flex-col items-center border-r border-border py-2">
-            <span className="text-3xl font-bold text-foreground sm:text-4xl">{correctRate}%</span>
-            <span className="mt-2 text-xs text-muted-foreground">正确率</span>
+          <div className="border-border flex flex-col items-center border-r py-2">
+            <span className="text-foreground text-3xl font-bold sm:text-4xl">{correctRate}%</span>
+            <span className="text-muted-foreground mt-2 text-xs">正确率</span>
           </div>
-          <div className="flex flex-col items-center border-r border-border py-2">
-            <span className="text-3xl font-bold text-foreground sm:text-4xl">
+          <div className="border-border flex flex-col items-center border-r py-2">
+            <span className="text-foreground text-3xl font-bold sm:text-4xl">
               {record.score}/{totalAtTime}
             </span>
-            <span className="mt-2 text-xs text-muted-foreground">答对题数</span>
+            <span className="text-muted-foreground mt-2 text-xs">答对题数</span>
           </div>
           <div className="flex flex-col items-center py-2">
-            <span className="text-3xl font-bold text-foreground sm:text-4xl">
+            <span className="text-foreground text-3xl font-bold sm:text-4xl">
               {record.wrongQuestionIds.length}
             </span>
-            <span className="mt-2 text-xs text-muted-foreground">错题数</span>
+            <span className="text-muted-foreground mt-2 text-xs">错题数</span>
           </div>
         </div>
       </div>
 
       {/* 逐题解析 */}
       <div className="mb-8">
-        <h2 className="mb-4 text-lg font-bold text-foreground">逐题解析</h2>
+        <h2 className="text-foreground mb-4 text-lg font-bold">逐题解析</h2>
         <div className="flex flex-col gap-5">
           {questions.map((question, index) => {
             const isCorrect = result.details[question.id];
             const userAnswer = record.answers[question.id] ?? [];
 
             return (
-              <div key={question.id} className="border border-border bg-card">
-                <div className="flex items-center gap-3 border-b border-border px-5 py-3">
-                  <span className="text-sm font-medium text-foreground">{index + 1}.</span>
+              <div key={question.id} className="border-border bg-card border">
+                <div className="border-border flex items-center gap-3 border-b px-5 py-3">
+                  <span className="text-foreground text-sm font-medium">{index + 1}.</span>
                   {isCorrect ? (
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-success dark:text-success">
+                    <span className="text-success dark:text-success inline-flex items-center gap-1 text-xs font-medium">
                       <svg
                         width="14"
                         height="14"
@@ -96,7 +96,7 @@ export default async function QuizResultPage({
                       正确
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-error dark:text-error">
+                    <span className="text-error dark:text-error inline-flex items-center gap-1 text-xs font-medium">
                       <svg
                         width="14"
                         height="14"
@@ -116,14 +116,14 @@ export default async function QuizResultPage({
                   )}
                 </div>
                 <div className="px-5 py-4">
-                  <p className="text-sm font-medium text-foreground">{question.content}</p>
+                  <p className="text-foreground text-sm font-medium">{question.content}</p>
                 </div>
                 <div className="px-5 pb-4">
                   <OptionList question={question} selected={userAnswer} review />
                 </div>
-                <div className="border-t border-border bg-muted/30 px-5 py-3">
-                  <p className="text-sm text-muted-foreground">
-                    <span className="font-medium text-foreground">解析：</span>
+                <div className="border-border bg-muted/30 border-t px-5 py-3">
+                  <p className="text-muted-foreground text-sm">
+                    <span className="text-foreground font-medium">解析：</span>
                     {question.explanation}
                   </p>
                 </div>
@@ -134,10 +134,10 @@ export default async function QuizResultPage({
       </div>
 
       {/* 底部导航 */}
-      <div className="flex items-center justify-between border-t border-border pt-6">
+      <div className="border-border flex items-center justify-between border-t pt-6">
         <Link
           href="/quiz"
-          className="inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-info dark:hover:text-info focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
+          className="text-foreground hover:text-info dark:hover:text-info focus-visible:outline-ring inline-flex items-center gap-2 text-sm font-medium transition-colors focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
         >
           <svg
             width="16"
@@ -157,7 +157,7 @@ export default async function QuizResultPage({
         </Link>
         <Link
           href="/quiz/wrong"
-          className="inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-info dark:hover:text-info focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
+          className="text-foreground hover:text-info dark:hover:text-info focus-visible:outline-ring inline-flex items-center gap-2 text-sm font-medium transition-colors focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
         >
           查看错题本
           <svg

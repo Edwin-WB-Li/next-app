@@ -54,17 +54,17 @@ export function FilterBar({
   return (
     <div className="flex items-center gap-2">
       <div className="relative">
-        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground/60" />
+        <Search className="text-muted-foreground/60 absolute top-1/2 left-2.5 h-3.5 w-3.5 -translate-y-1/2" />
         <Input
           placeholder="搜索..."
           value={filters.search}
           onChange={(e) => setSearch(e.target.value)}
-          className="h-8 w-44 pl-8 pr-7 text-xs bg-muted/50 border-transparent focus-visible:bg-background focus-visible:border-border/60"
+          className="bg-muted/50 focus-visible:bg-background focus-visible:border-border/60 h-8 w-44 border-transparent pr-7 pl-8 text-xs"
         />
         {filters.search ? (
           <button
             onClick={() => setSearch("")}
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-1 rounded"
+            className="text-muted-foreground/50 hover:text-muted-foreground focus-visible:ring-primary/50 absolute top-1/2 right-2 -translate-y-1/2 rounded focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:outline-none"
             aria-label="清除搜索"
           >
             <X className="h-3 w-3" />
@@ -77,12 +77,12 @@ export function FilterBar({
           <Button
             variant={hasActiveFilters ? "secondary" : "ghost"}
             size="sm"
-            className="h-8 gap-1.5 text-xs font-medium px-2.5"
+            className="h-8 gap-1.5 px-2.5 text-xs font-medium"
           >
             <Filter className="h-3.5 w-3.5" />
             筛选
             {hasActiveFilters && (
-              <span className="ml-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
+              <span className="bg-primary text-primary-foreground ml-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full px-1 text-[10px] font-bold">
                 {filters.assignees.length + filters.priorities.length + filters.tags.length}
               </span>
             )}
@@ -154,7 +154,7 @@ export function FilterBar({
           variant="ghost"
           size="sm"
           onClick={clearFilters}
-          className="h-8 gap-1 text-xs text-muted-foreground hover:text-foreground px-2"
+          className="text-muted-foreground hover:text-foreground h-8 gap-1 px-2 text-xs"
         >
           <X className="h-3 w-3" />
           清除

@@ -222,10 +222,10 @@ export default function ChinaMap({ hikingData }: ChinaMapProps) {
 
   if (error) {
     return (
-      <div className="flex h-[400px] items-center justify-center rounded-xl border border-border bg-muted">
+      <div className="border-border bg-muted flex h-[400px] items-center justify-center rounded-xl border">
         <div className="text-center">
           <p className="text-muted-foreground">{error}</p>
-          <p className="mt-1 text-xs text-muted-foreground">请检查网络连接后刷新页面</p>
+          <p className="text-muted-foreground mt-1 text-xs">请检查网络连接后刷新页面</p>
         </div>
       </div>
     );
@@ -234,8 +234,8 @@ export default function ChinaMap({ hikingData }: ChinaMapProps) {
   return (
     <div className="relative">
       {loading && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-background/80">
-          <div className="flex items-center gap-2 text-muted-foreground">
+        <div className="bg-background/80 absolute inset-0 z-10 flex items-center justify-center rounded-xl">
+          <div className="text-muted-foreground flex items-center gap-2">
             <IconSpinner />
             <span className="text-sm">加载地图中...</span>
           </div>
@@ -243,7 +243,7 @@ export default function ChinaMap({ hikingData }: ChinaMapProps) {
       )}
       <div
         ref={chartRef}
-        className="h-[400px] w-full rounded-xl border border-border sm:h-[500px] lg:h-[600px]"
+        className="border-border h-[400px] w-full rounded-xl border sm:h-[500px] lg:h-[600px]"
       />
     </div>
   );

@@ -39,7 +39,7 @@ function ProgressRing({ value }: { value: number }) {
           className="text-primary motion-safe:transition-all motion-safe:duration-700"
         />
       </svg>
-      <span className="absolute text-sm font-semibold text-foreground">{Math.round(value)}%</span>
+      <span className="text-foreground absolute text-sm font-semibold">{Math.round(value)}%</span>
     </div>
   );
 }
@@ -70,19 +70,19 @@ export default memo(function TodoDashboard({ total, completed }: TodoDashboardPr
   }
 
   return (
-    <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-5 sm:p-6">
+    <div className="border-border bg-card flex items-center justify-between rounded-2xl border p-5 sm:p-6">
       <div>
-        <div className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+        <div className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
           {weekStr}，{dateStr}
         </div>
-        <div className="mt-1 text-xl font-bold tracking-tight text-foreground sm:text-2xl">
+        <div className="text-foreground mt-1 text-xl font-bold tracking-tight sm:text-2xl">
           {getGreeting()}
         </div>
-        <div className="mt-0.5 text-sm text-muted-foreground">{statusText}</div>
+        <div className="text-muted-foreground mt-0.5 text-sm">{statusText}</div>
       </div>
       <div className="flex flex-col items-center gap-1">
         <ProgressRing value={progress} />
-        <span className="text-[10px] font-medium text-muted-foreground">
+        <span className="text-muted-foreground text-[10px] font-medium">
           {completed}/{total}
         </span>
       </div>

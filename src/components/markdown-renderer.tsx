@@ -36,7 +36,7 @@ function CodeBlock({ children, className }: { children?: ReactNode; className?: 
 
   if (isInline) {
     return (
-      <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono text-foreground">
+      <code className="bg-muted text-foreground rounded px-1.5 py-0.5 font-mono text-sm">
         {children}
       </code>
     );
@@ -47,7 +47,7 @@ function CodeBlock({ children, className }: { children?: ReactNode; className?: 
       style={isDark ? oneDark : oneLight}
       language={language || "text"}
       PreTag="div"
-      className="rounded-lg my-4 text-sm"
+      className="my-4 rounded-lg text-sm"
     >
       {String(children).replace(/\n$/, "")}
     </SyntaxHighlighter>
@@ -59,7 +59,7 @@ function MarkdownH2({ children }: { children?: ReactNode }) {
   return (
     <h2
       id={slugify(text)}
-      className="mt-8 mb-4 text-2xl font-semibold tracking-tight text-foreground border-b border-border pb-2 scroll-mt-24"
+      className="text-foreground border-border mt-8 mb-4 scroll-mt-24 border-b pb-2 text-2xl font-semibold tracking-tight"
     >
       {children}
     </h2>
@@ -71,7 +71,7 @@ function MarkdownH3({ children }: { children?: ReactNode }) {
   return (
     <h3
       id={slugify(text)}
-      className="mt-6 mb-3 text-xl font-semibold tracking-tight text-foreground scroll-mt-24"
+      className="text-foreground mt-6 mb-3 scroll-mt-24 text-xl font-semibold tracking-tight"
     >
       {children}
     </h3>
@@ -127,7 +127,7 @@ function MarkdownDetails({ className, children, ...props }: HTMLAttributes<HTMLD
   if (isCustomBlock) {
     return (
       <details
-        className={`my-6 rounded-lg border border-border bg-muted/30 px-4 py-3 ${className}`}
+        className={`border-border bg-muted/30 my-6 rounded-lg border px-4 py-3 ${className}`}
         {...props}
       >
         {children}
@@ -143,7 +143,7 @@ function MarkdownDetails({ className, children, ...props }: HTMLAttributes<HTMLD
 
 const markdownComponents = {
   h1: ({ children }: { children?: ReactNode }) => (
-    <h1 className="mt-8 mb-4 text-3xl font-bold tracking-tight text-foreground">{children}</h1>
+    <h1 className="text-foreground mt-8 mb-4 text-3xl font-bold tracking-tight">{children}</h1>
   ),
   h2: MarkdownH2,
   h3: MarkdownH3,
@@ -156,7 +156,7 @@ const markdownComponents = {
   ),
   li: ({ children }: { children?: ReactNode }) => <li className="my-1">{children}</li>,
   blockquote: ({ children }: { children?: ReactNode }) => (
-    <blockquote className="my-4 border-l-4 border-primary/30 pl-4 italic text-foreground/70">
+    <blockquote className="border-primary/30 text-foreground/70 my-4 border-l-4 pl-4 italic">
       {children}
     </blockquote>
   ),
@@ -164,7 +164,7 @@ const markdownComponents = {
   a: ({ children, href }: { children?: ReactNode; href?: string }) => (
     <a
       href={href}
-      className="font-medium text-primary underline underline-offset-4 hover:text-primary/80"
+      className="text-primary hover:text-primary/80 font-medium underline underline-offset-4"
       target={href?.startsWith("http") ? "_blank" : undefined}
       rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
     >
@@ -178,12 +178,12 @@ const markdownComponents = {
   ),
   thead: ({ children }: { children?: ReactNode }) => <thead className="bg-muted">{children}</thead>,
   th: ({ children }: { children?: ReactNode }) => (
-    <th className="border border-border px-4 py-2 text-left font-semibold">{children}</th>
+    <th className="border-border border px-4 py-2 text-left font-semibold">{children}</th>
   ),
   td: ({ children }: { children?: ReactNode }) => (
-    <td className="border border-border px-4 py-2">{children}</td>
+    <td className="border-border border px-4 py-2">{children}</td>
   ),
-  hr: () => <hr className="my-8 border-border" />,
+  hr: () => <hr className="border-border my-8" />,
   div: MarkdownDiv,
   details: MarkdownDetails,
 };

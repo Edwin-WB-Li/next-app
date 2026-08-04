@@ -49,7 +49,7 @@ export default function PhotoGallery({ photos, title }: PhotoGalleryProps) {
 
   return (
     <div>
-      {title && <h3 className="mb-3 text-sm font-medium text-muted-foreground">{title}</h3>}
+      {title && <h3 className="text-muted-foreground mb-3 text-sm font-medium">{title}</h3>}
 
       {/* 瀑布流网格 */}
       <div className="columns-2 gap-3 sm:columns-3">
@@ -58,7 +58,7 @@ export default function PhotoGallery({ photos, title }: PhotoGalleryProps) {
             key={index}
             onClick={() => setLightboxIndex(index)}
             aria-label={`查看照片 ${index + 1}`}
-            className="group mb-3 block w-full break-inside-avoid overflow-hidden rounded-lg border border-border bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="group border-border bg-muted focus-visible:ring-ring mb-3 block w-full break-inside-avoid overflow-hidden rounded-lg border focus-visible:ring-2 focus-visible:ring-offset-2"
           >
             <div className="relative aspect-[4/3] w-full overflow-hidden">
               <Image
@@ -68,7 +68,7 @@ export default function PhotoGallery({ photos, title }: PhotoGalleryProps) {
                 className="object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105"
                 sizes="(max-width: 640px) 50vw, 33vw"
               />
-              <div className="absolute inset-0 bg-black/0 motion-safe:transition-colors group-hover:bg-black/10" />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 motion-safe:transition-colors" />
             </div>
           </button>
         ))}
@@ -88,7 +88,7 @@ export default function PhotoGallery({ photos, title }: PhotoGalleryProps) {
           {/* 关闭按钮 */}
           <button
             ref={closeBtnRef}
-            className="absolute right-4 top-4 rounded-full bg-white/10 p-2.5 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            className="absolute top-4 right-4 rounded-full bg-white/10 p-2.5 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             onClick={closeLightbox}
             aria-label="关闭预览"
           >
@@ -106,7 +106,7 @@ export default function PhotoGallery({ photos, title }: PhotoGalleryProps) {
           {/* 上一张 */}
           {lightboxIndex > 0 && (
             <button
-              className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2.5 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              className="absolute top-1/2 left-4 -translate-y-1/2 rounded-full bg-white/10 p-2.5 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               onClick={(e) => {
                 e.stopPropagation();
                 goPrev();
@@ -136,7 +136,7 @@ export default function PhotoGallery({ photos, title }: PhotoGalleryProps) {
           {/* 下一张 */}
           {lightboxIndex < photos.length - 1 && (
             <button
-              className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2.5 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              className="absolute top-1/2 right-4 -translate-y-1/2 rounded-full bg-white/10 p-2.5 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               onClick={(e) => {
                 e.stopPropagation();
                 goNext();

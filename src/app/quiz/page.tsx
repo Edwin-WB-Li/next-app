@@ -13,7 +13,7 @@ export default async function QuizPage() {
   return (
     <div className="mx-auto w-full max-w-5xl px-6 py-10">
       <div className="mb-8 flex items-center gap-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded bg-secondary">
+        <div className="bg-secondary flex h-8 w-8 items-center justify-center rounded">
           <svg
             width="16"
             height="16"
@@ -29,11 +29,11 @@ export default async function QuizPage() {
             <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">答题练习</h1>
+        <h1 className="text-foreground text-2xl font-bold tracking-tight">答题练习</h1>
       </div>
 
       {questions.length === 0 ? (
-        <div className="flex flex-col items-center border border-dashed border-border py-16 text-muted-foreground">
+        <div className="border-border text-muted-foreground flex flex-col items-center border border-dashed py-16">
           <svg
             width="40"
             height="40"
@@ -60,10 +60,10 @@ export default async function QuizPage() {
         </div>
       )}
 
-      <div className="mt-8 flex items-center gap-4 border-t border-border pt-6">
+      <div className="border-border mt-8 flex items-center gap-4 border-t pt-6">
         <Link
           href="/quiz/wrong"
-          className="inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-info dark:hover:text-info focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
+          className="text-foreground hover:text-info dark:hover:text-info focus-visible:outline-ring inline-flex items-center gap-2 text-sm font-medium transition-colors focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
         >
           <svg
             width="16"

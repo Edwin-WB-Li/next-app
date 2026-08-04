@@ -54,7 +54,7 @@ export default function AdminPostList({ post }: AdminPostListProps) {
           </td>
         </tr>
       ) : null}
-      <tr className="transition-colors hover:bg-muted/50">
+      <tr className="hover:bg-muted/50 transition-colors">
         <td className="px-4 py-3 font-medium">
           <Link
             href={`/admin/edit/${currentPost.id}`}
@@ -63,7 +63,7 @@ export default function AdminPostList({ post }: AdminPostListProps) {
             {currentPost.title}
           </Link>
         </td>
-        <td className="px-4 py-3 text-foreground/70 font-mono text-xs">{currentPost.slug}</td>
+        <td className="text-foreground/70 px-4 py-3 font-mono text-xs">{currentPost.slug}</td>
         <td className="px-4 py-3">
           <span
             className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
@@ -75,10 +75,10 @@ export default function AdminPostList({ post }: AdminPostListProps) {
             {currentPost.published ? "已发布" : "草稿"}
           </span>
         </td>
-        <td className="px-4 py-3 text-foreground/70">
+        <td className="text-foreground/70 px-4 py-3">
           {new Date(currentPost.createdAt).toLocaleDateString("zh-CN")}
         </td>
-        <td className="px-4 py-3 text-foreground/70">
+        <td className="text-foreground/70 px-4 py-3">
           {new Date(currentPost.updatedAt).toLocaleDateString("zh-CN")}
         </td>
         <td className="px-4 py-3 text-right">
@@ -95,14 +95,14 @@ export default function AdminPostList({ post }: AdminPostListProps) {
             </button>
             <Link
               href={`/admin/edit/${currentPost.id}`}
-              className="inline-flex h-8 items-center rounded-md bg-muted px-3 text-xs font-medium text-foreground hover:bg-muted/80 transition-colors"
+              className="bg-muted text-foreground hover:bg-muted/80 inline-flex h-8 items-center rounded-md px-3 text-xs font-medium transition-colors"
             >
               编辑
             </Link>
             <button
               onClick={handleDelete}
               disabled={isDeleting}
-              className="inline-flex h-8 items-center rounded-md bg-red-100 px-3 text-xs font-medium text-red-800 hover:bg-red-200 transition-colors disabled:opacity-50 dark:bg-red-900/30 dark:text-red-400"
+              className="inline-flex h-8 items-center rounded-md bg-red-100 px-3 text-xs font-medium text-red-800 transition-colors hover:bg-red-200 disabled:opacity-50 dark:bg-red-900/30 dark:text-red-400"
             >
               {isDeleting ? "删除中..." : "删除"}
             </button>

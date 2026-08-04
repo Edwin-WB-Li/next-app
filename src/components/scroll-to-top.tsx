@@ -24,8 +24,8 @@ export default function ScrollToTop() {
     <button
       onClick={scrollToTop}
       aria-label="回到顶部"
-      className={`fixed bottom-8 right-8 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 ${
-        visible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0 pointer-events-none"
+      className={`bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary/50 fixed right-8 bottom-8 z-50 flex h-10 w-10 items-center justify-center rounded-full shadow-lg transition-all duration-300 focus:ring-2 focus:outline-none ${
+        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
       }`}
     >
       <svg

@@ -6,8 +6,8 @@ import dynamic from "next/dynamic";
 const ChinaMapInner = dynamic(() => import("@/components/china-map"), {
   ssr: false,
   loading: () => (
-    <div className="flex h-[400px] items-center justify-center rounded-xl border border-border bg-muted sm:h-[500px] lg:h-[600px]">
-      <div className="flex items-center gap-2 text-muted-foreground">
+    <div className="border-border bg-muted flex h-[400px] items-center justify-center rounded-xl border sm:h-[500px] lg:h-[600px]">
+      <div className="text-muted-foreground flex items-center gap-2">
         <svg className="h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24">
           <circle
             className="opacity-25"

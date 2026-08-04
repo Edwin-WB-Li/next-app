@@ -151,26 +151,26 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
   }, [newColumnName, refreshData]);
 
   return (
-    <div className="flex flex-col h-full bg-background">
+    <div className="bg-background flex h-full flex-col">
       {/* 顶部工具栏 */}
-      <div className="flex items-center justify-between px-5 py-3.5 border-b border-border/60 bg-background/80 backdrop-blur-sm">
+      <div className="border-border/60 bg-background/80 flex items-center justify-between border-b px-5 py-3.5 backdrop-blur-sm">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-              <Layout className="h-4 w-4 text-primary" />
+            <div className="bg-primary/10 flex h-8 w-8 items-center justify-center rounded-lg">
+              <Layout className="text-primary h-4 w-4" />
             </div>
             <div>
-              <h1 className="text-base font-bold text-foreground leading-tight">项目看板</h1>
-              <p className="text-[11px] text-muted-foreground leading-tight">
+              <h1 className="text-foreground text-base leading-tight font-bold">项目看板</h1>
+              <p className="text-muted-foreground text-[11px] leading-tight">
                 {completedTasks}/{totalTasks} 已完成
               </p>
             </div>
           </div>
-          <div className="h-6 w-px bg-border" />
+          <div className="bg-border h-6 w-px" />
           <Button
             variant="default"
             size="sm"
-            className="h-8 gap-1.5 text-xs font-medium px-3"
+            className="h-8 gap-1.5 px-3 text-xs font-medium"
             onClick={() => handleCreateTask()}
           >
             <Plus className="h-3.5 w-3.5" />
@@ -193,7 +193,7 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="h-8 w-8 text-muted-foreground hover:text-foreground"
+            className="text-muted-foreground hover:text-foreground h-8 w-8"
             onClick={refreshData}
             disabled={refreshing}
             title="刷新"
@@ -215,7 +215,7 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
           }}
         >
           <div className="flex-1 overflow-auto px-5 py-4">
-            <div className="flex gap-5 h-full min-w-fit items-start">
+            <div className="flex h-full min-w-fit items-start gap-5">
               {sortedColumns.map((column) => (
                 <KanbanColumn
                   key={column.id}
@@ -227,7 +227,7 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
               {/* 添加列 */}
               <div className="w-[280px] shrink-0">
                 {isAddingColumn ? (
-                  <div className="rounded-xl border border-border bg-muted/40 p-3">
+                  <div className="border-border bg-muted/40 rounded-xl border p-3">
                     <Input
                       value={newColumnName}
                       onChange={(e) => setNewColumnName(e.target.value)}
@@ -239,7 +239,7 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
                         }
                       }}
                       placeholder="输入列名称"
-                      className="h-8 text-sm mb-2"
+                      className="mb-2 h-8 text-sm"
                       autoFocus
                     />
                     <div className="flex gap-2">
@@ -262,7 +262,7 @@ export function KanbanBoard({ initialData }: KanbanBoardProps) {
                 ) : (
                   <button
                     onClick={() => setIsAddingColumn(true)}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-border/60 bg-muted/20 px-4 py-6 text-sm text-muted-foreground/60 transition-all hover:bg-muted/40 hover:text-muted-foreground hover:border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-1"
+                    className="border-border/60 bg-muted/20 text-muted-foreground/60 hover:bg-muted/40 hover:text-muted-foreground hover:border-border focus-visible:ring-primary/50 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed px-4 py-6 text-sm transition-all focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:outline-none"
                     aria-label="添加新列"
                   >
                     <Plus className="h-4 w-4" />

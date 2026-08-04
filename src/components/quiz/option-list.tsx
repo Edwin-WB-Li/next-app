@@ -59,13 +59,7 @@ function OptionList({ question, selected, onChange, review }: OptionListProps) {
                 handleToggle(option.id);
               }
             }}
-            className={`
-              flex min-h-[44px] cursor-pointer items-center gap-3 border px-4 py-2.5 transition-colors
-              ${review ? "cursor-default" : "hover:bg-muted/50"}
-              ${status === "correct" ? "border-success/50 bg-success/5" : ""}
-              ${status === "wrong" ? "border-error/50 bg-error/5" : ""}
-              ${status === "default" && isSelected ? "border-foreground/30 bg-muted" : "border-border bg-card"}
-            `}
+            className={`flex min-h-[44px] cursor-pointer items-center gap-3 border px-4 py-2.5 transition-colors ${review ? "cursor-default" : "hover:bg-muted/50"} ${status === "correct" ? "border-success/50 bg-success/5" : ""} ${status === "wrong" ? "border-error/50 bg-error/5" : ""} ${status === "default" && isSelected ? "border-foreground/30 bg-muted" : "border-border bg-card"} `}
           >
             <input
               type={inputType}
@@ -74,10 +68,10 @@ function OptionList({ question, selected, onChange, review }: OptionListProps) {
               checked={isSelected}
               onChange={() => handleToggle(option.id)}
               disabled={review}
-              className="h-4 w-4 shrink-0 accent-foreground"
+              className="accent-foreground h-4 w-4 shrink-0"
               aria-labelledby={`opt-${question.id}-${option.id}`}
             />
-            <span id={`opt-${question.id}-${option.id}`} className="text-sm text-foreground">
+            <span id={`opt-${question.id}-${option.id}`} className="text-foreground text-sm">
               {option.text}
             </span>
             {review && status === "correct" && (
@@ -90,7 +84,7 @@ function OptionList({ question, selected, onChange, review }: OptionListProps) {
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="ml-auto shrink-0 text-success dark:text-success"
+                className="text-success dark:text-success ml-auto shrink-0"
                 aria-hidden="true"
               >
                 <polyline points="20 6 9 17 4 12" />
@@ -106,7 +100,7 @@ function OptionList({ question, selected, onChange, review }: OptionListProps) {
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="ml-auto shrink-0 text-error dark:text-error"
+                className="text-error dark:text-error ml-auto shrink-0"
                 aria-hidden="true"
               >
                 <path d="M18 6 6 18" />
