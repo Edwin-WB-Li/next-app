@@ -135,6 +135,11 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
         ? "多选题"
         : "判断题";
 
+  const isFlagged = useMemo(
+    () => flagged.includes(currentQuestion.id),
+    [flagged, currentQuestion.id]
+  );
+
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-8 lg:flex-row">
       {/* 题目区域 */}
@@ -154,17 +159,17 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
               type="button"
               onClick={handleToggleFlag}
               className={`focus-visible:outline-ring inline-flex items-center gap-1 text-xs font-medium transition-colors focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
-                flagged.includes(currentQuestion.id)
+                isFlagged
                   ? "text-warning dark:text-warning"
                   : "text-muted-foreground hover:text-foreground"
               }`}
-              aria-pressed={flagged.includes(currentQuestion.id)}
+              aria-pressed={isFlagged}
             >
               <svg
                 width="14"
                 height="14"
                 viewBox="0 0 24 24"
-                fill={flagged.includes(currentQuestion.id) ? "currentColor" : "none"}
+                fill={isFlagged ? "currentColor" : "none"}
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
@@ -174,7 +179,7 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
                 <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
                 <line x1="4" x2="4" y1="22" y2="15" />
               </svg>
-              {flagged.includes(currentQuestion.id) ? "已标记" : "标记"}
+              {isFlagged ? "已标记" : "标记"}
             </button>
           </div>
 

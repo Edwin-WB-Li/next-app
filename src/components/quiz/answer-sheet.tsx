@@ -31,7 +31,7 @@ function AnswerSheet({ questions, answers, flagged, currentIndex, onNavigate }: 
               data-flagged={isFlagged}
               data-current={isCurrent}
               aria-label={`第 ${index + 1} 题${isAnswered ? "，已答" : ""}${isFlagged ? "，已标记" : ""}`}
-              className={`flex h-9 items-center justify-center text-sm font-medium ${isCurrent ? "border-foreground bg-muted text-foreground border-2" : ""} ${!isCurrent && isAnswered ? "border-border bg-foreground text-background border" : ""} ${!isCurrent && !isAnswered && !isFlagged ? "border-border bg-card text-foreground border" : ""} ${!isCurrent && isFlagged && !isAnswered ? "border-warning/60 bg-card text-warning dark:text-warning border" : ""} `}
+              className={`flex h-9 items-center justify-center border text-sm font-medium ${isCurrent ? "text-foreground border-sky-500 bg-sky-500/10" : ""} ${!isCurrent && isAnswered ? "border-border bg-foreground text-background" : ""} ${!isCurrent && !isAnswered && !isFlagged ? "border-border bg-card text-foreground" : ""} ${!isCurrent && isFlagged && !isAnswered ? "border-warning/60 bg-card text-warning dark:text-warning" : ""} `}
             >
               {index + 1}
             </button>

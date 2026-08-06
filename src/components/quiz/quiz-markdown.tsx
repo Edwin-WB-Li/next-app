@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, type ReactNode } from "react";
+import { useState, useEffect, memo, type ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark, oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -46,8 +46,10 @@ function CodeBlock({ className, children }: { className?: string; children?: Rea
   );
 }
 
+const MemoCodeBlock = memo(CodeBlock);
+
 const components = {
-  code: CodeBlock,
+  code: MemoCodeBlock,
   p: ({ children }: { children?: ReactNode }) => <p className="leading-relaxed">{children}</p>,
   pre: ({ children }: { children?: ReactNode }) => <>{children}</>,
 };
