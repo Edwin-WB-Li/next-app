@@ -1,0 +1,655 @@
+[
+  {
+    "id": "14e3e697-d272-4fa1-be3c-7182e756cbb1",
+    "title": "JavaScript 基础",
+    "description": "涵盖变量、作用域、闭包、原型链、异步等 JS 核心概念",
+    "questions": [
+      {
+        "id": "js-1",
+        "type": "single",
+        "content": "以下哪个关键字声明的变量具有块级作用域？",
+        "options": [
+          {
+            "id": "a",
+            "text": "var"
+          },
+          {
+            "id": "b",
+            "text": "let"
+          },
+          {
+            "id": "c",
+            "text": "function"
+          },
+          {
+            "id": "d",
+            "text": "none"
+          }
+        ],
+        "correctAnswers": ["b"],
+        "explanation": "let 和 const 声明的变量具有块级作用域，var 是函数级作用域。",
+        "difficulty": "easy",
+        "tags": ["作用域", "ES6"]
+      },
+      {
+        "id": "js-2",
+        "type": "single",
+        "content": "`typeof null` 的返回值是什么？",
+        "options": [
+          {
+            "id": "a",
+            "text": "'null'"
+          },
+          {
+            "id": "b",
+            "text": "'undefined'"
+          },
+          {
+            "id": "c",
+            "text": "'object'"
+          },
+          {
+            "id": "d",
+            "text": "'number'"
+          }
+        ],
+        "correctAnswers": ["c"],
+        "explanation": "这是 JavaScript 的历史遗留 bug，typeof null 返回 'object'。",
+        "difficulty": "easy",
+        "tags": ["类型", "历史"]
+      },
+      {
+        "id": "js-3",
+        "type": "multiple",
+        "content": "以下哪些方法可以创建一个新对象？",
+        "options": [
+          {
+            "id": "a",
+            "text": "Object.create()"
+          },
+          {
+            "id": "b",
+            "text": "new Object()"
+          },
+          {
+            "id": "c",
+            "text": "字面量 {}"
+          },
+          {
+            "id": "d",
+            "text": "Object.assign()"
+          }
+        ],
+        "correctAnswers": ["a", "b", "c"],
+        "explanation": "Object.create、new Object 和 {} 都可以创建新对象。Object.assign 是用于拷贝属性的。",
+        "difficulty": "medium",
+        "tags": ["对象", "原型"]
+      },
+      {
+        "id": "js-4",
+        "type": "true_false",
+        "content": "箭头函数没有自己的 this，它继承自外层作用域。",
+        "options": [
+          {
+            "id": "a",
+            "text": "正确"
+          },
+          {
+            "id": "b",
+            "text": "错误"
+          }
+        ],
+        "correctAnswers": ["a"],
+        "explanation": "箭头函数没有自己的 this、arguments、super 或 new.target，这些值继承自外层最近一层非箭头函数。",
+        "difficulty": "medium",
+        "tags": ["箭头函数", "this"]
+      },
+      {
+        "id": "js-5",
+        "type": "single",
+        "content": "以下代码的输出是什么？\n```js\nPromise.resolve(1)\n  .then(x => x + 1)\n  .then(x => { throw new Error('oops') })\n  .catch(() => 3)\n  .then(x => console.log(x))\n```",
+        "options": [
+          {
+            "id": "a",
+            "text": "1"
+          },
+          {
+            "id": "b",
+            "text": "2"
+          },
+          {
+            "id": "c",
+            "text": "3"
+          },
+          {
+            "id": "d",
+            "text": "Error: oops"
+          }
+        ],
+        "correctAnswers": ["c"],
+        "explanation": "catch 返回 3，后续的 then 接收 3 并打印。",
+        "difficulty": "hard",
+        "tags": ["Promise", "异步"]
+      }
+    ],
+    "createdAt": "2026-08-05T09:33:05.693Z",
+    "source": "imported"
+  },
+  {
+    "id": "b73e1315-e8eb-4413-ae94-63ed69d7e9cd",
+    "title": "React 核心概念",
+    "description": "组件生命周期、Hooks、渲染优化、状态管理等 React 关键知识点",
+    "questions": [
+      {
+        "id": "react-1",
+        "type": "single",
+        "content": "React 中用于在函数组件中管理状态的内置 Hook 是？",
+        "options": [
+          {
+            "id": "a",
+            "text": "useEffect"
+          },
+          {
+            "id": "b",
+            "text": "useState"
+          },
+          {
+            "id": "c",
+            "text": "useReducer"
+          },
+          {
+            "id": "d",
+            "text": "useContext"
+          }
+        ],
+        "correctAnswers": ["b"],
+        "explanation": "useState 是 React 提供的最基础的状态管理 Hook。",
+        "difficulty": "easy",
+        "tags": ["Hooks", "状态"]
+      },
+      {
+        "id": "react-2",
+        "type": "single",
+        "content": "`useEffect` 的依赖数组为空数组 `[]` 时，副作用会在什么时候执行？",
+        "options": [
+          {
+            "id": "a",
+            "text": "每次渲染后"
+          },
+          {
+            "id": "b",
+            "text": "仅在组件挂载时"
+          },
+          {
+            "id": "c",
+            "text": "仅在组件卸载时"
+          },
+          {
+            "id": "d",
+            "text": "从不执行"
+          }
+        ],
+        "correctAnswers": ["b"],
+        "explanation": "空依赖数组意味着 effect 只在组件挂载时执行一次，类似 class 组件的 componentDidMount。",
+        "difficulty": "easy",
+        "tags": ["useEffect", "生命周期"]
+      },
+      {
+        "id": "react-3",
+        "type": "multiple",
+        "content": "哪些情况会导致 React 组件重新渲染？",
+        "options": [
+          {
+            "id": "a",
+            "text": "父组件重新渲染"
+          },
+          {
+            "id": "b",
+            "text": "组件自身的 state 变化"
+          },
+          {
+            "id": "c",
+            "text": "传入的 props 变化"
+          },
+          {
+            "id": "d",
+            "text": "调用 forceUpdate"
+          }
+        ],
+        "correctAnswers": ["a", "b", "c"],
+        "explanation": "父组件渲染会触发子组件渲染（除非用 memo 优化）、自身 state 变化和 props 变化都会触发渲染。函数组件没有 forceUpdate。",
+        "difficulty": "medium",
+        "tags": ["渲染", "性能"]
+      },
+      {
+        "id": "react-4",
+        "type": "true_false",
+        "content": "`React.memo` 可以对函数组件进行浅比较优化，避免不必要的重渲染。",
+        "options": [
+          {
+            "id": "a",
+            "text": "正确"
+          },
+          {
+            "id": "b",
+            "text": "错误"
+          }
+        ],
+        "correctAnswers": ["a"],
+        "explanation": "React.memo 高阶组件会对 props 进行浅比较，如果 props 没有变化则跳过渲染。",
+        "difficulty": "medium",
+        "tags": ["性能优化", "memo"]
+      },
+      {
+        "id": "react-5",
+        "type": "single",
+        "content": "在 React 18 的 Concurrent 模式下，`useTransition` 的主要作用是什么？",
+        "options": [
+          {
+            "id": "a",
+            "text": "延迟执行副作用"
+          },
+          {
+            "id": "b",
+            "text": "将状态更新标记为非紧急，避免阻塞 UI"
+          },
+          {
+            "id": "c",
+            "text": "替代 useEffect"
+          },
+          {
+            "id": "d",
+            "text": "管理全局状态"
+          }
+        ],
+        "correctAnswers": ["b"],
+        "explanation": "useTransition 允许将状态更新标记为过渡状态，让 React 优先处理紧急更新（如输入），再处理非紧急更新。",
+        "difficulty": "hard",
+        "tags": ["Concurrent", "性能"]
+      }
+    ],
+    "createdAt": "2026-08-05T09:32:51.845Z",
+    "source": "imported"
+  },
+  {
+    "id": "c361ffe6-0db4-4ea4-bb37-6fae724f2375",
+    "title": "TypeScript 类型系统",
+    "description": "泛型、类型推断、条件类型、映射类型等 TS 进阶类型知识",
+    "questions": [
+      {
+        "id": "ts-1",
+        "type": "single",
+        "content": "以下哪个关键字用于定义一个类型别名？",
+        "options": [
+          {
+            "id": "a",
+            "text": "interface"
+          },
+          {
+            "id": "b",
+            "text": "type"
+          },
+          {
+            "id": "c",
+            "text": "class"
+          },
+          {
+            "id": "d",
+            "text": "enum"
+          }
+        ],
+        "correctAnswers": ["b"],
+        "explanation": "type 关键字用于创建类型别名，interface 用于定义对象形状。",
+        "difficulty": "easy",
+        "tags": ["类型别名", "基础"]
+      },
+      {
+        "id": "ts-2",
+        "type": "multiple",
+        "content": "以下哪些是 TypeScript 中的基本类型？",
+        "options": [
+          {
+            "id": "a",
+            "text": "number"
+          },
+          {
+            "id": "b",
+            "text": "string"
+          },
+          {
+            "id": "c",
+            "text": "boolean"
+          },
+          {
+            "id": "d",
+            "text": "symbol"
+          }
+        ],
+        "correctAnswers": ["a", "b", "c", "d"],
+        "explanation": "number、string、boolean、symbol 都是 TypeScript 的基本类型。",
+        "difficulty": "easy",
+        "tags": ["基本类型", "基础"]
+      },
+      {
+        "id": "ts-3",
+        "type": "single",
+        "content": "泛型约束使用哪个关键字？",
+        "options": [
+          {
+            "id": "a",
+            "text": "implements"
+          },
+          {
+            "id": "b",
+            "text": "extends"
+          },
+          {
+            "id": "c",
+            "text": "with"
+          },
+          {
+            "id": "d",
+            "text": "where"
+          }
+        ],
+        "correctAnswers": ["b"],
+        "explanation": "泛型约束使用 extends 关键字，如 `<T extends { id: string }>`。",
+        "difficulty": "medium",
+        "tags": ["泛型", "约束"]
+      },
+      {
+        "id": "ts-4",
+        "type": "true_false",
+        "content": "`unknown` 类型比 `any` 更安全，因为不能直接对 unknown 值进行操作。",
+        "options": [
+          {
+            "id": "a",
+            "text": "正确"
+          },
+          {
+            "id": "b",
+            "text": "错误"
+          }
+        ],
+        "correctAnswers": ["a"],
+        "explanation": "unknown 是 any 的安全替代，使用前必须进行类型收窄或断言。",
+        "difficulty": "medium",
+        "tags": ["类型安全", "unknown"]
+      },
+      {
+        "id": "ts-5",
+        "type": "single",
+        "content": "条件类型 `T extends U ? X : Y` 中，当 T 是联合类型时会发生什么？",
+        "options": [
+          {
+            "id": "a",
+            "text": "直接返回 X 或 Y"
+          },
+          {
+            "id": "b",
+            "text": "对联合类型的每个成员进行分发，产生新的联合类型"
+          },
+          {
+            "id": "c",
+            "text": "编译报错"
+          },
+          {
+            "id": "d",
+            "text": "自动推断为 never"
+          }
+        ],
+        "correctAnswers": ["b"],
+        "explanation": "这是条件类型的分发特性（Distributive Conditional Types），会对联合类型的每个成员单独应用条件类型。",
+        "difficulty": "hard",
+        "tags": ["条件类型", "高级类型"]
+      }
+    ],
+    "createdAt": "2026-08-05T09:32:34.986Z",
+    "source": "imported"
+  },
+  {
+    "id": "2d223ed2-c994-40ed-9aa5-05ad9354f03b",
+    "title": "JavaScript 基础",
+    "description": "涵盖变量、作用域、闭包、原型链、异步等 JS 核心概念",
+    "questions": [
+      {
+        "id": "js-1",
+        "type": "single",
+        "content": "以下哪个关键字声明的变量具有块级作用域？",
+        "options": [
+          {
+            "id": "a",
+            "text": "var"
+          },
+          {
+            "id": "b",
+            "text": "let"
+          },
+          {
+            "id": "c",
+            "text": "function"
+          },
+          {
+            "id": "d",
+            "text": "none"
+          }
+        ],
+        "correctAnswers": ["b"],
+        "explanation": "let 和 const 声明的变量具有块级作用域，var 是函数级作用域。",
+        "difficulty": "easy",
+        "tags": ["作用域", "ES6"]
+      },
+      {
+        "id": "js-2",
+        "type": "single",
+        "content": "`typeof null` 的返回值是什么？",
+        "options": [
+          {
+            "id": "a",
+            "text": "'null'"
+          },
+          {
+            "id": "b",
+            "text": "'undefined'"
+          },
+          {
+            "id": "c",
+            "text": "'object'"
+          },
+          {
+            "id": "d",
+            "text": "'number'"
+          }
+        ],
+        "correctAnswers": ["c"],
+        "explanation": "这是 JavaScript 的历史遗留 bug，typeof null 返回 'object'。",
+        "difficulty": "easy",
+        "tags": ["类型", "历史"]
+      },
+      {
+        "id": "js-3",
+        "type": "multiple",
+        "content": "以下哪些方法可以创建一个新对象？",
+        "options": [
+          {
+            "id": "a",
+            "text": "Object.create()"
+          },
+          {
+            "id": "b",
+            "text": "new Object()"
+          },
+          {
+            "id": "c",
+            "text": "字面量 {}"
+          },
+          {
+            "id": "d",
+            "text": "Object.assign()"
+          }
+        ],
+        "correctAnswers": ["a", "b", "c"],
+        "explanation": "Object.create、new Object 和 {} 都可以创建新对象。Object.assign 是用于拷贝属性的。",
+        "difficulty": "medium",
+        "tags": ["对象", "原型"]
+      },
+      {
+        "id": "js-4",
+        "type": "true_false",
+        "content": "箭头函数没有自己的 this，它继承自外层作用域。",
+        "options": [
+          {
+            "id": "a",
+            "text": "正确"
+          },
+          {
+            "id": "b",
+            "text": "错误"
+          }
+        ],
+        "correctAnswers": ["a"],
+        "explanation": "箭头函数没有自己的 this、arguments、super 或 new.target，这些值继承自外层最近一层非箭头函数。",
+        "difficulty": "medium",
+        "tags": ["箭头函数", "this"]
+      },
+      {
+        "id": "js-5",
+        "type": "single",
+        "content": "以下代码的输出是什么？\n```js\nPromise.resolve(1)\n  .then(x => x + 1)\n  .then(x => { throw new Error('oops') })\n  .catch(() => 3)\n  .then(x => console.log(x))\n```",
+        "options": [
+          {
+            "id": "a",
+            "text": "1"
+          },
+          {
+            "id": "b",
+            "text": "2"
+          },
+          {
+            "id": "c",
+            "text": "3"
+          },
+          {
+            "id": "d",
+            "text": "Error: oops"
+          }
+        ],
+        "correctAnswers": ["c"],
+        "explanation": "catch 返回 3，后续的 then 接收 3 并打印。",
+        "difficulty": "hard",
+        "tags": ["Promise", "异步"]
+      }
+    ],
+    "createdAt": "2026-08-05T09:32:17.763Z",
+    "source": "imported"
+  },
+  {
+    "id": "a2355243-7a39-421f-9d4b-c2645d14df13",
+    "title": "CSS 布局与盒模型",
+    "description": "Flexbox、Grid、定位、层叠上下文等 CSS 布局核心知识",
+    "questions": [
+      {
+        "id": "css-1",
+        "type": "single",
+        "content": "以下哪个属性可以开启 Flex 布局？",
+        "options": [
+          {
+            "id": "a",
+            "text": "display: block"
+          },
+          {
+            "id": "b",
+            "text": "display: flex"
+          },
+          {
+            "id": "c",
+            "text": "position: flex"
+          },
+          {
+            "id": "d",
+            "text": "float: flex"
+          }
+        ],
+        "correctAnswers": ["b"],
+        "explanation": "display: flex 将元素设为弹性容器，其子元素成为弹性项目。",
+        "difficulty": "easy",
+        "tags": ["Flexbox", "布局"]
+      },
+      {
+        "id": "css-2",
+        "type": "multiple",
+        "content": "哪些 CSS 属性可以创建新的层叠上下文？",
+        "options": [
+          {
+            "id": "a",
+            "text": "opacity 小于 1"
+          },
+          {
+            "id": "b",
+            "text": "transform 非 none"
+          },
+          {
+            "id": "c",
+            "text": "position: relative 配合 z-index"
+          },
+          {
+            "id": "d",
+            "text": "display: grid"
+          }
+        ],
+        "correctAnswers": ["a", "b", "c"],
+        "explanation": "opacity < 1、transform 非 none、position 配合 z-index 都可以创建层叠上下文。display: grid 本身不会。",
+        "difficulty": "medium",
+        "tags": ["层叠上下文", "z-index"]
+      },
+      {
+        "id": "css-3",
+        "type": "true_false",
+        "content": "`margin-top` 和 `margin-bottom` 在相邻块级元素之间会发生外边距折叠。",
+        "options": [
+          {
+            "id": "a",
+            "text": "正确"
+          },
+          {
+            "id": "b",
+            "text": "错误"
+          }
+        ],
+        "correctAnswers": ["a"],
+        "explanation": "垂直相邻的两个块级元素的外边距会合并（折叠）为一个外边距，取较大值。",
+        "difficulty": "medium",
+        "tags": ["盒模型", "外边距折叠"]
+      },
+      {
+        "id": "css-4",
+        "type": "single",
+        "content": "Grid 布局中，`grid-template-areas` 配合哪个属性可以给网格区域命名？",
+        "options": [
+          {
+            "id": "a",
+            "text": "grid-area"
+          },
+          {
+            "id": "b",
+            "text": "grid-template"
+          },
+          {
+            "id": "c",
+            "text": "grid-name"
+          },
+          {
+            "id": "d",
+            "text": "area-name"
+          }
+        ],
+        "correctAnswers": ["a"],
+        "explanation": "grid-area 可以给子元素命名，然后在 grid-template-areas 中引用。",
+        "difficulty": "hard",
+        "tags": ["Grid", "布局"]
+      }
+    ],
+    "createdAt": "2026-08-05T09:31:26.973Z",
+    "source": "imported"
+  }
+]

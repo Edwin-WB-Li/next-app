@@ -7,6 +7,7 @@ import { calculateScore } from "@/lib/quiz/score";
 import { saveRecord } from "@/lib/quiz/data";
 import OptionList from "./option-list";
 import AnswerSheet from "./answer-sheet";
+import QuizMarkdown from "./quiz-markdown";
 
 interface QuizPlayerProps {
   questions: Question[];
@@ -179,9 +180,10 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
 
           {/* 题目内容 */}
           <div className="px-5 py-5">
-            <p className="text-foreground text-base leading-relaxed font-medium">
-              {currentQuestion.content}
-            </p>
+            <QuizMarkdown
+              content={currentQuestion.content}
+              className="text-foreground text-base leading-relaxed font-medium"
+            />
           </div>
 
           {/* 选项 */}

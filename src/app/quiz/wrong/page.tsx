@@ -1,6 +1,13 @@
 import Link from "next/link";
-import { getWrongQuestions, removeFromWrongBook } from "@/lib/quiz/data";
-import OptionList from "@/components/quiz/option-list";
+import { getQuizSets, getRecords } from "@/lib/quiz/data";
+import {
+  QuizSetCard,
+  QuizSetCardHeader,
+  QuizSetCardStats,
+  QuizSetCardTags,
+  QuizSetCardFooter,
+  QuizSetCardAction,
+} from "@/components/quiz/quiz-set-card";
 
 export const metadata = {
   title: "错题本",
@@ -8,7 +15,23 @@ export const metadata = {
 };
 
 export default async function WrongBookPage() {
-  const wrongQuestions = await getWrongQuestions();
+  const [sets, records] = await Promise.all([getQuizSets(), getRecords()]);
+
+  const wrongIdSet = new Set<string>();
+  for (const record of records) {
+    for (const id of record.wrongQuestionIds) {
+      wrongIdSet.add(id);
+    }
+  }
+
+  const setWrongs = sets
+    .map((set) => ({
+      set,
+      wrongCount: set.questions.filter((q) => wrongIdSet.has(q.id)).length,
+    }))
+    .filter(({ wrongCount }) => wrongCount > 0);
+
+  const totalWrong = setWrongs.reduce((sum, { wrongCount }) => sum + wrongCount, 0);
 
   return (
     <div className="mx-auto w-full max-w-5xl px-6 py-10">
@@ -31,11 +54,11 @@ export default async function WrongBookPage() {
         </div>
         <h1 className="text-foreground text-2xl font-bold tracking-tight">错题本</h1>
         <span className="border-border bg-muted text-muted-foreground rounded border px-2 py-0.5 text-xs font-medium">
-          {wrongQuestions.length} 题
+          {totalWrong} 题
         </span>
       </div>
 
-      {wrongQuestions.length === 0 ? (
+      {setWrongs.length === 0 ? (
         <div className="border-border text-muted-foreground flex flex-col items-center border border-dashed py-16">
           <svg
             width="40"
@@ -59,64 +82,24 @@ export default async function WrongBookPage() {
           </Link>
         </div>
       ) : (
-        <div className="flex flex-col gap-5">
-          {wrongQuestions.map((question, index) => (
-            <div key={question.id} className="border-border bg-card border">
-              <div className="border-border flex items-center justify-between border-b px-5 py-3">
-                <div className="flex items-center gap-3">
-                  <span className="text-foreground text-sm font-medium">{index + 1}.</span>
-                  <span className="border-border text-muted-foreground rounded border px-1.5 py-0.5 text-[11px]">
-                    {question.type === "single"
-                      ? "单选"
-                      : question.type === "multiple"
-                        ? "多选"
-                        : "判断"}
-                  </span>
-                </div>
-                <form
-                  action={async () => {
-                    "use server";
-                    await removeFromWrongBook(question.id);
-                  }}
-                >
-                  <button
-                    type="submit"
-                    className="text-muted-foreground hover:text-success dark:hover:text-success focus-visible:outline-ring inline-flex items-center gap-1 text-xs font-medium transition-colors focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                  >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    已掌握
-                  </button>
-                </form>
-              </div>
-
-              <div className="px-5 py-4">
-                <p className="text-foreground text-sm font-medium">{question.content}</p>
-              </div>
-
-              <div className="px-5 pb-4">
-                <OptionList question={question} selected={question.correctAnswers} review />
-              </div>
-
-              <div className="border-border bg-muted/30 border-t px-5 py-3">
-                <p className="text-muted-foreground text-sm">
-                  <span className="text-foreground font-medium">解析：</span>
-                  {question.explanation}
-                </p>
-              </div>
-            </div>
-          ))}
+        <div className="grid grid-cols-1 gap-5">
+          {setWrongs.map(({ set, wrongCount }) => {
+            const wrongQuestions = set.questions.filter((q) => wrongIdSet.has(q.id));
+            return (
+              <QuizSetCard key={set.id}>
+                <QuizSetCardHeader
+                  title={set.title}
+                  description={set.description}
+                  questionCount={wrongCount}
+                />
+                <QuizSetCardStats questions={wrongQuestions} />
+                <QuizSetCardTags questions={wrongQuestions} />
+                <QuizSetCardFooter>
+                  <QuizSetCardAction href={`/quiz/wrong/${set.id}`}>复习错题</QuizSetCardAction>
+                </QuizSetCardFooter>
+              </QuizSetCard>
+            );
+          })}
         </div>
       )}
 

@@ -1,0 +1,64 @@
+{
+  "title": "CSS 布局与盒模型",
+  "description": "Flexbox、Grid、定位、层叠上下文等 CSS 布局核心知识",
+  "questions": [
+    {
+      "id": "css-1",
+      "type": "single",
+      "content": "以下哪个属性可以开启 Flex 布局？",
+      "options": [
+        { "id": "a", "text": "display: block" },
+        { "id": "b", "text": "display: flex" },
+        { "id": "c", "text": "position: flex" },
+        { "id": "d", "text": "float: flex" }
+      ],
+      "correctAnswers": ["b"],
+      "explanation": "display: flex 将元素设为弹性容器，其子元素成为弹性项目。",
+      "difficulty": "easy",
+      "tags": ["Flexbox", "布局"]
+    },
+    {
+      "id": "css-2",
+      "type": "multiple",
+      "content": "哪些 CSS 属性可以创建新的层叠上下文？",
+      "options": [
+        { "id": "a", "text": "opacity 小于 1" },
+        { "id": "b", "text": "transform 非 none" },
+        { "id": "c", "text": "position: relative 配合 z-index" },
+        { "id": "d", "text": "display: grid" }
+      ],
+      "correctAnswers": ["a", "b", "c"],
+      "explanation": "opacity < 1、transform 非 none、position 配合 z-index 都可以创建层叠上下文。display: grid 本身不会。",
+      "difficulty": "medium",
+      "tags": ["层叠上下文", "z-index"]
+    },
+    {
+      "id": "css-3",
+      "type": "true_false",
+      "content": "`margin-top` 和 `margin-bottom` 在相邻块级元素之间会发生外边距折叠。",
+      "options": [
+        { "id": "a", "text": "正确" },
+        { "id": "b", "text": "错误" }
+      ],
+      "correctAnswers": ["a"],
+      "explanation": "垂直相邻的两个块级元素的外边距会合并（折叠）为一个外边距，取较大值。",
+      "difficulty": "medium",
+      "tags": ["盒模型", "外边距折叠"]
+    },
+    {
+      "id": "css-4",
+      "type": "single",
+      "content": "Grid 布局中，`grid-template-areas` 配合哪个属性可以给网格区域命名？",
+      "options": [
+        { "id": "a", "text": "grid-area" },
+        { "id": "b", "text": "grid-template" },
+        { "id": "c", "text": "grid-name" },
+        { "id": "d", "text": "area-name" }
+      ],
+      "correctAnswers": ["a"],
+      "explanation": "grid-area 可以给子元素命名，然后在 grid-template-areas 中引用。",
+      "difficulty": "hard",
+      "tags": ["Grid", "布局"]
+    }
+  ]
+}

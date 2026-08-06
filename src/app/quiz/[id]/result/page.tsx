@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
-import { getQuestions, getRecordById } from "@/lib/quiz/data";
+import { getQuizSetById, getRecordById } from "@/lib/quiz/data";
 import { calculateScore } from "@/lib/quiz/score";
 import Link from "next/link";
 import OptionList from "@/components/quiz/option-list";
+import QuizMarkdown from "@/components/quiz/quiz-markdown";
 
 export const metadata = {
   title: "答题结果",
@@ -15,18 +16,20 @@ export default async function QuizResultPage({
   params: Promise<{ id: string }>;
   searchParams: Promise<{ record?: string }>;
 }) {
-  await params; // params.id 在此页面不需要使用
+  const { id: quizId } = await params;
   const { record: recordId } = await searchParams;
 
   if (!recordId) {
     notFound();
   }
 
-  const [questions, record] = await Promise.all([getQuestions(), getRecordById(recordId)]);
+  const [quizSet, record] = await Promise.all([getQuizSetById(quizId), getRecordById(recordId)]);
 
-  if (!record || questions.length === 0) {
+  if (!record || !quizSet || quizSet.questions.length === 0) {
     notFound();
   }
+
+  const questions = quizSet.questions;
 
   // 总览数据使用 record 中保存的历史结果，确保题目更新后得分仍准确
   const totalAtTime = record.score + record.wrongQuestionIds.length;
@@ -116,16 +119,19 @@ export default async function QuizResultPage({
                   )}
                 </div>
                 <div className="px-5 py-4">
-                  <p className="text-foreground text-sm font-medium">{question.content}</p>
+                  <QuizMarkdown
+                    content={question.content}
+                    className="text-foreground text-sm font-medium"
+                  />
                 </div>
                 <div className="px-5 pb-4">
                   <OptionList question={question} selected={userAnswer} review />
                 </div>
                 <div className="border-border bg-muted/30 border-t px-5 py-3">
-                  <p className="text-muted-foreground text-sm">
+                  <div className="text-muted-foreground text-sm">
                     <span className="text-foreground font-medium">解析：</span>
-                    {question.explanation}
-                  </p>
+                    <QuizMarkdown content={question.explanation} />
+                  </div>
                 </div>
               </div>
             );

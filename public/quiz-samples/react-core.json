@@ -1,0 +1,79 @@
+{
+  "title": "React 核心概念",
+  "description": "组件生命周期、Hooks、渲染优化、状态管理等 React 关键知识点",
+  "questions": [
+    {
+      "id": "react-1",
+      "type": "single",
+      "content": "React 中用于在函数组件中管理状态的内置 Hook 是？",
+      "options": [
+        { "id": "a", "text": "useEffect" },
+        { "id": "b", "text": "useState" },
+        { "id": "c", "text": "useReducer" },
+        { "id": "d", "text": "useContext" }
+      ],
+      "correctAnswers": ["b"],
+      "explanation": "useState 是 React 提供的最基础的状态管理 Hook。",
+      "difficulty": "easy",
+      "tags": ["Hooks", "状态"]
+    },
+    {
+      "id": "react-2",
+      "type": "single",
+      "content": "`useEffect` 的依赖数组为空数组 `[]` 时，副作用会在什么时候执行？",
+      "options": [
+        { "id": "a", "text": "每次渲染后" },
+        { "id": "b", "text": "仅在组件挂载时" },
+        { "id": "c", "text": "仅在组件卸载时" },
+        { "id": "d", "text": "从不执行" }
+      ],
+      "correctAnswers": ["b"],
+      "explanation": "空依赖数组意味着 effect 只在组件挂载时执行一次，类似 class 组件的 componentDidMount。",
+      "difficulty": "easy",
+      "tags": ["useEffect", "生命周期"]
+    },
+    {
+      "id": "react-3",
+      "type": "multiple",
+      "content": "哪些情况会导致 React 组件重新渲染？",
+      "options": [
+        { "id": "a", "text": "父组件重新渲染" },
+        { "id": "b", "text": "组件自身的 state 变化" },
+        { "id": "c", "text": "传入的 props 变化" },
+        { "id": "d", "text": "调用 forceUpdate" }
+      ],
+      "correctAnswers": ["a", "b", "c"],
+      "explanation": "父组件渲染会触发子组件渲染（除非用 memo 优化）、自身 state 变化和 props 变化都会触发渲染。函数组件没有 forceUpdate。",
+      "difficulty": "medium",
+      "tags": ["渲染", "性能"]
+    },
+    {
+      "id": "react-4",
+      "type": "true_false",
+      "content": "`React.memo` 可以对函数组件进行浅比较优化，避免不必要的重渲染。",
+      "options": [
+        { "id": "a", "text": "正确" },
+        { "id": "b", "text": "错误" }
+      ],
+      "correctAnswers": ["a"],
+      "explanation": "React.memo 高阶组件会对 props 进行浅比较，如果 props 没有变化则跳过渲染。",
+      "difficulty": "medium",
+      "tags": ["性能优化", "memo"]
+    },
+    {
+      "id": "react-5",
+      "type": "single",
+      "content": "在 React 18 的 Concurrent 模式下，`useTransition` 的主要作用是什么？",
+      "options": [
+        { "id": "a", "text": "延迟执行副作用" },
+        { "id": "b", "text": "将状态更新标记为非紧急，避免阻塞 UI" },
+        { "id": "c", "text": "替代 useEffect" },
+        { "id": "d", "text": "管理全局状态" }
+      ],
+      "correctAnswers": ["b"],
+      "explanation": "useTransition 允许将状态更新标记为过渡状态，让 React 优先处理紧急更新（如输入），再处理非紧急更新。",
+      "difficulty": "hard",
+      "tags": ["Concurrent", "性能"]
+    }
+  ]
+}
