@@ -1,9 +1,9 @@
 "use client";
 
+import type { Priority } from "@/lib/todos";
 import { useState, useTransition, useCallback, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import type { Priority } from "@/lib/todos";
 import { IconPlus } from "@/shared/components/icons";
 
 interface TodoCreateFormProps {
