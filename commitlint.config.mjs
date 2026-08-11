@@ -1,9 +1,10 @@
-export default {
+const config = {
   // 继承的规则
   extends: ["@commitlint/config-conventional"],
   // @see: https://commitlint.js.org/#/reference-rules
   rules: {
     "subject-case": [0], // subject大小写不做校验
+
     // 类型枚举，git提交type必须是以下类型
     "type-enum": [
       // 当前验证的错误级别
@@ -26,3 +27,5 @@ export default {
     ],
   },
 };
+
+export default config;
