@@ -122,10 +122,10 @@ export default function HikingStats({ stats }: HikingStatsProps) {
               {item.icon}
             </div>
             <div className="min-w-0">
-              <p className="text-xs text-muted-foreground">{item.label}</p>
+              <p className="text-muted-foreground text-xs">{item.label}</p>
               <p className="text-xl font-bold text-[var(--hiking-primary)]">
                 {stats[item.key]}
-                <span className="ml-0.5 text-xs font-normal text-muted-foreground">
+                <span className="text-muted-foreground ml-0.5 text-xs font-normal">
                   {item.unit}
                 </span>
               </p>

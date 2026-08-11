@@ -1,4 +1,4 @@
-export default {
+const config = {
   // 继承的规则
   extends: ["@commitlint/config-conventional"],
   // @see: https://commitlint.js.org/#/reference-rules
@@ -27,3 +27,5 @@ export default {
     ],
   },
 };
+
+export default config;

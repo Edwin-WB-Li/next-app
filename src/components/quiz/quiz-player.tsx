@@ -7,6 +7,7 @@ import { calculateScore } from "@/lib/quiz/score";
 import { saveRecord } from "@/lib/quiz/data";
 import OptionList from "./option-list";
 import AnswerSheet from "./answer-sheet";
+import QuizMarkdown from "./quiz-markdown";
 
 interface QuizPlayerProps {
   questions: Question[];
@@ -134,36 +135,41 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
         ? "多选题"
         : "判断题";
 
+  const isFlagged = useMemo(
+    () => flagged.includes(currentQuestion.id),
+    [flagged, currentQuestion.id]
+  );
+
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-8 lg:flex-row">
       {/* 题目区域 */}
       <div className="flex-1">
-        <div className="border border-border bg-card">
+        <div className="border-border bg-card border">
           {/* 题目头部 */}
-          <div className="flex items-center justify-between border-b border-border px-5 py-3">
+          <div className="border-border flex items-center justify-between border-b px-5 py-3">
             <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-foreground">
+              <span className="text-foreground text-sm font-medium">
                 {currentIndex + 1} / {total}
               </span>
-              <span className="rounded border border-border px-1.5 py-0.5 text-[11px] text-muted-foreground">
+              <span className="border-border text-muted-foreground rounded border px-1.5 py-0.5 text-[11px]">
                 {typeLabel}
               </span>
             </div>
             <button
               type="button"
               onClick={handleToggleFlag}
-              className={`inline-flex items-center gap-1 text-xs font-medium transition-colors focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2 ${
-                flagged.includes(currentQuestion.id)
+              className={`focus-visible:outline-ring inline-flex items-center gap-1 text-xs font-medium transition-colors focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+                isFlagged
                   ? "text-warning dark:text-warning"
                   : "text-muted-foreground hover:text-foreground"
               }`}
-              aria-pressed={flagged.includes(currentQuestion.id)}
+              aria-pressed={isFlagged}
             >
               <svg
                 width="14"
                 height="14"
                 viewBox="0 0 24 24"
-                fill={flagged.includes(currentQuestion.id) ? "currentColor" : "none"}
+                fill={isFlagged ? "currentColor" : "none"}
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
@@ -173,15 +179,16 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
                 <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
                 <line x1="4" x2="4" y1="22" y2="15" />
               </svg>
-              {flagged.includes(currentQuestion.id) ? "已标记" : "标记"}
+              {isFlagged ? "已标记" : "标记"}
             </button>
           </div>
 
           {/* 题目内容 */}
           <div className="px-5 py-5">
-            <p className="text-base font-medium leading-relaxed text-foreground">
-              {currentQuestion.content}
-            </p>
+            <QuizMarkdown
+              content={currentQuestion.content}
+              className="text-foreground text-base leading-relaxed font-medium"
+            />
           </div>
 
           {/* 选项 */}
@@ -200,7 +207,7 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
             type="button"
             onClick={handlePrev}
             disabled={currentIndex === 0}
-            className="inline-flex items-center gap-1.5 rounded border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted disabled:opacity-40 disabled:hover:bg-card focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="border-border bg-card text-foreground hover:bg-muted disabled:hover:bg-card focus-visible:ring-ring focus-visible:ring-offset-background inline-flex items-center gap-1.5 rounded border px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-40"
           >
             <svg
               width="14"
@@ -222,7 +229,7 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
             <button
               type="button"
               onClick={handleNext}
-              className="inline-flex items-center gap-1.5 rounded border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="border-border bg-card text-foreground hover:bg-muted focus-visible:ring-ring focus-visible:ring-offset-background inline-flex items-center gap-1.5 rounded border px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2"
             >
               下一题
               <svg
@@ -244,7 +251,7 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
               type="button"
               onClick={() => handleSubmit()}
               disabled={submitting}
-              className="inline-flex items-center gap-1.5 rounded bg-foreground px-5 py-2 text-sm font-medium text-background transition-colors hover:bg-foreground/90 disabled:opacity-60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-ring focus-visible:ring-offset-background inline-flex items-center gap-1.5 rounded px-5 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-60"
               aria-describedby={answeredCount < total ? "unanswered-tip" : undefined}
             >
               {submitting ? "交卷中..." : "交卷"}
@@ -262,7 +269,7 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
           currentIndex={currentIndex}
           onNavigate={setCurrentIndex}
         />
-        <div className="mt-3 text-center text-xs text-muted-foreground">
+        <div className="text-muted-foreground mt-3 text-center text-xs">
           已答 {answeredCount} / {total} 题
         </div>
       </aside>
@@ -279,18 +286,18 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
             if (e.target === e.currentTarget) setShowConfirm(false);
           }}
         >
-          <div className="w-full max-w-sm border border-border bg-background p-6 shadow-lg">
-            <h3 id="confirm-title" className="text-base font-semibold text-foreground">
+          <div className="border-border bg-background w-full max-w-sm border p-6 shadow-lg">
+            <h3 id="confirm-title" className="text-foreground text-base font-semibold">
               确认交卷？
             </h3>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <p className="text-muted-foreground mt-2 text-sm">
               你还有 {total - answeredCount} 道题目未作答，确定要交卷吗？
             </p>
             <div className="mt-5 flex justify-end gap-3">
               <button
                 type="button"
                 onClick={() => setShowConfirm(false)}
-                className="rounded border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="border-border bg-card text-foreground hover:bg-muted focus-visible:ring-ring focus-visible:ring-offset-background rounded border px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2"
               >
                 继续答题
               </button>
@@ -300,7 +307,7 @@ export default function QuizPlayer({ questions, quizId }: QuizPlayerProps) {
                   setShowConfirm(false);
                   handleSubmit(true);
                 }}
-                className="rounded bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-foreground/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-ring focus-visible:ring-offset-background rounded px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2"
               >
                 确认交卷
               </button>

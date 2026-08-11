@@ -82,12 +82,12 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   if (headings.length === 0) return null;
 
   return (
-    <nav aria-label="文章目录" className="hidden xl:block w-64 shrink-0">
+    <nav aria-label="文章目录" className="hidden w-64 shrink-0 xl:block">
       <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-foreground/50">
+        <p className="text-foreground/50 mb-3 text-xs font-semibold tracking-wider uppercase">
           目录
         </p>
-        <ul className="space-y-1 border-l border-border">
+        <ul className="border-border space-y-1 border-l">
           {headings.map((item) => (
             <li key={item.id} className={item.level === 3 ? "ml-3" : ""}>
               <a
@@ -104,10 +104,10 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
                     clickingRef.current = false;
                   }, 800);
                 }}
-                className={`block border-l-2 pl-3 py-1 text-sm transition-colors ${
+                className={`block border-l-2 py-1 pl-3 text-sm transition-colors ${
                   activeId === item.id
                     ? "border-primary text-foreground font-medium"
-                    : "border-transparent text-foreground/60 hover:text-foreground"
+                    : "text-foreground/60 hover:text-foreground border-transparent"
                 }`}
               >
                 {item.text}

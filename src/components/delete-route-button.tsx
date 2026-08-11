@@ -30,7 +30,7 @@ export default function DeleteRouteButton({ routeId, routeName }: DeleteRouteBut
   if (confirming) {
     return (
       <div className="flex items-center gap-2">
-        <span className="text-xs text-muted-foreground">确认删除「{routeName}」？</span>
+        <span className="text-muted-foreground text-xs">确认删除「{routeName}」？</span>
         <button
           onClick={handleDelete}
           disabled={deleting}
@@ -40,7 +40,7 @@ export default function DeleteRouteButton({ routeId, routeName }: DeleteRouteBut
         </button>
         <button
           onClick={() => setConfirming(false)}
-          className="rounded px-2 py-1 text-xs text-muted-foreground hover:bg-muted"
+          className="text-muted-foreground hover:bg-muted rounded px-2 py-1 text-xs"
         >
           取消
         </button>

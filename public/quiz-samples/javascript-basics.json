@@ -1,0 +1,79 @@
+{
+  "title": "JavaScript 基础",
+  "description": "涵盖变量、作用域、闭包、原型链、异步等 JS 核心概念",
+  "questions": [
+    {
+      "id": "js-1",
+      "type": "single",
+      "content": "以下哪个关键字声明的变量具有块级作用域？",
+      "options": [
+        { "id": "a", "text": "var" },
+        { "id": "b", "text": "let" },
+        { "id": "c", "text": "function" },
+        { "id": "d", "text": "none" }
+      ],
+      "correctAnswers": ["b"],
+      "explanation": "let 和 const 声明的变量具有块级作用域，var 是函数级作用域。",
+      "difficulty": "easy",
+      "tags": ["作用域", "ES6"]
+    },
+    {
+      "id": "js-2",
+      "type": "single",
+      "content": "`typeof null` 的返回值是什么？",
+      "options": [
+        { "id": "a", "text": "'null'" },
+        { "id": "b", "text": "'undefined'" },
+        { "id": "c", "text": "'object'" },
+        { "id": "d", "text": "'number'" }
+      ],
+      "correctAnswers": ["c"],
+      "explanation": "这是 JavaScript 的历史遗留 bug，typeof null 返回 'object'。",
+      "difficulty": "easy",
+      "tags": ["类型", "历史"]
+    },
+    {
+      "id": "js-3",
+      "type": "multiple",
+      "content": "以下哪些方法可以创建一个新对象？",
+      "options": [
+        { "id": "a", "text": "Object.create()" },
+        { "id": "b", "text": "new Object()" },
+        { "id": "c", "text": "字面量 {}" },
+        { "id": "d", "text": "Object.assign()" }
+      ],
+      "correctAnswers": ["a", "b", "c"],
+      "explanation": "Object.create、new Object 和 {} 都可以创建新对象。Object.assign 是用于拷贝属性的。",
+      "difficulty": "medium",
+      "tags": ["对象", "原型"]
+    },
+    {
+      "id": "js-4",
+      "type": "true_false",
+      "content": "箭头函数没有自己的 this，它继承自外层作用域。",
+      "options": [
+        { "id": "a", "text": "正确" },
+        { "id": "b", "text": "错误" }
+      ],
+      "correctAnswers": ["a"],
+      "explanation": "箭头函数没有自己的 this、arguments、super 或 new.target，这些值继承自外层最近一层非箭头函数。",
+      "difficulty": "medium",
+      "tags": ["箭头函数", "this"]
+    },
+    {
+      "id": "js-5",
+      "type": "single",
+      "content": "以下代码的输出是什么？\n```js\nPromise.resolve(1)\n  .then(x => x + 1)\n  .then(x => { throw new Error('oops') })\n  .catch(() => 3)\n  .then(x => console.log(x))\n```",
+      "options": [
+        { "id": "a", "text": "1" },
+        { "id": "b", "text": "2" },
+        { "id": "c", "text": "3" },
+        { "id": "d", "text": "Error: oops" }
+      ],
+      "correctAnswers": ["c"],
+      "explanation": "catch 返回 3，后续的 then 接收 3 并打印。",
+      "difficulty": "hard",
+      "tags": ["Promise", "异步"]
+    }
+  ]
+}

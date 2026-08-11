@@ -69,7 +69,7 @@ export default function TodoItem({ todo, onToggle, onUpdateTitle, onDelete }: To
 
   return (
     <div
-      className={`group flex items-center gap-3 rounded-xl border border-l-[3px] bg-card px-4 py-3.5 shadow-sm motion-safe:transition-all motion-safe:duration-200 hover:shadow-md ${
+      className={`group bg-card flex items-center gap-3 rounded-xl border border-l-[3px] px-4 py-3.5 shadow-sm hover:shadow-md motion-safe:transition-all motion-safe:duration-200 ${
         todo.completed ? "border-border/60 opacity-70" : "border-border"
       }`}
       style={{
@@ -97,7 +97,7 @@ export default function TodoItem({ todo, onToggle, onUpdateTitle, onDelete }: To
             type="button"
             onClick={() => setIsEditing(true)}
             disabled={todo.completed || isPending}
-            className={`block w-full text-left text-sm leading-relaxed focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+            className={`focus-visible:ring-ring block w-full text-left text-sm leading-relaxed focus-visible:rounded focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${
               todo.completed ? "text-muted-foreground line-through" : "text-foreground"
             } ${todo.completed ? "" : "cursor-text"}`}
             aria-label={todo.completed ? undefined : "点击编辑"}
@@ -137,7 +137,7 @@ export default function TodoItem({ todo, onToggle, onUpdateTitle, onDelete }: To
           onClick={handleToggle}
           disabled={isPending}
           aria-label={todo.completed ? "标记为未完成" : "标记为完成"}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground motion-safe:transition-colors motion-safe:duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:ring-ring inline-flex h-8 w-8 items-center justify-center rounded-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none motion-safe:transition-colors motion-safe:duration-200"
         >
           {todo.completed ? <IconUndo /> : <IconCheck />}
         </button>
@@ -147,7 +147,7 @@ export default function TodoItem({ todo, onToggle, onUpdateTitle, onDelete }: To
           onClick={() => setIsEditing(true)}
           disabled={todo.completed || isPending}
           aria-label="编辑"
-          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground motion-safe:transition-colors motion-safe:duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40"
+          className="text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:ring-ring inline-flex h-8 w-8 items-center justify-center rounded-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-40 motion-safe:transition-colors motion-safe:duration-200"
         >
           <IconPencil />
         </button>
@@ -157,7 +157,7 @@ export default function TodoItem({ todo, onToggle, onUpdateTitle, onDelete }: To
           onClick={handleDelete}
           disabled={isPending}
           aria-label="删除"
-          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-destructive motion-safe:transition-colors motion-safe:duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="text-muted-foreground hover:bg-muted hover:text-destructive focus-visible:ring-ring inline-flex h-8 w-8 items-center justify-center rounded-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none motion-safe:transition-colors motion-safe:duration-200"
         >
           <IconTrash />
         </button>

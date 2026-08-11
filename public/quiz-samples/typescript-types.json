@@ -1,0 +1,79 @@
+{
+  "title": "TypeScript 类型系统",
+  "description": "泛型、类型推断、条件类型、映射类型等 TS 进阶类型知识",
+  "questions": [
+    {
+      "id": "ts-1",
+      "type": "single",
+      "content": "以下哪个关键字用于定义一个类型别名？",
+      "options": [
+        { "id": "a", "text": "interface" },
+        { "id": "b", "text": "type" },
+        { "id": "c", "text": "class" },
+        { "id": "d", "text": "enum" }
+      ],
+      "correctAnswers": ["b"],
+      "explanation": "type 关键字用于创建类型别名，interface 用于定义对象形状。",
+      "difficulty": "easy",
+      "tags": ["类型别名", "基础"]
+    },
+    {
+      "id": "ts-2",
+      "type": "multiple",
+      "content": "以下哪些是 TypeScript 中的基本类型？",
+      "options": [
+        { "id": "a", "text": "number" },
+        { "id": "b", "text": "string" },
+        { "id": "c", "text": "boolean" },
+        { "id": "d", "text": "symbol" }
+      ],
+      "correctAnswers": ["a", "b", "c", "d"],
+      "explanation": "number、string、boolean、symbol 都是 TypeScript 的基本类型。",
+      "difficulty": "easy",
+      "tags": ["基本类型", "基础"]
+    },
+    {
+      "id": "ts-3",
+      "type": "single",
+      "content": "泛型约束使用哪个关键字？",
+      "options": [
+        { "id": "a", "text": "implements" },
+        { "id": "b", "text": "extends" },
+        { "id": "c", "text": "with" },
+        { "id": "d", "text": "where" }
+      ],
+      "correctAnswers": ["b"],
+      "explanation": "泛型约束使用 extends 关键字，如 `<T extends { id: string }>`。",
+      "difficulty": "medium",
+      "tags": ["泛型", "约束"]
+    },
+    {
+      "id": "ts-4",
+      "type": "true_false",
+      "content": "`unknown` 类型比 `any` 更安全，因为不能直接对 unknown 值进行操作。",
+      "options": [
+        { "id": "a", "text": "正确" },
+        { "id": "b", "text": "错误" }
+      ],
+      "correctAnswers": ["a"],
+      "explanation": "unknown 是 any 的安全替代，使用前必须进行类型收窄或断言。",
+      "difficulty": "medium",
+      "tags": ["类型安全", "unknown"]
+    },
+    {
+      "id": "ts-5",
+      "type": "single",
+      "content": "条件类型 `T extends U ? X : Y` 中，当 T 是联合类型时会发生什么？",
+      "options": [
+        { "id": "a", "text": "直接返回 X 或 Y" },
+        { "id": "b", "text": "对联合类型的每个成员进行分发，产生新的联合类型" },
+        { "id": "c", "text": "编译报错" },
+        { "id": "d", "text": "自动推断为 never" }
+      ],
+      "correctAnswers": ["b"],
+      "explanation": "这是条件类型的分发特性（Distributive Conditional Types），会对联合类型的每个成员单独应用条件类型。",
+      "difficulty": "hard",
+      "tags": ["条件类型", "高级类型"]
+    }
+  ]
+}

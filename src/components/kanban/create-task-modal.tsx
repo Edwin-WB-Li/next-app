@@ -112,7 +112,7 @@ export function CreateTaskModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>新建任务</DialogTitle>
@@ -149,7 +149,7 @@ export function CreateTaskModal({
                   id="column"
                   value={columnId}
                   onChange={(e) => setColumnId(e.target.value)}
-                  className="flex h-9 w-full rounded-md border border-border bg-card px-3 py-1 text-sm text-card-foreground shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  className="border-border bg-card text-card-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm focus-visible:ring-1 focus-visible:outline-none"
                   required
                 >
                   {columns.map((col) => (
@@ -166,7 +166,7 @@ export function CreateTaskModal({
                   id="priority"
                   value={priority}
                   onChange={(e) => setPriority(e.target.value as Priority)}
-                  className="flex h-9 w-full rounded-md border border-border bg-card px-3 py-1 text-sm text-card-foreground shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  className="border-border bg-card text-card-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm focus-visible:ring-1 focus-visible:outline-none"
                 >
                   <option value="P0">P0 - 紧急</option>
                   <option value="P1">P1 - 高</option>
@@ -183,7 +183,7 @@ export function CreateTaskModal({
                   id="assignee"
                   value={assignee ?? ""}
                   onChange={(e) => setAssignee(e.target.value || null)}
-                  className="flex h-9 w-full rounded-md border border-border bg-card px-3 py-1 text-sm text-card-foreground shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  className="border-border bg-card text-card-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm focus-visible:ring-1 focus-visible:outline-none"
                 >
                   <option value="">未分配</option>
                   {users.map((user) => (
@@ -237,13 +237,13 @@ export function CreateTaskModal({
                 </Button>
               </div>
               {tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 mt-1">
+                <div className="mt-1 flex flex-wrap gap-2">
                   {tags.map((tag) => (
                     <Badge key={tag} variant="secondary" className="cursor-pointer gap-1">
                       {tag}
                       <span
                         onClick={() => handleRemoveTag(tag)}
-                        className="ml-1 hover:text-destructive"
+                        className="hover:text-destructive ml-1"
                       >
                         ×
                       </span>

@@ -18,12 +18,12 @@ const navLinks = [
 function Logo() {
   return (
     <Link href="/" className="group flex items-center gap-2.5 focus-visible:rounded-lg">
-      <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-foreground text-background motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:rotate-3 motion-safe:group-hover:scale-105">
+      <div className="bg-foreground text-background relative flex h-9 w-9 items-center justify-center rounded-xl motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105 motion-safe:group-hover:rotate-3">
         <IconLogo />
       </div>
       <div className="flex flex-col gap-1 leading-none">
-        <span className="text-[15px] font-bold tracking-tight text-foreground">路人甲</span>
-        <span className="text-[10px] font-medium tracking-wider text-muted-foreground/70 uppercase">
+        <span className="text-foreground text-[15px] font-bold tracking-tight">路人甲</span>
+        <span className="text-muted-foreground/70 text-[10px] font-medium tracking-wider uppercase">
           Personal Blog
         </span>
       </div>
@@ -39,17 +39,11 @@ function NavLink({ href, label, onClick }: { href: string; label: string; onClic
     <Link
       href={href}
       onClick={onClick}
-      className={`
-        relative py-1.5 text-[13px] font-medium transition-colors duration-200 focus-visible:rounded-md focus-visible:px-1 focus-visible:py-0.5
-        ${isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"}
-      `}
+      className={`relative py-1.5 text-[13px] font-medium transition-colors duration-200 focus-visible:rounded-md focus-visible:px-1 focus-visible:py-0.5 ${isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"} `}
     >
       {label}
       <span
-        className={`
-          absolute -bottom-0.5 left-1/2 h-[2px] -translate-x-1/2 rounded-full bg-foreground motion-safe:transition-all motion-safe:duration-300
-          ${isActive ? "w-4 opacity-100" : "w-0 opacity-0 group-hover:w-4 group-hover:opacity-100"}
-        `}
+        className={`bg-foreground absolute -bottom-0.5 left-1/2 h-[2px] -translate-x-1/2 rounded-full motion-safe:transition-all motion-safe:duration-300 ${isActive ? "w-4 opacity-100" : "w-0 opacity-0 group-hover:w-4 group-hover:opacity-100"} `}
       />
     </Link>
   );
@@ -89,7 +83,7 @@ const MobileMenu = memo(function MobileMenu({
     <div
       id="mobile-menu"
       ref={menuRef}
-      className="border-t border-border bg-background/95 backdrop-blur-xl sm:hidden"
+      className="border-border bg-background/95 border-t backdrop-blur-xl sm:hidden"
     >
       <nav className="mx-auto flex max-w-5xl flex-col gap-1 px-6 py-3">
         {navLinks.map((link) => (
@@ -109,7 +103,7 @@ export default function SiteHeader() {
   const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl">
+    <header className="border-border/60 bg-background/80 fixed top-0 right-0 left-0 z-50 border-b backdrop-blur-xl">
       <div className="mx-auto flex h-[68px] max-w-5xl items-center justify-between px-6">
         <Logo />
 
@@ -128,7 +122,7 @@ export default function SiteHeader() {
           <button
             type="button"
             onClick={toggleMenu}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card sm:hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="border-border bg-card focus-visible:ring-ring focus-visible:ring-offset-background inline-flex h-9 w-9 items-center justify-center rounded-lg border focus-visible:ring-2 focus-visible:ring-offset-2 sm:hidden"
             aria-label={menuOpen ? "关闭菜单" : "打开菜单"}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"

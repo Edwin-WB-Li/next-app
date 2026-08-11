@@ -472,7 +472,7 @@
     "dueDate": "2026-07-22",
     "estimatedHours": 4,
     "createdAt": "2026-07-15T08:30:00.000Z",
-    "updatedAt": "2026-07-31T09:15:17.602Z",
+    "updatedAt": "2026-08-06T02:12:47.664Z",
     "subtasks": [
       {
         "id": "sub-7",
@@ -625,6 +625,18 @@
         "userId": "user-1",
         "action": "移动至 col-2",
         "createdAt": "2026-07-31T07:31:14.562Z"
+      },
+      {
+        "id": "act-1785982366486",
+        "userId": "user-1",
+        "action": "移动至 col-3",
+        "createdAt": "2026-08-06T02:12:46.486Z"
+      },
+      {
+        "id": "act-1785982367664",
+        "userId": "user-1",
+        "action": "移动至 col-2",
+        "createdAt": "2026-08-06T02:12:47.664Z"
       }
     ]
   }

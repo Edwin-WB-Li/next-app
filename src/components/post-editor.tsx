@@ -123,7 +123,7 @@ export default function PostEditor({
             </button>
           ))}
         </div>
-        <div className="text-xs text-foreground/50">{content.length} 字符</div>
+        <div className="text-foreground/50 text-xs">{content.length} 字符</div>
       </div>
 
       <div
@@ -141,7 +141,7 @@ export default function PostEditor({
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="在此输入 Markdown 内容..."
-              className="min-h-[500px] font-mono leading-6 resize-y"
+              className="min-h-[500px] resize-y font-mono leading-6"
             />
           </div>
         ) : null}
@@ -149,7 +149,7 @@ export default function PostEditor({
         {previewMode === "preview" || previewMode === "split" ? (
           <div className="flex flex-col">
             <span className="mb-1.5 block text-sm font-medium">预览</span>
-            <div className="min-h-[500px] w-full overflow-auto rounded-lg border border-input bg-card px-4 py-3">
+            <div className="border-input bg-card min-h-[500px] w-full overflow-auto rounded-lg border px-4 py-3">
               <MarkdownRenderer content={content || "*预览区域*"} />
             </div>
           </div>
@@ -159,21 +159,21 @@ export default function PostEditor({
       <div className="flex items-center justify-end gap-3">
         <button
           onClick={() => router.push("/admin")}
-          className="inline-flex h-10 items-center justify-center rounded-lg border border-input bg-background px-4 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+          className="border-input bg-background text-foreground hover:bg-muted inline-flex h-10 items-center justify-center rounded-lg border px-4 text-sm font-medium transition-colors"
         >
           取消
         </button>
         <button
           onClick={() => handleSave(false)}
           disabled={isSaving}
-          className="inline-flex h-10 items-center justify-center rounded-lg bg-muted px-4 text-sm font-medium text-foreground transition-colors hover:bg-muted/80 disabled:opacity-50"
+          className="bg-muted text-foreground hover:bg-muted/80 inline-flex h-10 items-center justify-center rounded-lg px-4 text-sm font-medium transition-colors disabled:opacity-50"
         >
           {isSaving && !published ? "保存中..." : "保存草稿"}
         </button>
         <button
           onClick={() => handleSave(true)}
           disabled={isSaving}
-          className="inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-10 items-center justify-center rounded-lg px-4 text-sm font-medium transition-colors disabled:opacity-50"
         >
           {isSaving && published ? "发布中..." : "保存并发布"}
         </button>

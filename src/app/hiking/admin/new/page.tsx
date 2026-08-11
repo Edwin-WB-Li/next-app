@@ -25,8 +25,8 @@ export default async function NewRoutePage() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">新增路线</h1>
-        <p className="mt-1 text-sm text-muted-foreground">记录一段新的徒步经历</p>
+        <h1 className="text-foreground text-2xl font-bold tracking-tight">新增路线</h1>
+        <p className="text-muted-foreground mt-1 text-sm">记录一段新的徒步经历</p>
       </div>
       <RouteForm provinces={data.provinces} onSubmit={handleSubmit} />
     </main>

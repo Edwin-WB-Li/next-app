@@ -171,13 +171,13 @@ export default function RouteForm({ provinces, initialData, onSubmit }: RouteFor
 
       {/* 省份选择 */}
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-foreground">
+        <label className="text-foreground mb-1.5 block text-sm font-medium">
           所属省份 <span className="text-red-500">*</span>
         </label>
         <select
           value={isNewProvince ? "__new__" : provinceCode}
           onChange={(e) => handleProvinceChange(e.target.value)}
-          className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
+          className="border-border bg-background text-foreground w-full rounded-md border px-3 py-2 text-sm transition-colors outline-none focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
         >
           <option value="">请选择省份</option>
           {provinces.map((p) => (
@@ -191,7 +191,7 @@ export default function RouteForm({ provinces, initialData, onSubmit }: RouteFor
         {isNewProvince && (
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-foreground">
+              <label className="text-foreground mb-1.5 block text-sm font-medium">
                 省份名称 <span className="text-red-500">*</span>
               </label>
               <input
@@ -199,11 +199,11 @@ export default function RouteForm({ provinces, initialData, onSubmit }: RouteFor
                 value={newProvinceName}
                 onChange={(e) => setNewProvinceName(e.target.value)}
                 placeholder="如：浙江省"
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
+                className="border-border bg-background text-foreground placeholder:text-muted-foreground w-full rounded-md border px-3 py-2 text-sm transition-colors outline-none focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-foreground">
+              <label className="text-foreground mb-1.5 block text-sm font-medium">
                 省份编码 <span className="text-red-500">*</span>
               </label>
               <input
@@ -211,7 +211,7 @@ export default function RouteForm({ provinces, initialData, onSubmit }: RouteFor
                 value={newProvinceCode}
                 onChange={(e) => setNewProvinceCode(e.target.value)}
                 placeholder="如：330000"
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
+                className="border-border bg-background text-foreground placeholder:text-muted-foreground w-full rounded-md border px-3 py-2 text-sm transition-colors outline-none focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
               />
             </div>
           </div>
@@ -220,7 +220,7 @@ export default function RouteForm({ provinces, initialData, onSubmit }: RouteFor
 
       {/* 路线名称 */}
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-foreground">
+        <label className="text-foreground mb-1.5 block text-sm font-medium">
           路线名称 <span className="text-red-500">*</span>
         </label>
         <input
@@ -229,14 +229,14 @@ export default function RouteForm({ provinces, initialData, onSubmit }: RouteFor
           onChange={(e) => setName(e.target.value)}
           placeholder="如：四姑娘山大峰攀登"
           required
-          className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
+          className="border-border bg-background text-foreground placeholder:text-muted-foreground w-full rounded-md border px-3 py-2 text-sm transition-colors outline-none focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
         />
       </div>
 
       {/* 基本信息网格 */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-foreground">
+          <label className="text-foreground mb-1.5 block text-sm font-medium">
             出发日期 <span className="text-red-500">*</span>
           </label>
           <input
@@ -244,38 +244,38 @@ export default function RouteForm({ provinces, initialData, onSubmit }: RouteFor
             value={date}
             onChange={(e) => setDate(e.target.value)}
             required
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
+            className="border-border bg-background text-foreground w-full rounded-md border px-3 py-2 text-sm transition-colors outline-none focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-foreground">往返天数</label>
+          <label className="text-foreground mb-1.5 block text-sm font-medium">往返天数</label>
           <input
             type="number"
             min={1}
             value={days}
             onChange={(e) => setDays(Number(e.target.value))}
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
+            className="border-border bg-background text-foreground w-full rounded-md border px-3 py-2 text-sm transition-colors outline-none focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-foreground">全程距离 (km)</label>
+          <label className="text-foreground mb-1.5 block text-sm font-medium">全程距离 (km)</label>
           <input
             type="number"
             min={0}
             step={0.1}
             value={distance}
             onChange={(e) => setDistance(Number(e.target.value))}
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
+            className="border-border bg-background text-foreground w-full rounded-md border px-3 py-2 text-sm transition-colors outline-none focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-foreground">最高海拔 (m)</label>
+          <label className="text-foreground mb-1.5 block text-sm font-medium">最高海拔 (m)</label>
           <input
             type="number"
             min={0}
             value={maxAltitude}
             onChange={(e) => setMaxAltitude(Number(e.target.value))}
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
+            className="border-border bg-background text-foreground w-full rounded-md border px-3 py-2 text-sm transition-colors outline-none focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
           />
         </div>
       </div>
@@ -283,7 +283,7 @@ export default function RouteForm({ provinces, initialData, onSubmit }: RouteFor
       {/* 难度和季节 */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-2 block text-sm font-medium text-foreground">路线难度</label>
+          <label className="text-foreground mb-2 block text-sm font-medium">路线难度</label>
           <div className="flex gap-2">
             {difficultyOptions.map((d) => (
               <button
@@ -302,26 +302,26 @@ export default function RouteForm({ provinces, initialData, onSubmit }: RouteFor
           </div>
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-foreground">出行季节</label>
+          <label className="text-foreground mb-1.5 block text-sm font-medium">出行季节</label>
           <input
             type="text"
             value={season}
             onChange={(e) => setSeason(e.target.value)}
             placeholder="如：秋季"
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
+            className="border-border bg-background text-foreground placeholder:text-muted-foreground w-full rounded-md border px-3 py-2 text-sm transition-colors outline-none focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
           />
         </div>
       </div>
 
       {/* 标签 */}
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-foreground">标签</label>
+        <label className="text-foreground mb-1.5 block text-sm font-medium">标签</label>
         <input
           type="text"
           value={tagsInput}
           onChange={(e) => setTagsInput(e.target.value)}
           placeholder="多个标签用逗号分隔，如：山野, 雪山, 高海拔"
-          className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
+          className="border-border bg-background text-foreground placeholder:text-muted-foreground w-full rounded-md border px-3 py-2 text-sm transition-colors outline-none focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
         />
         {tagsInput && (
           <div className="mt-2 flex flex-wrap gap-1.5">
@@ -343,14 +343,14 @@ export default function RouteForm({ provinces, initialData, onSubmit }: RouteFor
 
       {/* 图片 */}
       <div>
-        <label className="mb-2 block text-sm font-medium text-foreground">路线图片</label>
+        <label className="text-foreground mb-2 block text-sm font-medium">路线图片</label>
         <ImageUploader photos={photos} onChange={setPhotos} />
       </div>
 
       {/* 随笔 */}
       <div>
         <div className="mb-1.5 flex items-center justify-between">
-          <label className="block text-sm font-medium text-foreground">徒步随笔</label>
+          <label className="text-foreground block text-sm font-medium">徒步随笔</label>
           <button
             type="button"
             onClick={() => setShowPreview(true)}
@@ -366,9 +366,9 @@ export default function RouteForm({ provinces, initialData, onSubmit }: RouteFor
           onChange={(e) => setNotesContent(e.target.value)}
           placeholder="支持 Markdown 格式，记录路线攻略、装备测评、个人感悟..."
           rows={10}
-          className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
+          className="border-border bg-background text-foreground placeholder:text-muted-foreground w-full rounded-md border px-3 py-2 text-sm transition-colors outline-none focus:border-[var(--hiking-primary)] focus:ring-1 focus:ring-[var(--hiking-primary)]"
         />
-        <p className="mt-1 text-xs text-muted-foreground">
+        <p className="text-muted-foreground mt-1 text-xs">
           支持 Markdown 语法：# 标题、**粗体**、- 列表、| 表格等
         </p>
       </div>
@@ -380,15 +380,15 @@ export default function RouteForm({ provinces, initialData, onSubmit }: RouteFor
           onClick={() => setShowPreview(false)}
         >
           <div
-            className="max-h-[85vh] w-full max-w-3xl overflow-y-auto rounded-xl border border-border bg-card p-6 shadow-lg"
+            className="border-border bg-card max-h-[85vh] w-full max-w-3xl overflow-y-auto rounded-xl border p-6 shadow-lg"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-foreground">内容预览</h3>
+              <h3 className="text-foreground text-lg font-semibold">内容预览</h3>
               <button
                 type="button"
                 onClick={() => setShowPreview(false)}
-                className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                className="text-muted-foreground hover:bg-muted hover:text-foreground rounded-md p-1.5 transition-colors"
               >
                 <svg
                   className="h-5 w-5"
@@ -401,7 +401,7 @@ export default function RouteForm({ provinces, initialData, onSubmit }: RouteFor
                 </svg>
               </button>
             </div>
-            <div className="prose-hiking rounded-lg border border-border bg-muted/30 p-4 sm:p-5">
+            <div className="prose-hiking border-border bg-muted/30 rounded-lg border p-4 sm:p-5">
               <MarkdownRenderer content={notesContent} />
             </div>
           </div>
@@ -420,7 +420,7 @@ export default function RouteForm({ provinces, initialData, onSubmit }: RouteFor
         <button
           type="button"
           onClick={() => router.push("/hiking/admin")}
-          className="rounded-md border border-border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+          className="border-border bg-background text-foreground hover:bg-muted rounded-md border px-5 py-2.5 text-sm font-medium transition-colors"
         >
           取消
         </button>

@@ -82,4 +82,22 @@ describe("AnswerSheet", () => {
     const btn2 = screen.getByRole("button", { name: "第 2 题" });
     expect(btn2).toHaveAttribute("data-current", "true");
   });
+
+  it("当前题使用 sky-500 高亮样式且无布局偏移", () => {
+    render(
+      <AnswerSheet
+        questions={questions}
+        answers={{}}
+        flagged={[]}
+        currentIndex={1}
+        onNavigate={vi.fn()}
+      />
+    );
+    const btn2 = screen.getByRole("button", { name: "第 2 题" });
+    // 当前题应使用 sky-500 主题高亮
+    expect(btn2.className).toContain("border-sky-500");
+    expect(btn2.className).toContain("bg-sky-500/10");
+    // 不应使用会导致布局偏移的 border-2
+    expect(btn2.className).not.toContain("border-2");
+  });
 });

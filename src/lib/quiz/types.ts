@@ -26,3 +26,12 @@ export interface ScoringResult {
   wrongQuestionIds: string[];
   details: Record<string, boolean>;
 }
+
+export interface QuizSet {
+  id: string;
+  title: string;
+  description: string;
+  questions: Question[];
+  createdAt: string;
+  source: "builtin" | "imported";
+}

@@ -9,7 +9,7 @@ export default async function KanbanPage() {
   const data = await getBoardData();
 
   return (
-    <main className="h-[calc(100dvh-74px)] flex flex-col">
+    <main className="flex h-[calc(100dvh-74px)] flex-col">
       <KanbanBoard initialData={data} />
     </main>
   );

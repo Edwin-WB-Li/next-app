@@ -13,10 +13,10 @@ function TagsCloud({ tags }: TagsCloudProps) {
   return (
     <section className="py-8">
       <div className="flex items-center gap-2 pb-4">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-secondary">
+        <div className="bg-secondary flex h-8 w-8 items-center justify-center rounded-lg">
           <IconTag />
         </div>
-        <h2 className="text-2xl font-bold tracking-tight text-foreground text-wrap:balance">
+        <h2 className="text-foreground text-wrap:balance text-2xl font-bold tracking-tight">
           热门标签
         </h2>
       </div>
@@ -24,10 +24,10 @@ function TagsCloud({ tags }: TagsCloudProps) {
         {tags.map(([tag, count]) => (
           <span
             key={tag}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-1.5 text-sm text-foreground transition-colors hover:bg-muted cursor-default"
+            className="border-border bg-card text-foreground hover:bg-muted inline-flex cursor-default items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition-colors"
           >
             {tag}
-            <span className="rounded bg-secondary px-1.5 py-0 text-[10px] font-medium text-muted-foreground">
+            <span className="bg-secondary text-muted-foreground rounded px-1.5 py-0 text-[10px] font-medium">
               {count}
             </span>
           </span>

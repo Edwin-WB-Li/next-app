@@ -32,11 +32,11 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      className="relative inline-flex h-7 w-12 items-center rounded-full border border-border bg-muted transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      className="border-border bg-muted focus-visible:ring-ring focus-visible:ring-offset-background relative inline-flex h-7 w-12 items-center rounded-full border transition-colors focus-visible:ring-2 focus-visible:ring-offset-2"
       aria-label={dark ? "切换到亮色模式" : "切换到暗色模式"}
     >
       <span
-        className={`absolute left-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-card shadow-sm motion-safe:transition-transform motion-safe:duration-200 ${
+        className={`bg-card absolute left-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full shadow-sm motion-safe:transition-transform motion-safe:duration-200 ${
           dark ? "translate-x-5" : "translate-x-0"
         }`}
       >

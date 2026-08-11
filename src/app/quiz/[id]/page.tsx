@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getQuestions } from "@/lib/quiz/data";
+import { getQuizSetById } from "@/lib/quiz/data";
 import QuizPlayer from "@/components/quiz/quiz-player";
 
 export const metadata = {
@@ -8,11 +8,11 @@ export const metadata = {
 
 export default async function QuizDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const questions = await getQuestions();
+  const set = await getQuizSetById(id);
 
-  if (questions.length === 0) {
+  if (!set || set.questions.length === 0) {
     notFound();
   }
 
-  return <QuizPlayer questions={questions} quizId={id} />;
+  return <QuizPlayer questions={set.questions} quizId={id} />;
 }

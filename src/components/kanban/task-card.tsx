@@ -78,57 +78,52 @@ export const TaskCard = memo(function TaskCard({ task, index }: TaskCardProps) {
           role="button"
           tabIndex={0}
           aria-label={`${task.title}，优先级${priority.label}`}
-          className={`
-            group relative cursor-pointer rounded-xl bg-card
-            motion-safe:transition-all motion-safe:duration-200 ease-out
-            motion-safe:hover:shadow-lg motion-safe:hover:-translate-y-0.5
-            ${snapshot.isDragging ? "shadow-2xl rotate-1 scale-[1.03] ring-2 ring-primary/20" : "shadow-sm"}
-          `}
+          className={`group bg-card relative cursor-pointer rounded-xl ease-out motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-lg ${snapshot.isDragging ? "ring-primary/20 scale-[1.03] rotate-1 shadow-2xl ring-2" : "shadow-sm"} `}
           style={provided.draggableProps.style}
         >
           {/* 左侧优先级色条 */}
           <div
-            className={`absolute left-0 top-3 bottom-3 w-[3px] rounded-full ${priority.bar} opacity-80`}
+            className={`absolute top-3 bottom-3 left-0 w-[3px] rounded-full ${priority.bar} opacity-80`}
           />
 
           <div className="p-3 pl-3.5">
             {/* 顶部：标签 + 优先级 */}
-            <div className="flex items-start justify-between gap-2 mb-2">
-              <div className="flex flex-wrap gap-1.5 flex-1 min-w-0">
+            <div className="mb-2 flex items-start justify-between gap-2">
+              <div className="flex min-w-0 flex-1 flex-wrap gap-1.5">
                 {task.tags.slice(0, 2).map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center gap-1 rounded-md bg-secondary/70 px-1.5 py-0.5 text-[10px] font-medium text-secondary-foreground"
+                    className="bg-secondary/70 text-secondary-foreground inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-medium"
                   >
-                    <span className="h-1 w-1 rounded-full bg-muted-foreground/60" />
+                    <span className="bg-muted-foreground/60 h-1 w-1 rounded-full" />
                     {tag}
                   </span>
                 ))}
                 {task.tags.length > 2 && (
-                  <span className="inline-flex items-center rounded-md bg-secondary/70 px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                  <span className="bg-secondary/70 text-muted-foreground inline-flex items-center rounded-md px-1.5 py-0.5 text-[10px] font-medium">
                     +{task.tags.length - 2}
                   </span>
                 )}
               </div>
-              <span className="flex items-center gap-1 shrink-0">
+              <span className="flex shrink-0 items-center gap-1">
                 <span className={`h-1.5 w-1.5 rounded-full ${priority.dot}`} />
-                <span className="text-[10px] font-semibold text-muted-foreground">
+                <span className="text-muted-foreground text-[10px] font-semibold">
                   {task.priority}
                 </span>
               </span>
             </div>
 
             {/* 标题 */}
-            <h4 className="text-[13px] font-semibold text-card-foreground mb-2.5 line-clamp-2 leading-snug tracking-tight">
+            <h4 className="text-card-foreground mb-2.5 line-clamp-2 text-[13px] leading-snug font-semibold tracking-tight">
               {task.title}
             </h4>
 
             {/* 子任务进度 */}
             {task.subtasks.length > 0 ? (
               <div className="mb-2.5">
-                <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
+                <div className="bg-muted h-1.5 w-full overflow-hidden rounded-full">
                   <div
-                    className="h-full rounded-full bg-primary/80 motion-safe:transition-all motion-safe:duration-500"
+                    className="bg-primary/80 h-full rounded-full motion-safe:transition-all motion-safe:duration-500"
                     style={{ width: `${subtaskProgress}%` }}
                   />
                 </div>
@@ -139,7 +134,7 @@ export const TaskCard = memo(function TaskCard({ task, index }: TaskCardProps) {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 {/* 任务编号 */}
-                <span className="text-[10px] font-mono text-muted-foreground/70 tracking-wider">
+                <span className="text-muted-foreground/70 font-mono text-[10px] tracking-wider">
                   #{task.id.split("-")[1]?.toUpperCase() ?? task.id.slice(-4)}
                 </span>
 
@@ -157,7 +152,7 @@ export const TaskCard = memo(function TaskCard({ task, index }: TaskCardProps) {
 
                 {/* 预估工时 */}
                 {task.estimatedHours ? (
-                  <span className="flex items-center gap-0.5 text-[10px] text-muted-foreground/70">
+                  <span className="text-muted-foreground/70 flex items-center gap-0.5 text-[10px]">
                     <Clock className="h-2.5 w-2.5" />
                     {task.estimatedHours}h
                   </span>
@@ -167,14 +162,14 @@ export const TaskCard = memo(function TaskCard({ task, index }: TaskCardProps) {
               {/* 负责人头像 */}
               <div className="flex -space-x-1.5">
                 {assignee ? (
-                  <Avatar className="h-5 w-5 ring-2 ring-card">
+                  <Avatar className="ring-card h-5 w-5 ring-2">
                     <AvatarImage src={assignee.avatar} alt={assignee.name} />
-                    <AvatarFallback className="text-[8px] bg-primary/10 text-primary">
+                    <AvatarFallback className="bg-primary/10 text-primary text-[8px]">
                       {assignee.name[0]}
                     </AvatarFallback>
                   </Avatar>
                 ) : (
-                  <div className="h-5 w-5 rounded-full bg-muted ring-2 ring-card" />
+                  <div className="bg-muted ring-card h-5 w-5 rounded-full ring-2" />
                 )}
               </div>
             </div>

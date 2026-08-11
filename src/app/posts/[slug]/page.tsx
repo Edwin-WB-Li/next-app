@@ -22,7 +22,7 @@ export default async function PostPage({ params }: PostPageProps) {
       <div className="min-w-0 flex-1">
         <Link
           href="/"
-          className="mb-6 inline-block text-sm text-foreground/60 hover:text-foreground transition-colors"
+          className="text-foreground/60 hover:text-foreground mb-6 inline-block text-sm transition-colors"
         >
           ← 返回首页
         </Link>
@@ -30,7 +30,7 @@ export default async function PostPage({ params }: PostPageProps) {
         <article>
           <header className="mb-8">
             <h1 className="mb-3 text-3xl font-bold tracking-tight sm:text-4xl">{post.title}</h1>
-            <div className="flex items-center gap-3 text-sm text-foreground/50">
+            <div className="text-foreground/50 flex items-center gap-3 text-sm">
               <time dateTime={post.createdAt}>
                 发布于{" "}
                 {new Date(post.createdAt).toLocaleDateString("zh-CN", {
@@ -55,7 +55,7 @@ export default async function PostPage({ params }: PostPageProps) {
             </div>
           </header>
 
-          <div className="prose prose-zinc max-w-none dark:prose-invert">
+          <div className="prose prose-zinc dark:prose-invert max-w-none">
             <MarkdownRenderer content={content} />
           </div>
         </article>

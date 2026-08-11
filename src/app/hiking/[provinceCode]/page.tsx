@@ -51,7 +51,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
       <div className="mb-6">
         <Link
           href="/hiking"
-          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+          className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm transition-colors"
         >
           <svg
             className="h-4 w-4"
@@ -74,10 +74,10 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
       <div className="mb-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <h1 className="text-foreground text-3xl font-bold tracking-tight sm:text-4xl">
               {province.name}
             </h1>
-            <p className="mt-2 text-muted-foreground">
+            <p className="text-muted-foreground mt-2">
               共 {province.routes.length} 条徒步路线 · 累计 {totalDistance} km · {totalDays} 天
             </p>
           </div>
@@ -92,18 +92,18 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
               管理
             </Link> */}
             <div className="flex gap-3">
-              <div className="rounded-xl border border-border bg-card px-4 py-3 text-center">
-                <p className="text-xs text-muted-foreground">最高海拔</p>
+              <div className="border-border bg-card rounded-xl border px-4 py-3 text-center">
+                <p className="text-muted-foreground text-xs">最高海拔</p>
                 <p className="text-xl font-bold text-[var(--hiking-primary)]">
                   {maxAltitude}
-                  <span className="ml-0.5 text-xs font-normal text-muted-foreground">m</span>
+                  <span className="text-muted-foreground ml-0.5 text-xs font-normal">m</span>
                 </p>
               </div>
-              <div className="rounded-xl border border-border bg-card px-4 py-3 text-center">
-                <p className="text-xs text-muted-foreground">总里程</p>
+              <div className="border-border bg-card rounded-xl border px-4 py-3 text-center">
+                <p className="text-muted-foreground text-xs">总里程</p>
                 <p className="text-xl font-bold text-[var(--hiking-primary)]">
                   {totalDistance}
-                  <span className="ml-0.5 text-xs font-normal text-muted-foreground">km</span>
+                  <span className="text-muted-foreground ml-0.5 text-xs font-normal">km</span>
                 </p>
               </div>
             </div>
@@ -113,7 +113,7 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
 
       {/* 路线列表 */}
       <section>
-        <h2 className="mb-4 text-lg font-semibold text-foreground">徒步路线</h2>
+        <h2 className="text-foreground mb-4 text-lg font-semibold">徒步路线</h2>
         <div className="space-y-4">
           {province.routes.map((route, index) => (
             <div key={route.id} className="space-y-4">
@@ -137,14 +137,14 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
             <article
               key={route.id}
               id={route.id}
-              className="rounded-xl border border-border bg-card p-5 sm:p-6"
+              className="border-border bg-card rounded-xl border p-5 sm:p-6"
             >
               <div className="mb-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--hiking-primary-light)] text-sm font-bold text-[var(--hiking-primary)]">
                     {index + 1}
                   </span>
-                  <h3 className="text-lg font-semibold text-foreground">{route.name}</h3>
+                  <h3 className="text-foreground text-lg font-semibold">{route.name}</h3>
                 </div>
                 <Link
                   href={`/hiking/admin/edit/${route.id}`}
@@ -164,8 +164,8 @@ export default async function ProvincePage({ params }: ProvincePageProps) {
               {/* 徒步随笔 */}
               {notes && (
                 <div className="prose-hiking">
-                  <h4 className="mb-3 text-sm font-medium text-muted-foreground">徒步随笔</h4>
-                  <div className="rounded-lg border border-border bg-muted/30 p-4 sm:p-5">
+                  <h4 className="text-muted-foreground mb-3 text-sm font-medium">徒步随笔</h4>
+                  <div className="border-border bg-muted/30 rounded-lg border p-4 sm:p-5">
                     <MarkdownRenderer content={notes} />
                   </div>
                 </div>

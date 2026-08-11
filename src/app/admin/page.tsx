@@ -11,13 +11,13 @@ export default async function AdminPage() {
         <h1 className="text-3xl font-bold tracking-tight">文章管理</h1>
         <Link
           href="/admin/edit/new"
-          className="inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-10 items-center justify-center rounded-lg px-4 text-sm font-medium transition-colors"
         >
           + 新建文章
         </Link>
       </div>
 
-      <div className="overflow-x-auto rounded-xl border border-border">
+      <div className="border-border overflow-x-auto rounded-xl border">
         <table className="w-full text-sm">
           <thead className="bg-muted">
             <tr>
@@ -29,13 +29,13 @@ export default async function AdminPage() {
               <th className="px-4 py-3 text-right font-semibold">操作</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-border">
+          <tbody className="divide-border divide-y">
             {posts.map((post) => (
               <AdminPostList key={post.id} post={post} />
             ))}
             {posts.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-foreground/60">
+                <td colSpan={6} className="text-foreground/60 px-4 py-8 text-center">
                   暂无文章，点击「新建文章」开始创作。
                 </td>
               </tr>
