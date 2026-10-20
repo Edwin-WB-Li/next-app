@@ -10,7 +10,7 @@
     "dueDate": "2026-07-20",
     "estimatedHours": 16,
     "createdAt": "2026-07-10T08:00:00.000Z",
-    "updatedAt": "2026-07-31T07:09:42.390Z",
+    "updatedAt": "2026-08-18T01:51:40.817Z",
     "subtasks": [
       {
         "id": "sub-1",
@@ -107,6 +107,18 @@
         "userId": "user-1",
         "action": "移动至 col-3",
         "createdAt": "2026-07-31T07:09:42.390Z"
+      },
+      {
+        "id": "act-1787017894121",
+        "userId": "user-1",
+        "action": "移动至 col-4",
+        "createdAt": "2026-08-18T01:51:34.121Z"
+      },
+      {
+        "id": "act-1787017900817",
+        "userId": "user-1",
+        "action": "移动至 col-3",
+        "createdAt": "2026-08-18T01:51:40.817Z"
       }
     ]
   },
@@ -238,14 +250,14 @@
     "id": "task-3",
     "title": "优化图片加载性能",
     "description": "为博客文章图片添加懒加载和 WebP 格式支持。",
-    "columnId": "col-5",
+    "columnId": "col-4",
     "priority": "P2",
     "assignee": "user-3",
     "tags": ["性能", "前端"],
     "dueDate": "2026-07-28",
     "estimatedHours": 8,
     "createdAt": "2026-07-13T10:00:00.000Z",
-    "updatedAt": "2026-07-31T09:14:42.509Z",
+    "updatedAt": "2026-08-18T01:51:37.172Z",
     "subtasks": [],
     "comments": [
       {
@@ -375,6 +387,12 @@
         "userId": "user-1",
         "action": "移动至 col-5",
         "createdAt": "2026-07-31T03:49:16.166Z"
+      },
+      {
+        "id": "act-1787017897172",
+        "userId": "user-1",
+        "action": "移动至 col-4",
+        "createdAt": "2026-08-18T01:51:37.172Z"
       }
     ]
   },
@@ -382,14 +400,14 @@
     "id": "task-4",
     "title": "编写 API 文档",
     "description": "为所有 REST API 端点编写 Swagger 文档。",
-    "columnId": "col-1",
+    "columnId": "col-2",
     "priority": "P3",
     "assignee": null,
     "tags": ["文档"],
     "dueDate": "2026-08-01",
     "estimatedHours": 12,
     "createdAt": "2026-07-14T14:00:00.000Z",
-    "updatedAt": "2026-07-31T06:46:35.956Z",
+    "updatedAt": "2026-08-18T01:51:33.799Z",
     "subtasks": [],
     "comments": [],
     "activities": [
@@ -458,6 +476,12 @@
         "userId": "user-1",
         "action": "移动至 col-1",
         "createdAt": "2026-07-31T06:46:35.956Z"
+      },
+      {
+        "id": "act-1787017893799",
+        "userId": "user-1",
+        "action": "移动至 col-2",
+        "createdAt": "2026-08-18T01:51:33.799Z"
       }
     ]
   },
@@ -465,14 +489,14 @@
     "id": "task-5",
     "title": "修复移动端导航栏问题",
     "description": "在 iOS Safari 上导航栏会出现抖动，需要排查修复。",
-    "columnId": "col-2",
+    "columnId": "col-5",
     "priority": "P1",
     "assignee": "user-1",
     "tags": ["Bug", "移动端"],
     "dueDate": "2026-07-22",
     "estimatedHours": 4,
     "createdAt": "2026-07-15T08:30:00.000Z",
-    "updatedAt": "2026-08-06T02:12:47.664Z",
+    "updatedAt": "2026-08-18T01:51:38.586Z",
     "subtasks": [
       {
         "id": "sub-7",
@@ -637,6 +661,18 @@
         "userId": "user-1",
         "action": "移动至 col-2",
         "createdAt": "2026-08-06T02:12:47.664Z"
+      },
+      {
+        "id": "act-1787017891640",
+        "userId": "user-1",
+        "action": "移动至 col-3",
+        "createdAt": "2026-08-18T01:51:31.640Z"
+      },
+      {
+        "id": "act-1787017898586",
+        "userId": "user-1",
+        "action": "移动至 col-5",
+        "createdAt": "2026-08-18T01:51:38.586Z"
       }
     ]
   }

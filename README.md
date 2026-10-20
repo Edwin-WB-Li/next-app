@@ -39,11 +39,17 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ```
 Qwen3.6-plus
+
 Qwen3-coder
+
 deeepseek-v4-pro
+
 Qwen3-thinking
+
 Qwen3-max
+
 kimi-k2.6
+
 minimax-m2.7
 ```
 
